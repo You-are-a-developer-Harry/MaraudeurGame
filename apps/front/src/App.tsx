@@ -1,6 +1,7 @@
 import { Manager } from "socket.io-client";
 import { useEffect } from "react";
 import { config } from "./utils/config";
+import { game } from "./game";
 
 function App() {
 
@@ -13,7 +14,13 @@ function App() {
       console.log(msg)
     });
   }, [])
-  return <p>Hello world</p>
+
+  useEffect(() => {
+    game()
+  }, [])
+
+
+  return <p></p>
 }
 
 export default App
