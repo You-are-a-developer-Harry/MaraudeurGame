@@ -1,5 +1,6 @@
 import express, { Express, Request, Response } from 'express'
 import { Socket } from 'socket.io'
+import { config } from "./utils/config";
 
 const app: Express = express()
 const http = require('http')
@@ -9,7 +10,7 @@ const port = 5000
 const { Server } = require('socket.io')
 const io = new Server(server, {
   cors: {
-    origin: 'http://127.0.0.1:5173',
+    origin: config.frontOrigin,
   },
 })
 
