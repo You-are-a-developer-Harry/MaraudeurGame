@@ -1,15 +1,15 @@
-import { useEffect, useRef, useState } from 'react'
-import * as styles from './game.module.css'
-import generator from 'generate-maze'
-import { Coordinates, MazeCell, Player } from 'types'
+import { useEffect, useRef, useState } from "react";
+import styles from './game.module.css'
+import { MazeCell, Player } from 'types'
 import { FootPrint } from './components/FootPrint'
+import { useGameStore } from "../stores/GameStore";
+import { socket } from "../services/socket";
 import classNames from 'classnames'
 import { getAvailableCells } from './utils/getAvailableCells'
 import { randomSpawnObject } from './utils/spawnObject'
 import { CellObject } from './components/CellObject'
 
-const WIDTH = 20
-const HEIGHT = 16
+
 const BASE_PLAYER = {
   color: 'black',
   id: 1,
@@ -19,32 +19,24 @@ const BASE_PLAYER = {
 
 const MAX_DISTANCE_BY_TURN = 3
 
-function generateBoard(): MazeCell[][] {
-  const maze = generator(WIDTH, HEIGHT, true, Math.random() * 1000)
-  maze[BASE_PLAYER.x][BASE_PLAYER.y].player = BASE_PLAYER
-  return maze
-}
-
-
 export function Game() {
-  const [cells, setCells] = useState<MazeCell[][]>([])
   const [availableCells, setAvailableCells] = useState<MazeCell[]>([])
+  const cells = useGameStore(state => state.board)
   const player = useRef<Player>(BASE_PLAYER)
 
   const onClickCell = (cell: MazeCell) => {
     // Prevent the user to move at an unavailable position
     if(!availableCells.some(availableCell => availableCell.x === cell.x && availableCell.y === cell.y)) return
-    setCells((prev) => {
-      delete prev[player.current.y][player.current.x].player
-      player.current.x = cell.x
-      player.current.y = cell.y
-      prev[cell.y][cell.x].player = player.current
-      return [...prev]
-    })
+    socket.emit("player:move", cell)
   }
 
   useEffect(() => {
-    if(!cells.length) return 
+    if (!cells.length) return
+    const board = randomSpawnObject(cells, { name:"Random Object", value: 10, image: "/object/grif.png" })
+  }, [])
+
+  useEffect(() => {
+    if(!cells.length) return
     setAvailableCells(
       getAvailableCells(
         { x: player.current.x, y: player.current.y },
@@ -54,10 +46,9 @@ export function Game() {
     )
   }, [player.current.x, player.current.y, cells])
 
-  useEffect(() => {
-    const board = randomSpawnObject(generateBoard(), { name:"Random Object", value: 10, image: "/object/grif.png" }) 
-    setCells(board)
-  }, [])
+  if (!cells.length){
+    return <p>loading</p>
+  }
 
   return (
     <div className={styles.gameContainer}>

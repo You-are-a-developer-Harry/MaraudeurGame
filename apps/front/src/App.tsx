@@ -1,22 +1,16 @@
-import { Manager } from "socket.io-client";
 import { useEffect } from "react";
-import { config } from "./utils/config";
 import { Game } from "./game/Game";
+import { useGameStore } from "./stores/GameStore";
+import { Board } from 'types'
+import { socket } from "./services/socket";
 
 function App() {
-
+  const setBoard = useGameStore((state) => state.setBoard)
   useEffect(() => {
-    //const manager = new Manager(config.apiBaseUrl);
-
-    // const socket = manager.socket("/")
-
-    // socket.on("message", (msg) => {
-    //   console.log(msg)
-    // });
-  }, [])
-
-  useEffect(() => {
-   
+    socket.emit('room:join', 'room1')
+    socket.on('map:update', (board: Board) => {
+      setBoard(board)
+    })
   }, [])
 
 
