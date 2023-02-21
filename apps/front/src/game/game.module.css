@@ -31,6 +31,13 @@
   background-color: rgba(255, 255, 255, 0.7);
 }
 
+.visitedCell .cell {
+  background-color: rgba(73, 166, 73, 0.2);
+}
+.visitedCell .cell:hover {
+  background-color: rgba(73, 166, 73, 0.7)!important;
+}
+
 .horizontalWall {
   display: inline-flex;
 }
