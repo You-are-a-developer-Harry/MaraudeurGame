@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import { ManaList } from "./components/ManaList";
+import { ManaItem } from "./components/ManaItem";
 import {Game} from "./game/Game";
 import { useGameStore } from "./stores/GameStore";
 import { Board, HogwartHouse, RoomData, User } from 'types'

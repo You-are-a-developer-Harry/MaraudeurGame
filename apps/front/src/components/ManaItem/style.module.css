@@ -1,0 +1,8 @@
+.manaItem {
+  opacity: 1;
+}
+
+.manaItemDisabled {
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+}
