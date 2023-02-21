@@ -1,6 +1,6 @@
+import { Coordinates } from "./Coordinates"
+
 export type Player = {
   id: number
   color: string
-  x: number
-  y: number
-}
+} & Coordinates

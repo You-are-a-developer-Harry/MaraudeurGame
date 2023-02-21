@@ -6,8 +6,9 @@ import { useGameStore } from "../stores/GameStore";
 import { socket } from "../services/socket";
 import classNames from 'classnames'
 import { getAvailableCells } from './utils/getAvailableCells'
-import { randomSpawnObject } from './utils/spawnObject'
+import { randomSpawnCellItem } from './utils/spawnObject'
 import { CellObject } from './components/CellObject'
+import { CellWitch } from './components/CellWitch'
 
 
 const BASE_PLAYER = {
@@ -30,10 +31,6 @@ export function Game() {
     socket.emit("player:move", cell)
   }
 
-  useEffect(() => {
-    if (!cells.length) return
-    const board = randomSpawnObject(cells, { name:"Random Object", value: 10, image: "/object/grif.png" })
-  }, [])
 
   useEffect(() => {
     if(!cells.length) return
@@ -46,9 +43,20 @@ export function Game() {
     )
   }, [player.current.x, player.current.y, cells])
 
-  if (!cells.length){
-    return <p>loading</p>
-  }
+
+  // useEffect(() => {
+  //   let board = randomSpawnCellItem(generateBoard(), "object", {
+  //     name: 'Random Object',
+  //     value: 10,
+  //     image: '/object/grif.png',
+  //   }) 
+  //   board = randomSpawnCellItem(board, "teacher", {})
+  //   setCells(board)
+  // }, [])
+
+   if (!cells.length) {
+     return <p>loading</p>
+   }
 
   return (
     <div className={styles.gameContainer}>
@@ -90,6 +98,9 @@ export function Game() {
                     {cell.player && <FootPrint />}
                     {
                       cell.object && <CellObject object={cell.object} />
+                    }
+                    {
+                      cell.teacher && <CellWitch />
                     }
                   </div>
                 </div>
