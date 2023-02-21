@@ -5,7 +5,7 @@ import { config } from "./utils/config";
 const app: Express = express()
 const http = require('http')
 const server = http.createServer(app)
-const port = 5000
+const port = 4999
 
 const { Server } = require('socket.io')
 const io = new Server(server, {

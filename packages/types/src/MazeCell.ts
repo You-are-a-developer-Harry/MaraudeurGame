@@ -1,4 +1,5 @@
 import { Player } from "./Player"
+import { SecretObject } from "./SecretObject"
 
 export type MazeCell = {
   x: number
@@ -9,4 +10,5 @@ export type MazeCell = {
   right: boolean
   set: number
   player?: Player
+  object?: SecretObject
 }

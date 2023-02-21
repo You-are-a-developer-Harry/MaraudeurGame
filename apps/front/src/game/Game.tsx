@@ -5,6 +5,8 @@ import { Coordinates, MazeCell, Player } from 'types'
 import { FootPrint } from './components/FootPrint'
 import classNames from 'classnames'
 import { getAvailableCells } from './utils/getAvailableCells'
+import { randomSpawnObject } from './utils/spawnObject'
+import { CellObject } from './components/CellObject'
 
 const WIDTH = 20
 const HEIGHT = 16
@@ -22,6 +24,7 @@ function generateBoard(): MazeCell[][] {
   maze[BASE_PLAYER.x][BASE_PLAYER.y].player = BASE_PLAYER
   return maze
 }
+
 
 export function Game() {
   const [cells, setCells] = useState<MazeCell[][]>([])
@@ -52,7 +55,8 @@ export function Game() {
   }, [player.current.x, player.current.y, cells])
 
   useEffect(() => {
-    setCells(generateBoard())
+    const board = randomSpawnObject(generateBoard(), { name:"Random Object", value: 10, image: "/pouf.png" }) 
+    setCells(board)
   }, [])
 
   return (
@@ -93,6 +97,9 @@ export function Game() {
                     onClick={() => onClickCell(cell)}
                   >
                     {cell.player && <FootPrint />}
+                    {
+                      cell.object && <CellObject object={cell.object} />
+                    }
                   </div>
                 </div>
               )
