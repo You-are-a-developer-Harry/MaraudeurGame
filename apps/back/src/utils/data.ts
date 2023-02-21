@@ -1,3 +1,3 @@
-import { Board } from "types";
+import { RoomData } from 'types'
 
-export const boards = new Map<string, Board>()
+export const boards = new Map<string, RoomData>()

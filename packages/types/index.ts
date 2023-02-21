@@ -4,3 +4,6 @@ export * from "./src/Player"
 export * from "./src/Coordinates"
 export * from "./src/SpellType"
 export * from './src/SecretObject'
+export * from "./src/User"
+export * from "./src/RoomData"
+export * from "./src/HogwartHouse"
