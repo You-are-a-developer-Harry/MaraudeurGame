@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-export function Dice() {
+export function Dice({ diceValue }: { diceValue: number }) {
 	const canvasRef = useRef(null);
 
 	// Setup scene
@@ -110,43 +110,47 @@ export function Dice() {
 		scene.add(cube);
 
 		// randomize number
-		const pickNumber = () => {
-			const diceValues = [1, 2, 3, 4, 5, 6];
+		// const pickNumber = () => {
+		// 	const diceValues = [1, 2, 3, 4, 5, 6];
 
-			const randomIndex = Math.floor(Math.random() * diceValues.length);
+		// 	const randomIndex = Math.floor(Math.random() * diceValues.length);
 
-			const randomValue = diceValues[randomIndex];
-			console.log('valeur du dé :' + randomValue);
-			return randomValue
-		}
+		// 	const randomValue = diceValues[randomIndex];
+		// 	console.log('valeur du dé :' + randomValue);
+		// 	return randomValue
+		// }
 
 		let loopingTime = 100
 		let timeWhenClick = 0
 		let count = 0
 
-		const number = pickNumber()
+		// const number = diceValue;
+		// console.log('number:', number)
 
-		if (number == 1) {
+		console.log(diceValue)
+
+		if (diceValue == 1) {
 			texture_ft = new THREE.TextureLoader().load('image/1.png');
 			materialArray[4].map = texture_ft;
 		}
-		if (number == 2) {
+		if (diceValue == 2) {
 			texture_ft = new THREE.TextureLoader().load('image/2.png');
+			console.log('le chiffre 2')
 			materialArray[4].map = texture_ft;
 		}
-		if (number == 3) {
+		if (diceValue == 3) {
 			texture_ft = new THREE.TextureLoader().load('image/3.png');
 			materialArray[4].map = texture_ft;
 		}
-		if (number == 4) {
+		if (diceValue == 4) {
 			texture_ft = new THREE.TextureLoader().load('image/4.png');
 			materialArray[4].map = texture_ft;
 		}
-		if (number == 5) {
+		if (diceValue == 5) {
 			texture_ft = new THREE.TextureLoader().load('image/5.png');
 			materialArray[4].map = texture_ft;
 		}
-		if (number == 6) {
+		if (diceValue == 6) {
 			texture_ft = new THREE.TextureLoader().load('image/6.png');
 			materialArray[4].map = texture_ft;
 		}
@@ -172,7 +176,7 @@ export function Dice() {
 			renderer.render(scene, camera);
 		}
 		requestAnimationFrame(update)
-	}, [])
+	}, [diceValue])
 
 	return (
 		<canvas ref={canvasRef} id='canvas' style={{ position: "absolute", top: 0 }}></canvas>

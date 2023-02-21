@@ -18,6 +18,16 @@ export const DiceBtn = () => {
     }, 3000);
   }
 
+	const pickNumber = () => {
+		const diceValues = [1, 2, 3, 4, 5, 6];
+
+		const randomIndex = Math.floor(Math.random() * diceValues.length);
+
+		const randomValue = diceValues[randomIndex];
+		console.log('valeur du dé :' + randomValue);
+		return randomValue
+	}
+
   return (
     <>
       <div className={styles.diceBtn}
@@ -30,7 +40,7 @@ export const DiceBtn = () => {
 
 
       {
-        isCanvasVisible && <Dice />
+        isCanvasVisible && <Dice diceValue={pickNumber()}/>
       }
     </>
   );
