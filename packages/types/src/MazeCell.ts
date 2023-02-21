@@ -9,7 +9,7 @@ export type MazeCell = {
   bottom: boolean
   right: boolean
   set: number
-  player?: Player
+  players?: Player[]
   object?: SecretObject
   teacher?: Player
 }

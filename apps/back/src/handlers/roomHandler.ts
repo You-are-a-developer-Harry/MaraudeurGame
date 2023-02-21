@@ -3,20 +3,52 @@ import { generateBoard } from "../game/board";
 import { initPlayer } from "../game/player";
 import { logger } from "../utils/logger";
 import { boards } from "../utils/data";
+import { User, RoomData } from "types";
 
 export function roomHandler(io: Server, socket: Socket) {
-  const joinRoom = (room: string) => {
+  let roomName = ""
+  let userData : User | null = null
+  const joinRoom = (room: string, user: User) => {
+    roomName = room
+    userData = user
     logger.debug('A user joined the room : %s', room)
-    const roomEmpty = io.sockets.adapter.rooms.get(room)?.size ?? true;
-    if (roomEmpty) {
+    let roomData: RoomData | undefined = boards.get(room)
+    
+    if (!roomData) {
+      roomData = {
+        board: [],
+        players: [],
+      }
       logger.debug('Generate new board for room : %s', room)
-      boards.set(room, generateBoard());
+      roomData.board = generateBoard()
+      boards.set(room, roomData)
     }
-
+    
     socket.join(room);
-    initPlayer(boards.get(room)!)
+    initPlayer(boards.get(room)!, user)
     io.sockets.in(room).emit("map:update", boards.get(room));
   };
 
+  const onDisconnect = () => {
+    logger.debug("An user left the game")
+    const room = boards.get(roomName)!
+    console.log({room});
+    
+    if(!room.players?.length) return 
+    room.players = room.players.filter(player => player.id !== userData?.id)
+    room.board = room.board.map(col => col.map(cell => {
+      if(cell.players?.length) {
+        cell.players = cell.players.filter(player => player.id !== userData?.id)
+      }
+      return cell
+    }))
+    
+    io.sockets.in(roomName).emit("map:update", room)
+    
+  }
+
   socket.on("room:join", joinRoom);
+  
+  socket.on("disconnect", onDisconnect)
+
 }

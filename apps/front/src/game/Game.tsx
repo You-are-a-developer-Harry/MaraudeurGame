@@ -6,9 +6,9 @@ import { useGameStore } from "../stores/GameStore";
 import { socket } from "../services/socket";
 import classNames from 'classnames'
 import { getAvailableCells } from './utils/getAvailableCells'
-import { randomSpawnCellItem } from './utils/spawnObject'
 import { CellObject } from './components/CellObject'
 import { CellWitch } from './components/CellWitch'
+import { useUserStore } from "../stores/UserStore";
 
 
 const BASE_PLAYER = {
@@ -23,36 +23,29 @@ const MAX_DISTANCE_BY_TURN = 3
 export function Game() {
   const [availableCells, setAvailableCells] = useState<MazeCell[]>([])
   const cells = useGameStore(state => state.board)
-  const player = useRef<Player>(BASE_PLAYER)
+  const user = useUserStore(state => state.user)
 
   const onClickCell = (cell: MazeCell) => {
     // Prevent the user to move at an unavailable position
     if(!availableCells.some(availableCell => availableCell.x === cell.x && availableCell.y === cell.y)) return
-    socket.emit("player:move", cell)
+    socket.emit("player:move", cell, user)
   }
 
 
   useEffect(() => {
     if(!cells.length) return
+    // TODO : select only current user
+    const player = cells.flat().find(cell => cell.players?.some(player => player.id === user.id))
+    if(!player) return 
     setAvailableCells(
       getAvailableCells(
-        { x: player.current.x, y: player.current.y },
+        { x: player.x, y: player.y },
         cells,
         MAX_DISTANCE_BY_TURN
       )
     )
-  }, [player.current.x, player.current.y, cells])
+  }, [cells])
 
-
-  // useEffect(() => {
-  //   let board = randomSpawnCellItem(generateBoard(), "object", {
-  //     name: 'Random Object',
-  //     value: 10,
-  //     image: '/object/grif.png',
-  //   }) 
-  //   board = randomSpawnCellItem(board, "teacher", {})
-  //   setCells(board)
-  // }, [])
 
    if (!cells.length) {
      return <p>loading</p>
@@ -95,7 +88,7 @@ export function Game() {
                     className={styles.cell}
                     onClick={() => onClickCell(cell)}
                   >
-                    {cell.player && <FootPrint />}
+                    {(cell.players || []).map(player => <FootPrint player={player}/>) }
                     {
                       cell.object && <CellObject object={cell.object} />
                     }

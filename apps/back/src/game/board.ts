@@ -1,10 +1,21 @@
-import generator from "generate-maze";
+import generator from 'generate-maze'
+import { randomSpawnCellItem } from './randomSpawnCellItem'
 
-const WIDTH = 20
-const HEIGHT = 16
+export const BOARD_WIDTH = 20
+export const BOARD_HEIGHT = 16
 
 export const generateBoard = () => {
-  return generator(WIDTH, HEIGHT, true,  Math.random() * 1000)
+  let board = generator(BOARD_WIDTH, BOARD_HEIGHT, true, Math.random() * 1000)
+
+  // Generate object
+  board = randomSpawnCellItem(board, 'object', {
+    name: 'random',
+    value: 20,
+    image: '/object/grif.png',
+  })
+
+  // Generate teacher 
+  board = randomSpawnCellItem(board, "teacher", {})
+
+  return board
 }
-
-

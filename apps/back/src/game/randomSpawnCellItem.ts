@@ -1,5 +1,5 @@
 import { MazeCell, Player, SecretObject } from "types"
-import { generateRandom } from "./generateRandom"
+import { generateRandom } from "../utils/generateRandom"
 
 
 export function randomSpawnCellItem(board: MazeCell[][], type: "object" | "teacher", item: Omit<SecretObject | Player, "x" | "y">) : MazeCell[][] {

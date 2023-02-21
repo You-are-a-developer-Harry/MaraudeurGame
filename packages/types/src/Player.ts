@@ -1,6 +1,7 @@
 import { Coordinates } from "./Coordinates"
+import { HogwartHouse } from "./HogwartHouse"
 
 export type Player = {
   id: number
-  color: string
+  house: HogwartHouse
 } & Coordinates
