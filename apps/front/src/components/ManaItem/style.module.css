@@ -1,4 +1,6 @@
-
+.manaItem {
+  opacity: 1;
+}
 
 .manaItemDisabled {
   opacity: 0.2;

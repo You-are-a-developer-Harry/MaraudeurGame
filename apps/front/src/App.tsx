@@ -1,4 +1,8 @@
 import { useEffect } from "react";
+import { config } from "./utils/config";
+import { Game } from "./game/Game";
+import { ManaItem } from "./components/ManaItem";
+import { ManaList } from "./components/ManaList";
 import { ManaList } from "./components/ManaList";
 import { ManaItem } from "./components/ManaItem";
 import {Game} from "./game/Game";
@@ -20,6 +24,7 @@ function App() {
     })
   }, [user])
 
+    // const socket = manager.socket("/")
 
   return <BoardGame />
 }
