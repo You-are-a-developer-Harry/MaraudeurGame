@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 
-export function Dice() {
-
+export function Dice(visible) {
 
     // Setup scene
     const canvas = document.getElementById('canvas');
@@ -124,7 +123,8 @@ export function Dice() {
     let loopingTime = 100
     let timeWhenClick = 0
     let count = 0
-    canvas.addEventListener('click', () => {
+
+    function launch() {
         start = true
         const number = pickNumber()
 
@@ -152,23 +152,63 @@ export function Dice() {
             texture_ft = new THREE.TextureLoader().load('image/6.png');
             materialArray[4].map = texture_ft;
         }
-    })
+
+    }
+    launch()
+    /*canvas.addEventListener('click', () => {
+        start = true
+        const number = pickNumber()
+
+        if (number == 1) {
+            texture_ft = new THREE.TextureLoader().load('image/1.png');
+            materialArray[4].map = texture_ft;
+        }
+        if (number == 2) {
+            texture_ft = new THREE.TextureLoader().load('image/2.png');
+            materialArray[4].map = texture_ft;
+        }
+        if (number == 3) {
+            texture_ft = new THREE.TextureLoader().load('image/3.png');
+            materialArray[4].map = texture_ft;
+        }
+        if (number == 4) {
+            texture_ft = new THREE.TextureLoader().load('image/4.png');
+            materialArray[4].map = texture_ft;
+        }
+        if (number == 5) {
+            texture_ft = new THREE.TextureLoader().load('image/5.png');
+            materialArray[4].map = texture_ft;
+        }
+        if (number == 6) {
+            texture_ft = new THREE.TextureLoader().load('image/6.png');
+            materialArray[4].map = texture_ft;
+        }
+    })*/
 
 
     // à chaque image : 60fps
     const update = (time) => {
         requestAnimationFrame(update)
         if (start) {
-            if (count == loopingTime) {
+            if (count == 200) {
+                start = false
+                if(visible == true){
+                    console.log("hello")
+                    visible = false
+                }
+                //canvas.style.display = "none"
+                count = 0
+            }else if (count >= loopingTime) {
                 cube.rotation.x = 0
                 cube.rotation.y = 0
-                start = false
                 timeWhenClick = 0
-                count = 0
-            } else if (timeWhenClick < loopingTime) {
+                count ++
+
+            }else if (timeWhenClick < loopingTime) {
                 cube.rotation.x = time / 100;
                 cube.rotation.y = time / 100;
                 count++
+
             }
         }
         // Render WebGL Scene
@@ -176,6 +216,9 @@ export function Dice() {
 
     }
     requestAnimationFrame(update)
+    return (
+        <canvas id='canvas' ></canvas>
+    )
 }
 
 export default Dice

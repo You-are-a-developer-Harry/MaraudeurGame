@@ -2,14 +2,21 @@ import * as styles from'./style.module.css';
 import * as canvas from '../index.css';
 import { Dice } from "../../game/components/Dice";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export function DiceBtn() {
+export const DiceBtn = () => {
   const [isCanvasVisible, setIsCanvasVisible] = useState(false);
+
+useEffect(() => {
+
+}, [isCanvasVisible])
 
   function displayBtn() {
     setIsCanvasVisible(true);
-    console.log('hello')
+    setTimeout(() => {
+        setIsCanvasVisible(false);
+        console.log(isCanvasVisible)
+    }, 3000);
   }
   
   return (
@@ -19,7 +26,10 @@ export function DiceBtn() {
         onClick={displayBtn}
         src="../../public/image/1.png"
       />
-      {isCanvasVisible && <Dice />}
+
+      {
+      isCanvasVisible && <Dice/>
+      }
     </>
   );
 }
