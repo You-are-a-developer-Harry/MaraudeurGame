@@ -2,8 +2,9 @@ import express, { Express } from 'express'
 import { Socket } from 'socket.io'
 import { config } from "./utils/config";
 import { roomHandler } from "./handlers/roomHandler";
-import { logger } from "./utils/logger";
 import { playerHandler } from "./handlers/playerHandler";
+import { interpret } from "xstate";
+import { gameState } from "./utils/gameState";
 
 const app: Express = express()
 const http = require('http')
@@ -25,7 +26,37 @@ const onConnection = (socket: Socket) => {
 
 io.on('connection', onConnection)
 
+/*
+const machine = interpret(gameState).start()
+function log(){
+  let value = machine.getSnapshot().value
+  if (typeof value === "string"){
+    console.log(value)
+  }else if(typeof value === "object"){
+    console.log(value.Playing)
+  }
+}
+
+log()
+machine.send('START')
+log()
+machine.send('END_PHASE')
+log()
+machine.send('END_PHASE')
+log()
+machine.send('END_PHASE')
+log()
+machine.send('END_PHASE')
+log()
+setTimeout(() => {
+  log()
+  machine.send('END_PHASE')
+  log()
+  machine.send('STOP')
+  log()
+}, 1100)*/
+
+
 server.listen(config.port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${config.port}`)
-  logger.debug("Start")
 })
