@@ -1,0 +1,10 @@
+.buttonWrapper {
+    padding: 10px;
+    border: solid 2px black;
+    border-radius: 6px;
+    background: radial-gradient(rgba(178, 104, 35, 0.59), rgba(134, 86, 42, 0.26));
+    display: grid;
+    place-content: center;
+    height: 90px;
+    width: 90px;
+}
