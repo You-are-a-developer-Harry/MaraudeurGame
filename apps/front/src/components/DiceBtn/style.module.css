@@ -3,5 +3,12 @@
     bottom: 0;
     width: 10%;
     margin: 10px;
+
+}
+.diceBtn p {
+    text-align: center;
+}
+.diceBtn img {
+    width: -webkit-fill-available;
     background-color: black;
 }

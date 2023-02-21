@@ -1,12 +1,11 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 export function Dice() {
 	const canvasRef = useRef(null);
-    console.log('canvasRef:', canvasRef)
 
-    // Setup scene
-    // const canvas = canvasRef;
+	// Setup scene
+	// const canvas = canvasRef;
 	useEffect(() => {
 		const scene = new THREE.Scene();
 
@@ -117,107 +116,66 @@ export function Dice() {
 			const randomIndex = Math.floor(Math.random() * diceValues.length);
 
 			const randomValue = diceValues[randomIndex];
-			console.log(randomValue);
+			console.log('valeur du dé :' + randomValue);
 			return randomValue
 		}
 
-		let start = false
 		let loopingTime = 100
 		let timeWhenClick = 0
 		let count = 0
 
-		function launch() {
-			start = true
-			const number = pickNumber()
+		const number = pickNumber()
 
-			if (number == 1) {
-				texture_ft = new THREE.TextureLoader().load('image/1.png');
-				materialArray[4].map = texture_ft;
-			}
-			if (number == 2) {
-				texture_ft = new THREE.TextureLoader().load('image/2.png');
-				materialArray[4].map = texture_ft;
-			}
-			if (number == 3) {
-				texture_ft = new THREE.TextureLoader().load('image/3.png');
-				materialArray[4].map = texture_ft;
-			}
-			if (number == 4) {
-				texture_ft = new THREE.TextureLoader().load('image/4.png');
-				materialArray[4].map = texture_ft;
-			}
-			if (number == 5) {
-				texture_ft = new THREE.TextureLoader().load('image/5.png');
-				materialArray[4].map = texture_ft;
-			}
-			if (number == 6) {
-				texture_ft = new THREE.TextureLoader().load('image/6.png');
-				materialArray[4].map = texture_ft;
-			}
-
+		if (number == 1) {
+			texture_ft = new THREE.TextureLoader().load('image/1.png');
+			materialArray[4].map = texture_ft;
 		}
-		launch()
-		/*canvas.addEventListener('click', () => {
-			start = true
-			const number = pickNumber()
-
-			if (number == 1) {
-				texture_ft = new THREE.TextureLoader().load('image/1.png');
-				materialArray[4].map = texture_ft;
-			}
-			if (number == 2) {
-				texture_ft = new THREE.TextureLoader().load('image/2.png');
-				materialArray[4].map = texture_ft;
-			}
-			if (number == 3) {
-				texture_ft = new THREE.TextureLoader().load('image/3.png');
-				materialArray[4].map = texture_ft;
-			}
-			if (number == 4) {
-				texture_ft = new THREE.TextureLoader().load('image/4.png');
-				materialArray[4].map = texture_ft;
-			}
-			if (number == 5) {
-				texture_ft = new THREE.TextureLoader().load('image/5.png');
-				materialArray[4].map = texture_ft;
-			}
-			if (number == 6) {
-				texture_ft = new THREE.TextureLoader().load('image/6.png');
-				materialArray[4].map = texture_ft;
-			}
-		})*/
-
+		if (number == 2) {
+			texture_ft = new THREE.TextureLoader().load('image/2.png');
+			materialArray[4].map = texture_ft;
+		}
+		if (number == 3) {
+			texture_ft = new THREE.TextureLoader().load('image/3.png');
+			materialArray[4].map = texture_ft;
+		}
+		if (number == 4) {
+			texture_ft = new THREE.TextureLoader().load('image/4.png');
+			materialArray[4].map = texture_ft;
+		}
+		if (number == 5) {
+			texture_ft = new THREE.TextureLoader().load('image/5.png');
+			materialArray[4].map = texture_ft;
+		}
+		if (number == 6) {
+			texture_ft = new THREE.TextureLoader().load('image/6.png');
+			materialArray[4].map = texture_ft;
+		}
 
 		// à chaque image : 60fps
 		const update = (time) => {
 			requestAnimationFrame(update)
-			if (start) {
-				if (count == 200) {
-					start = false
-					//canvas.style.display = "none"
-					count = 0
-				}else if (count >= loopingTime) {
-					cube.rotation.x = 0
-					cube.rotation.y = 0
-					timeWhenClick = 0
-					count ++
+			if (count == 200) {
+				count = 0
+			} else if (count >= loopingTime) {
+				cube.rotation.x = 0
+				cube.rotation.y = 0
+				timeWhenClick = 0
+				count++
 
-				}else if (timeWhenClick < loopingTime) {
-					cube.rotation.x = time / 100;
-					cube.rotation.y = time / 100;
-					count++
+			} else if (timeWhenClick < loopingTime) {
+				cube.rotation.x = time / 100;
+				cube.rotation.y = time / 100;
+				count++
 
-				}
 			}
 			// Render WebGL Scene
 			renderer.render(scene, camera);
-
 		}
 		requestAnimationFrame(update)
 	}, [])
 
 	return (
-		<canvas ref={canvasRef} id='canvas' style={{position: "absolute", top: 0}}></canvas>
+		<canvas ref={canvasRef} id='canvas' style={{ position: "absolute", top: 0 }}></canvas>
 	)
 }
 
