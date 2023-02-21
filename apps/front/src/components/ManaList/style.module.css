@@ -1,5 +1,8 @@
 .row {
+  opacity: 1;
+  position: absolute;
+  top: 0;
+  right: 30%;
   display: flex;
   justify-content: space-around;
-  width: 80%;
 }
