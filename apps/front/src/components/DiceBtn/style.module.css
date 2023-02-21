@@ -1,14 +1,13 @@
 .diceBtn{
-    position: absolute;
-    bottom: 0;
-    width: 10%;
-    margin: 10px;
-
+	position: absolute;
+	bottom: 0;
+	width: 100px;
+	margin: 10px;
 }
 .diceBtn p {
-    text-align: center;
+	text-align: center;
 }
 .diceBtn img {
-    width: -webkit-fill-available;
-    background-color: black;
+	width: -webkit-fill-available;
+	background-color: black;
 }

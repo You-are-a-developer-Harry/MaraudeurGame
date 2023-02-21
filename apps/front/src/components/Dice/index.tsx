@@ -20,7 +20,7 @@ export function Dice({ diceValue }: { diceValue: number }) {
 		});
 		renderer.setSize(window.innerWidth, window.innerHeight)
 		renderer.setPixelRatio(window.devicePixelRatio)
-		renderer.setClearColor(0x000000, 0.7);
+		renderer.setClearColor(0x000000, 0.9);
 
 		window.addEventListener("resize", () => {
 			renderer.setSize(window.innerWidth, window.innerHeight)
