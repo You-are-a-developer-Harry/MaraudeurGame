@@ -1,6 +1,6 @@
 import * as styles from'./style.module.css';
 import * as canvas from '../index.css';
-import { Dice } from "../../game/components/Dice";
+import { Dice } from "../../components/Dice/index";
 
 import { useState, useEffect } from 'react';
 
