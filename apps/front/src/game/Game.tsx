@@ -55,7 +55,7 @@ export function Game() {
   }, [player.current.x, player.current.y, cells])
 
   useEffect(() => {
-    const board = randomSpawnObject(generateBoard(), { name:"Random Object", value: 10, image: "/pouf.png" }) 
+    const board = randomSpawnObject(generateBoard(), { name:"Random Object", value: 10, image: "/object/grif.png" }) 
     setCells(board)
   }, [])
 
