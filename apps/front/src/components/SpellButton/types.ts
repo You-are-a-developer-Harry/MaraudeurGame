@@ -4,6 +4,7 @@ export type SpellButtonProps = {
     image: string
     sound: string
     mana: number
+    description: string
   }
   userMana: number
   handleClick: (spell: any) => void

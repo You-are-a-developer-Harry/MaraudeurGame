@@ -1,25 +1,86 @@
 .buttonWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.buttonWrapper:hover{
-    cursor: pointer
+.buttonWrapper:hover {
+  cursor: pointer;
 }
 
 .buttonWrapper p {
-    text-align: center;
-    font-size: 12px;
-    font-weight: bold;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.imageBorder p {
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.imageBorder .spellName {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.imageBorder .textLeft {
+  text-align: start;
 }
 
 .imageBorder {
-    border: solid 2px black;
-    border-radius: 6px;
-    height: 100px;
-    width: 100px;
-    display: grid;
-    place-content: center;
-    background: radial-gradient(rgba(178, 104, 35, 0.59), rgba(134, 86, 42, 0.26));
+  border: solid 2px black;
+  border-radius: 6px;
+  height: 100px;
+  width: 100px;
+  display: grid;
+  place-content: center;
+  place-items: center;
+  background: radial-gradient(
+    rgba(178, 104, 35, 0.59),
+    rgba(134, 86, 42, 0.26)
+  );
+}
+
+.imageBorder p {
+  font-size: 12px;
+  text-align: center;
+}
+
+.popper {
+  background: radial-gradient(circle, #095eb4, #003b77);
+  color: white;
+  font-weight: bold;
+  padding: 4px 8px;
+  font-size: 13px;
+  border-radius: 4px;
+  width: 200px;
+}
+
+.popperHidden {
+  display: none;
+}
+
+.arrow,
+.arrow::before {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: inherit;
+  right: -3px;
+  top: 4px;
+}
+
+.arrow {
+  visibility: hidden;
+}
+
+.arrow::before {
+  visibility: visible;
+  content: '';
+  transform: rotate(45deg);
 }
