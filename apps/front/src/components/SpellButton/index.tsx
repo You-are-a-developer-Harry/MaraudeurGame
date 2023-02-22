@@ -37,12 +37,12 @@ export const SpellButton = (props: SpellButtonProps) => {
   }
 
   return (
-    <div className={styles.buttonWrapper} onClick={handleSpell}>
+    <div className={stylesM.buttonWrapper} onClick={handleSpell}>
       <div 
-      className={stylesM.imageBorder} 
-      onMouseEnter={showPopper} 
-      onMouseLeave={showPopper} 
-      ref={setReferenceElement}
+        className={stylesM.imageBorder} 
+        onMouseEnter={showPopper} 
+        onMouseLeave={showPopper} 
+        ref={setReferenceElement}
       >
         <img
           height="80px"
@@ -50,19 +50,19 @@ export const SpellButton = (props: SpellButtonProps) => {
           src={props.spell.image}
           alt={props.spell.name + '-img'}
         />
-      <p>{props.name}</p>
-      <div 
-      className={isHover ? stylesM.popper : stylesM.popperHidden} 
-      ref={setPopperElement} 
-      style={styles.popper} {...attributes.popper}
-      >
-        <p className={stylesM.spellName}>{props.name}</p>
-        <p className={stylesM.textLeft}>Coût en mana : {props.mana}</p>
-        <p className={stylesM.textLeft}>Description : {props.description}</p>
+        <div 
+          className={isHover ? stylesM.popper : stylesM.popperHidden} 
+          ref={setPopperElement} 
+          style={styles.popper} {...attributes.popper}
+        >
+          <p className={stylesM.spellName}>{props.name}</p>
+          <p className={stylesM.textLeft}>Coût en mana : {props.mana}</p>
+          <p className={stylesM.textLeft}>Description : {props.description}</p>
         <div className={stylesM.arrow} ref={setarrowElement} style={styles.arrow} role="tooltip"/>
       </div>
       <p>{props.spell.name}</p>
     </div>
+    <p>{props.name}</p>
     </div>
   )
 }
