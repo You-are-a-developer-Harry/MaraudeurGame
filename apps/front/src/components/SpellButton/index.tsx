@@ -55,14 +55,13 @@ export const SpellButton = (props: SpellButtonProps) => {
           ref={setPopperElement} 
           style={styles.popper} {...attributes.popper}
         >
-          <p className={stylesM.spellName}>{props.name}</p>
-          <p className={stylesM.textLeft}>Coût en mana : {props.mana}</p>
-          <p className={stylesM.textLeft}>Description : {props.description}</p>
+          <p className={stylesM.spellName}>{props.spell.name}</p>
+          <p className={stylesM.textLeft}>Coût en mana : {props.spell.mana}</p>
+          <p className={stylesM.textLeft}>Description : {props.spell.description}</p>
         <div className={stylesM.arrow} ref={setarrowElement} style={styles.arrow} role="tooltip"/>
       </div>
-      <p>{props.spell.name}</p>
     </div>
-    <p>{props.name}</p>
+    <p>{props.spell.name}</p>
     </div>
   )
 }
