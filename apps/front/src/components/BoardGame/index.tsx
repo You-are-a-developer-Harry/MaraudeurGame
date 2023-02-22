@@ -113,7 +113,7 @@ export const BoardGame = () => {
 
     setTimeout(() => {
       setDisplayDice(false)
-    }, 2500)
+    }, 5000)
   }
 
   return (
