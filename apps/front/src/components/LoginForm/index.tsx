@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import styles from "./style.module.css";
+import { useUserStore } from "@stores/UserStore";
 
 
 export function LoginForm({ onSubmit, setIsConnected}) {
+
+  const setUser = useUserStore(state => state.setUser);
+  const setApiData = useUserStore(state => state.setApiData);
+  
   const [name, setname] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -20,8 +25,9 @@ export function LoginForm({ onSubmit, setIsConnected}) {
           setError(data.error);
         } else {
           // Handle successful login
-          console.log(name + ' ' + password)
           console.log(data)
+          setUser(data.user);
+          setApiData(data.apiData);
           setIsConnected(true)
         }
       })
