@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { useUserStore } from "@stores/UserStore";
+import { HogwartHouse } from "types";
 
 export function Dice({ diceValue }: { diceValue: number }) {
   const canvasRef = useRef(null)
@@ -50,19 +51,19 @@ export function Dice({ diceValue }: { diceValue: number }) {
     console.log('house:', house)
 
     switch (house) {
-      case 'gryffondor':
+      case HogwartHouse.GRYFFONDOR:
         color = 0xb33429
         break
-      case 'slytherin':
+      case HogwartHouse.SLYTHERIN:
         color = 0x386a2c
         break
-      case 'hufflepuff':
+      case HogwartHouse.HUFFLEPUFF:
         color = 0xdfbe45
         break
-      case 'ravenclaw':
+      case HogwartHouse.RAVENCLAW:
         color = 0x408fb1
         break
-      default: 'gryffondor'
+      default: HogwartHouse.GRYFFONDOR
         color = 0xb33429
         break
     }
