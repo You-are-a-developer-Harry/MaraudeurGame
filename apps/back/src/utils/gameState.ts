@@ -15,25 +15,16 @@ export const machineSettings = {
           description: 'Players can move',
           on: { END_PHASE: 'SpellPhase' },
           after: {
-            5000: {
+            20000: {
               target: 'SpellPhase'
             }
           }
         },
         SpellPhase: {
           description: 'Players choose spells',
-          on: { END_PHASE: 'SpellResolutionPhase' },
-          after: {
-            5000: {
-              target: 'SpellResolutionPhase'
-            }
-          }
-        },
-        SpellResolutionPhase: {
-          description: 'Players choose spells',
           on: { END_PHASE: 'MovePhase' },
           after: {
-            5000: {
+            20000: {
               target: 'MovePhase'
             }
           }
