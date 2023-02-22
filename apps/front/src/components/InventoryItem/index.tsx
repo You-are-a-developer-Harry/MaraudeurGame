@@ -9,7 +9,7 @@ export const InventoryItem = (props: InventoryItemProps) => {
           height="80px"
           width="80px"
           src={props.image}
-          alt={props.name + '-img'}
+          alt={'-img'}
         />
       )}
     </div>

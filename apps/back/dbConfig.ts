@@ -1,6 +1,6 @@
-import { Spell } from "@entities/Spell";
+import { Spell } from "./src/entities/Spell";
 import { DataSource } from "typeorm";
-import { config } from "@utils/config";
+import { config } from "./src/utils/config";
 import { migrations } from "./migrations";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 

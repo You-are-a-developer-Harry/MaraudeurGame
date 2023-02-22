@@ -1,8 +1,8 @@
 import { Server, Socket } from "socket.io";
-import { generateBoard } from "@game/generateBoard";
-import { initPlayer } from "@game/initPlayer";
-import { logger } from "@utils/logger";
-import { boards } from "@utils/data";
+import { generateBoard } from "../game/generateBoard";
+import { initPlayer } from "../game/initPlayer";
+import { logger } from "../utils/logger"
+import { boards } from "../utils/data";
 import { RoomData, User } from "types";
 
 export function roomHandler(io: Server, socket: Socket) {

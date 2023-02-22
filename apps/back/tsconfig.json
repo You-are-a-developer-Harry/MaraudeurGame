@@ -10,13 +10,6 @@
     "strict": true,
     "noImplicitAny": true,
     "skipLibCheck": true,
-    "outDir": "./dist",
-    "baseUrl": "./src",
-    "paths": {
-      "@entities/*": ["entities/*"],
-      "@game/*": ["game/*"],
-      "@handlers/*": ["handlers/*"],
-      "@utils/*": ["utils/*"],
-    }
+    "outDir": "./dist"
   }
 }

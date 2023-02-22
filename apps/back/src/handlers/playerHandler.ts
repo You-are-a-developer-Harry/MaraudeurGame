@@ -1,9 +1,9 @@
 import { Server, Socket } from "socket.io";
 import { MazeCell, Player } from "types";
-import { boards } from "@utils/data";
-import { logger } from "@utils/logger";
-import { movePlayer } from "@game/movePlayer";
-import { moveTeachers } from "@game/moveTeacher";
+import { boards } from "../utils/data";
+import { logger } from "../utils/logger";
+import { movePlayer } from "../game/movePlayer";
+import { moveTeachers } from "../game/moveTeacher";
 
 export function playerHandler(io: Server, socket: Socket) {
   const movePlayerHandler = (selectedCell: MazeCell, player: Player) => {

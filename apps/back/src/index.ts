@@ -1,12 +1,16 @@
 import express, { Express } from "express";
 import { Socket } from "socket.io";
-import { config } from "@utils/config";
-import { roomHandler } from "@handlers/roomHandler";
-import { playerHandler } from "@handlers/playerHandler";
+import { config } from "./utils/config";
+import { roomHandler } from "./handlers/roomHandler";
+import { playerHandler } from "./handlers/playerHandler";
 
 const app: Express = express()
 const http = require('http')
 const server = http.createServer(app)
+
+app.get("/", (req, res) => {
+  res.send('Hello world!')
+})
 
 const { Server } = require('socket.io')
 const io = new Server(server, {
