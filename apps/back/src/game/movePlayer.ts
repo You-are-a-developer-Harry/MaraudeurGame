@@ -13,7 +13,7 @@ export function movePlayer(board: Board, player: Player, destinationCell: MazeCe
   player.x = destinationCell.x
   player.y = destinationCell.y
   board[destinationCell.y][destinationCell.x].players = [
-    { ...player, x: destinationCell.x, y: destinationCell.y },
+   player,
   ]
   return board
 }

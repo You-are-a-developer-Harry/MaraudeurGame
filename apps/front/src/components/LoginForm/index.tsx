@@ -26,7 +26,7 @@ export function LoginForm({ onSubmit, setIsConnected}: any) {
         } else {
           // Handle successful login
           console.log(data)
-          setUser(data.user);
+          setUser({...data.user, objects: []});
           setApiData(data.apiData);
           setIsConnected(true)
         }

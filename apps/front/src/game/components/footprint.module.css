@@ -1,5 +1,18 @@
 .player {
   width: 80%;
-  position: absolute;
+  position: relative;
   z-index: 1;
+}
+
+.playerWrapper {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.playerObject {
+  width: 30%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }

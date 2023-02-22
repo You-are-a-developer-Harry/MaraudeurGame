@@ -1,4 +1,5 @@
 import { HogwartHouse } from "./HogwartHouse";
+import { SecretObject } from "./SecretObject";
 
 export type User = {
   id: number
@@ -10,4 +11,5 @@ export type User = {
     name: HogwartHouse
     points: number
   }
+  objects: SecretObject[]
 }

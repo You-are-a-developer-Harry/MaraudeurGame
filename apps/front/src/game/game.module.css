@@ -70,3 +70,21 @@
   transform: rotate(90deg);
   transform-origin: left;
 }
+
+/* SPAWN */
+.spawn {
+  border-radius: 100%;
+  position: absolute;
+}
+.gryffondorSpawn {
+  background-color: rgb(219, 63, 63);
+}
+.serpentardSpawn {
+  background-color: rgb(60, 72, 64);
+}
+.serdaigleSpawn {
+  background-color: rgb(58, 81, 149);
+}
+.poufsouffleSpawn {
+  background-color: rgb(149, 135, 58);
+}

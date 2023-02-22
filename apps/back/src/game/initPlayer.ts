@@ -1,7 +1,7 @@
 import { HogwartHouse, Player, RoomData, User } from "../types";
 import { BOARD_HEIGHT, BOARD_WIDTH } from "./generateBoard";
 
-const POSITION_BY_HOUSE = {
+export const POSITION_BY_HOUSE = {
   [HogwartHouse.GRYFFONDOR]: [0, 0],
   [HogwartHouse.HUFFLEPUFF]: [BOARD_WIDTH - 1, 0],
   [HogwartHouse.SLYTHERIN]: [BOARD_WIDTH - 1, BOARD_HEIGHT - 1],
@@ -15,6 +15,7 @@ export const initPlayer = (room: RoomData, user: User) => {
     house: {
       name: user.house.name,
     },
+    objects: [],
     x,
     y,
   }

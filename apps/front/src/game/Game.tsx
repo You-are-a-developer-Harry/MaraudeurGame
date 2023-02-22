@@ -1,24 +1,46 @@
-import { useEffect, useState } from "react";
-import styles from "./game.module.css";
-import { MazeCell } from "types";
-import { FootPrint } from "./components/FootPrint";
-import { useGameStore } from "@stores/GameStore";
-import { socket } from "@services/socket";
-import classNames from "classnames";
+import { useEffect, useState } from 'react'
+import styles from './game.module.css'
+import { HogwartHouse, MazeCell } from '../types'
+import { FootPrint } from './components/FootPrint'
+import { useGameStore } from '@stores/GameStore'
+import { socket } from '@services/socket'
+import classNames from 'classnames'
 
-import { getAvailableCells } from "../utils/getAvailableCells";
-import { CellObject } from "./components/CellObject";
-import { CellWitch } from "./components/CellWitch";
-import { useUserStore } from "@stores/UserStore";
+import { getAvailableCells } from '../utils/getAvailableCells'
+import { CellObject } from './components/CellObject'
+import { CellWitch } from './components/CellWitch'
+import { useUserStore } from '@stores/UserStore'
+import { usePlayerStore } from '@stores/PlayerStore'
 
 const MAX_DISTANCE_BY_TURN = 3
+const BOARD_WIDTH = 20
+const BOARD_HEIGHT = 16
+
+const POSITION_BY_HOUSE: Record<string, number[]> = {
+  [HogwartHouse.GRYFFONDOR]: [0, 0],
+  [HogwartHouse.HUFFLEPUFF]: [BOARD_WIDTH - 1, 0],
+  [HogwartHouse.SLYTHERIN]: [BOARD_WIDTH - 1, BOARD_HEIGHT - 1],
+  [HogwartHouse.RAVENCLAW]: [0, BOARD_HEIGHT - 1],
+}
+
+function isSpawn(cell: MazeCell) {
+  const houseKey = Object.keys(POSITION_BY_HOUSE).find(
+    (house) =>
+      cell.x === POSITION_BY_HOUSE[house][0] &&
+      cell.y === POSITION_BY_HOUSE[house][1]
+  )
+  return houseKey?.toLowerCase()
+}
 
 export function Game() {
   const [dangerosityCells, setDangerosityCells] = useState<MazeCell[]>([])
   const [availableCells, setAvailableCells] = useState<MazeCell[]>([])
-  const [selectedCell, setSelectedCell] = useState<{x: number, y: number} | undefined>()
+  const [selectedCell, setSelectedCell] = useState<
+    { x: number; y: number } | undefined
+  >()
   const cells = useGameStore((state) => state.board)
   const user = useUserStore((state) => state.user)
+  const gamePlayer = usePlayerStore((state) => state.player)
 
   const onClickCell = (cell: MazeCell) => {
     // Prevent the user to move at an unavailable position
@@ -29,14 +51,13 @@ export function Game() {
       )
     )
       return
-    setSelectedCell({x: cell.x, y: cell.y})
-    socket.emit('player:move', cell, user)
+    setSelectedCell({ x: cell.x, y: cell.y })
+    socket.emit('player:move', cell, gamePlayer)
   }
 
   useEffect(() => {
     setSelectedCell(undefined)
-  }, [cells]);
-
+  }, [cells])
 
   const appendAvailableCells = () => {
     // TODO : select only current user
@@ -54,9 +75,12 @@ export function Game() {
   }
 
   const appendDangerosityCells = () => {
-    const teachers = cells.flat().filter(cell => cell.teachers && cell.teachers.length).flat()
+    const teachers = cells
+      .flat()
+      .filter((cell) => cell.teachers && cell.teachers.length)
+      .flat()
     const _dangerosityCells: MazeCell[] = []
-    teachers.forEach(teacher => {
+    teachers.forEach((teacher) => {
       _dangerosityCells.push(
         ...getAvailableCells({ x: teacher.x, y: teacher.y }, cells, 3)
       )
@@ -65,12 +89,18 @@ export function Game() {
   }
 
   const getCellColor = (cell: MazeCell) => {
-    if (selectedCell && selectedCell.x === cell.x && selectedCell.y === cell.y){
+    if (
+      selectedCell &&
+      selectedCell.x === cell.x &&
+      selectedCell.y === cell.y
+    ) {
       return styles.selectedCell
-    }else if(availableCells.find(
-      (availableCell) =>
-        availableCell.x === cell.x && availableCell.y === cell.y
-    )){
+    } else if (
+      availableCells.find(
+        (availableCell) =>
+          availableCell.x === cell.x && availableCell.y === cell.y
+      )
+    ) {
       return styles.visitedCell
     }
   }
@@ -125,12 +155,26 @@ export function Game() {
                     onClick={() => onClickCell(cell)}
                   >
                     {(cell.players || []).map((player) => (
-                      <FootPrint player={player} />
+                      <FootPrint
+                        player={player}
+                        object={
+                          player.objects?.length ? player.objects[0] : undefined
+                        }
+                      />
                     ))}
                     {cell.object && <CellObject object={cell.object} />}
                     {cell.teachers?.map((_) => (
                       <CellWitch />
                     ))}
+                    {isSpawn(cell) && (
+                      <div
+                        className={classNames(
+                          styles.cell,
+                          styles.spawn,
+                          styles[isSpawn(cell) + 'Spawn']
+                        )}
+                      ></div>
+                    )}
                   </div>
                 </div>
               )

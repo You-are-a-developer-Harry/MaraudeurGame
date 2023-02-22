@@ -3,7 +3,7 @@ import { generateBoard } from "../game/generateBoard";
 import { initPlayer } from "../game/initPlayer";
 import { logger } from "../utils/logger"
 import { boards, stateMachines, userMoved } from "../utils/data";
-import { RoomData, User } from "../types";
+import {  RoomData, User } from "../types";
 import { createMachine, interpret } from "xstate";
 import { machineSettings } from "../utils/gameState";
 
