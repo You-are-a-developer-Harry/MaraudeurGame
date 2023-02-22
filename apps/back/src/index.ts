@@ -3,7 +3,6 @@ import { Socket } from "socket.io";
 import { config } from "./utils/config";
 import { roomHandler } from "./handlers/roomHandler";
 import { playerHandler } from "./handlers/playerHandler";
-import { machine } from "./utils/gameState";
 import { stateHandler } from "./handlers/stateHandler";
 
 const app: Express = express()
