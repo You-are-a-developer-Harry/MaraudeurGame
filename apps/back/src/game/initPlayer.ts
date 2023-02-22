@@ -11,8 +11,10 @@ const POSITION_BY_HOUSE = {
 export const initPlayer = (room: RoomData, user: User) => {
   const [x, y] = POSITION_BY_HOUSE[user.house.name]
   const player: Player = {
-    house: user.house.name,
     id: user.id,
+    house: {
+      name: user.house.name,
+    },
     x,
     y,
   }
