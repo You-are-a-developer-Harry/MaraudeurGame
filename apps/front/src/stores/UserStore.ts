@@ -1,9 +1,9 @@
 import { HogwartHouse, User } from "types";
-import { create } from 'zustand'
+import { create } from "zustand";
 
 interface UserStore {
   user: User
-  setUser: (user: User) => void 
+  setUser: (user: User) => void
 }
 
 export const useUserStore = create<UserStore>((set) => ({
@@ -14,5 +14,5 @@ export const useUserStore = create<UserStore>((set) => ({
   },
   setUser(user) {
     set({ user })
-  }
+  },
 }))

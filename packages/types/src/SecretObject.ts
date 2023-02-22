@@ -1,7 +1,7 @@
-import { Coordinates } from "./Coordinates"
+import { Coordinates } from "./Coordinates";
 
 export type SecretObject = {
-  name: string 
+  name: string
   value: number
   image: string
 } & Coordinates

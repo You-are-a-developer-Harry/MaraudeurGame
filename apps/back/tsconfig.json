@@ -12,6 +12,11 @@
     "skipLibCheck": true,
     "outDir": "./dist",
     "baseUrl": "./src",
-    "paths": {}
+    "paths": {
+      "@entities/*": ["entities/*"],
+      "@game/*": ["game/*"],
+      "@handlers/*": ["handlers/*"],
+      "@utils/*": ["utils/*"],
+    }
   }
 }

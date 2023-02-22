@@ -1,8 +1,7 @@
 import { Server, Socket } from "socket.io";
 import { MazeCell, Player } from "types";
-import { boards } from "../utils/data";
-import { logger } from "../utils/logger";
-
+import { boards } from "@utils/data";
+import { logger } from "@utils/logger";
 
 export function playerHandler(io: Server, socket: Socket) {
   const movePlayer = (selectedCell: MazeCell, player: Player) => {
@@ -14,19 +13,23 @@ export function playerHandler(io: Server, socket: Socket) {
     const currentBoard = boards.get(currentRoom)!.board
 
     // Move player
-    currentBoard?.forEach(row => {
-      row.forEach(cell => {
-        if(cell.players) {
-          cell.players = cell.players.filter(_player => player.id !==  _player.id)
+    currentBoard?.forEach((row) => {
+      row.forEach((cell) => {
+        if (cell.players) {
+          cell.players = cell.players.filter(
+            (_player) => player.id !== _player.id
+          )
         }
       })
     })
-    player.x = selectedCell.x 
+    player.x = selectedCell.x
     player.y = selectedCell.y
-    currentBoard[selectedCell.y][selectedCell.x].players = [{...player, x: selectedCell.x, y: selectedCell.y}]
+    currentBoard[selectedCell.y][selectedCell.x].players = [
+      { ...player, x: selectedCell.x, y: selectedCell.y },
+    ]
 
-    io.sockets.in(currentRoom).emit("map:update", boards.get(currentRoom));
-  };
+    io.sockets.in(currentRoom).emit('map:update', boards.get(currentRoom))
+  }
 
-  socket.on("player:move", movePlayer);
+  socket.on('player:move', movePlayer)
 }

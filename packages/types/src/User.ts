@@ -1,7 +1,7 @@
-import { HogwartHouse } from "./HogwartHouse"
+import { HogwartHouse } from "./HogwartHouse";
 
 export type User = {
-  id: number 
+  id: number
   username: string
   house: HogwartHouse
 }

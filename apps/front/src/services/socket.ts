@@ -1,6 +1,6 @@
 import { Manager } from "socket.io-client";
-import { config } from "../utils/config";
+import { config } from "@utils/config";
 
-const manager = new Manager(config.apiBaseUrl);
+const manager = new Manager(config.apiBaseUrl)
 
-export const socket = manager.socket("/")
+export const socket = manager.socket('/')

@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config()
 
 export const config = {
   frontOrigin: process.env.FRONTEND_ORIGIN ?? 'http://127.0.0.1:5173',
@@ -10,5 +10,5 @@ export const config = {
     user: process.env.DATABSE_USER ?? 'root',
     password: process.env.DATABSE_PASSWORD ?? '',
     name: process.env.DATABSE_NAME ?? 'iim_nodert',
-  }
+  },
 }
