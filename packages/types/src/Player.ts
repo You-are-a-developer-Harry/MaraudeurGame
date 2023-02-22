@@ -3,5 +3,7 @@ import { HogwartHouse } from "./HogwartHouse";
 
 export type Player = {
   id: number
-  house: HogwartHouse
+  house: {
+    name: HogwartHouse
+  }
 } & Coordinates
