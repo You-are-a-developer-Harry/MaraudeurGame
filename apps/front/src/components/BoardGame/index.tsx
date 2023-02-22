@@ -16,7 +16,9 @@ import spell5 from "@assets/images/spells/spell5.png";
 import spell6 from "@assets/images/spells/spell6.png";
 import spell7 from "@assets/images/spells/spell7.png";
 import spell8 from "@assets/images/spells/spell8.png";
-
+import { socket } from "@services/socket";
+import { useGameStore } from "@stores/GameStore";
+import { getGameStateValue } from "@utils/getGameStateValue";
 import { ManaList } from "../ManaList";
 
 import spellSound1 from "../../assets/sound/spellEffect1.mp3";
@@ -87,13 +89,14 @@ const inventory = [
 ]
 
 export const BoardGame = () => {
-  const [diceValue, setDiceValue] = useState(1);
-  const [displayDice, setDisplayDice] = useState(false);
+  const [diceValue, setDiceValue] = useState(1)
+  const [displayDice, setDisplayDice] = useState(false)
+  const gameState = useGameStore((state) => state.gameState)
   const [displayAnimation, setDisplayAnimation] = useState(false);
   const [selectedSpell, setSelectedSpell] = useState(spells[0]);
 
   const handlePlay = () => {
-    alert('Play ! ');
+    socket.emit('state:start');
   }
 
   const handleSpellClick = (spell: any) => {
@@ -117,7 +120,7 @@ export const BoardGame = () => {
     <div className={style.boardGameGrid}>
       <div className={style.MenuWrapper}>
         <div>
-          <h2>Inventory</h2>
+          <h2>{getGameStateValue(gameState)}</h2>
           <div className={style.inventoryGrid}>
             {inventory.map((item, key) => (
               <InventoryItem image={item.image} key={key} />
