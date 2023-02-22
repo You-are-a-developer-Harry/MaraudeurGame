@@ -16,7 +16,8 @@
     "three": "^0.149.0",
     "three-stdlib": "^2.21.8",
     "zustand": "^4.3.3",
-    "utils": "*"
+    "utils": "*",
+    "use-sound": "^4.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
