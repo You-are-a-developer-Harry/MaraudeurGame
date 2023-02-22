@@ -1,8 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
+import { useUserStore } from "@stores/UserStore";
+import { HogwartHouse } from "types";
 
 export function Dice({ diceValue }: { diceValue: number }) {
   const canvasRef = useRef(null)
+
+  const user = useUserStore((state) => state.user)
 
   useEffect(() => {
     const scene = new THREE.Scene()
@@ -42,24 +46,24 @@ export function Dice({ diceValue }: { diceValue: number }) {
     let texture_lf = new THREE.TextureLoader().load('image/6.png')
 
     // set color depending on house of player
-    let color = 0xb33429
-    let house = 'serdaigle'
+    let color
+    let house = user.house
+    console.log('house:', house)
 
     switch (house) {
-      case 'griffondor':
+      case HogwartHouse.GRYFFONDOR:
         color = 0xb33429
         break
-      case 'serpentard':
+      case HogwartHouse.SLYTHERIN:
         color = 0x386a2c
         break
-      case 'poufsouffle':
+      case HogwartHouse.HUFFLEPUFF:
         color = 0xdfbe45
         break
-      case 'serdaigle':
+      case HogwartHouse.RAVENCLAW:
         color = 0x408fb1
         break
-      default:
-        'griffondor'
+      default: HogwartHouse.GRYFFONDOR
         color = 0xb33429
         break
     }
@@ -149,7 +153,7 @@ export function Dice({ diceValue }: { diceValue: number }) {
     <canvas
       ref={canvasRef}
       id="canvas"
-      style={{ position: 'absolute', top: 0 }}
+      style={{ position: 'absolute', top: 0, zIndex: 3 }}
     ></canvas>
   )
 }
