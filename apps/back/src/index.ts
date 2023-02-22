@@ -1,10 +1,8 @@
-import express, { Express } from 'express'
-import { Socket } from 'socket.io'
-import { config } from "./utils/config";
-import { roomHandler } from "./handlers/roomHandler";
-import { playerHandler } from "./handlers/playerHandler";
-import { interpret } from "xstate";
-import { gameState } from "./utils/gameState";
+import express, { Express } from "express";
+import { Socket } from "socket.io";
+import { config } from "@utils/config";
+import { roomHandler } from "@handlers/roomHandler";
+import { playerHandler } from "@handlers/playerHandler";
 
 const app: Express = express()
 const http = require('http')
@@ -18,7 +16,7 @@ const io = new Server(server, {
 })
 
 const onConnection = (socket: Socket) => {
-  io.socketsJoin("room1");
+  io.socketsJoin('room1')
 
   roomHandler(io, socket)
   playerHandler(io, socket)
@@ -56,7 +54,8 @@ setTimeout(() => {
   log()
 }, 1100)*/
 
-
-server.listen(config.port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${config.port}`)
+server.listen(Number(config.port), () => {
+  console.log(
+    `⚡️[server]: Server is running at http://localhost:${config.port}`
+  )
 })

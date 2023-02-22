@@ -1,4 +1,4 @@
-import { Coordinates, MazeCell } from "types"
+import { Coordinates, MazeCell } from "types";
 
 export function getAvailableCells(
   origin: Coordinates,
@@ -24,9 +24,11 @@ export function getAvailableCells(
   let neighbors = []
   // Get neighbors according to walls
   if (!currentCell.top && y > 0) neighbors.push(board[y - 1][x])
-  if (!currentCell.bottom && y < board.length - 1) neighbors.push(board[y + 1][x])
+  if (!currentCell.bottom && y < board.length - 1)
+    neighbors.push(board[y + 1][x])
   if (!currentCell.left && x > 0) neighbors.push(board[y][x - 1])
-  if (!currentCell.right && x < board[0].length - 1) neighbors.push(board[y][x + 1])
+  if (!currentCell.right && x < board[0].length - 1)
+    neighbors.push(board[y][x + 1])
 
   // Filter neighbors by visited cells
   neighbors = neighbors.filter(

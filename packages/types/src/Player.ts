@@ -1,5 +1,5 @@
-import { Coordinates } from "./Coordinates"
-import { HogwartHouse } from "./HogwartHouse"
+import { Coordinates } from "./Coordinates";
+import { HogwartHouse } from "./HogwartHouse";
 
 export type Player = {
   id: number

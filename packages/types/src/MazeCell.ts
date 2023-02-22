@@ -1,5 +1,5 @@
-import { Player } from "./Player"
-import { SecretObject } from "./SecretObject"
+import { Player } from "./Player";
+import { SecretObject } from "./SecretObject";
 
 export type MazeCell = {
   x: number

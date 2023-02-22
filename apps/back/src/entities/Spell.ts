@@ -1,8 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import {SpellType} from "types"
+import { SpellType } from "types";
 
 @Entity()
-export class Spell implements SpellType{
+export class Spell implements SpellType {
   @PrimaryGeneratedColumn()
   id!: number
 

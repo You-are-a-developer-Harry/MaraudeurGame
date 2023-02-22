@@ -1,3 +1,3 @@
 export type RightMenuProps = {
-  spells: {name: string, image:string}[]
+  spells: { name: string; image: string }[]
 }

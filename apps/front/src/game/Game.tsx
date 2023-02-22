@@ -1,45 +1,50 @@
-import { useEffect, useRef, useState } from "react";
-import styles from './game.module.css'
-import { MazeCell, Player } from 'types'
+import { useEffect, useState } from "react";
+import styles from "./game.module.css";
+import { MazeCell } from "types";
 import { FootPrint } from "./components/FootPrint";
-import { useGameStore } from "../stores/GameStore";
-import { socket } from "../services/socket";
-import classNames from 'classnames'
+import { useGameStore } from "@stores/GameStore";
+import { socket } from "@services/socket";
+import classNames from "classnames";
 
-import { getAvailableCells } from "../utils/getAvailableCells";
+import { getAvailableCells } from "@utils/getAvailableCells";
 import { CellObject } from "./components/CellObject";
 import { CellWitch } from "./components/CellWitch";
-import { useUserStore } from "../stores/UserStore";
-
+import { useUserStore } from "@stores/UserStore";
 
 const MAX_DISTANCE_BY_TURN = 3
 
-export function Game(){
+export function Game() {
   const [availableCells, setAvailableCells] = useState<MazeCell[]>([])
-  const cells = useGameStore(state => state.board)
-  const user = useUserStore(state => state.user)
+  const cells = useGameStore((state) => state.board)
+  const user = useUserStore((state) => state.user)
 
   const onClickCell = (cell: MazeCell) => {
     // Prevent the user to move at an unavailable position
-    if (!availableCells.some(availableCell => availableCell.x === cell.x && availableCell.y === cell.y)) return
-    socket.emit("player:move", cell, user)
+    if (
+      !availableCells.some(
+        (availableCell) =>
+          availableCell.x === cell.x && availableCell.y === cell.y
+      )
+    )
+      return
+    socket.emit('player:move', cell, user)
   }
-
 
   useEffect(() => {
     if (!cells.length) return
     // TODO : select only current user
-    const player = cells.flat().find(cell => cell.players?.some(player => player.id === user.id))
+    const player = cells
+      .flat()
+      .find((cell) => cell.players?.some((player) => player.id === user.id))
     if (!player) return
     setAvailableCells(
       getAvailableCells(
-        {x: player.x, y: player.y},
+        { x: player.x, y: player.y },
         cells,
         MAX_DISTANCE_BY_TURN
       )
     )
   }, [cells])
-
 
   if (!cells.length) {
     return <p>loading</p>
@@ -50,7 +55,7 @@ export function Game(){
       {cells.length && (
         <div
           className={styles.game}
-          style={{gridTemplateColumns: `repeat(${cells[0].length}, 1fr)`}}
+          style={{ gridTemplateColumns: `repeat(${cells[0].length}, 1fr)` }}
         >
           {cells.map((row, y) =>
             row.map((cell, x) => {
@@ -82,13 +87,11 @@ export function Game(){
                     className={styles.cell}
                     onClick={() => onClickCell(cell)}
                   >
-                    {(cell.players || []).map(player => <FootPrint player={player}/>)}
-                    {
-                      cell.object && <CellObject object={cell.object}/>
-                    }
-                    {
-                      cell.teacher && <CellWitch/>
-                    }
+                    {(cell.players || []).map((player) => (
+                      <FootPrint player={player} />
+                    ))}
+                    {cell.object && <CellObject object={cell.object} />}
+                    {cell.teacher && <CellWitch />}
                   </div>
                 </div>
               )
