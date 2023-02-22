@@ -2,6 +2,12 @@ import { HogwartHouse } from "./HogwartHouse";
 
 export type User = {
   id: number
-  username: string
-  house: HogwartHouse
+  name: string
+  points: number
+  house_id: number
+  house: {
+    id: number
+    name: HogwartHouse
+    points: number
+  }
 }
