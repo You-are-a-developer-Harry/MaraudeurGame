@@ -11,7 +11,6 @@ export const SpellButton = (props: SpellButtonProps) => {
   const [play] = useSound(props.sound);
 
   const handleSpell = () => {
-
     props.handleClick({})
     play()
   }
