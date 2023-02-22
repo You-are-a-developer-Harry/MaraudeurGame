@@ -32,32 +32,38 @@ const spells = [
   {
     name: 'Patronome',
     image: spell1,
-    sound: spellSound1
+    sound: spellSound1,
+    mana: 5
   },
   {
     name: 'Expelliarmus',
     image: spell2,
-    sound: spellSound2
+    sound: spellSound2,
+    mana: 5
   },
   {
     name: 'Defendio',
     image: spell3,
-    sound: spellSound3
+    sound: spellSound3,
+    mana: 5
   },
   {
     name: 'Periculum',
     image: spell4,
-    sound: spellSound4
+    sound: spellSound4,
+    mana: 5
   },
   {
     name: 'Sectumsempra',
     image: spell5,
-    sound: spellSound5
+    sound: spellSound5,
+    mana: 5
   },
   {
     name: 'Stupefy',
     image: spell6,
-    sound: spellSound6
+    sound: spellSound6,
+    mana: 5
   },
 ]
 
@@ -94,6 +100,7 @@ export const BoardGame = () => {
   const gameState = useGameStore((state) => state.gameState)
   const [displayAnimation, setDisplayAnimation] = useState(false);
   const [selectedSpell, setSelectedSpell] = useState(spells[0]);
+  const [userMana, setUserMana] = useState(0);
 
   const handlePlay = () => {
     socket.emit('state:start');
@@ -104,15 +111,22 @@ export const BoardGame = () => {
     setDisplayAnimation(true);
     setTimeout(() => {
       setDisplayAnimation(false);
+      setUserMana(userMana - spell.mana);
     }, 1500)
   }
 
   const handleRollDice = () => {
     setDisplayDice(true)
-    setDiceValue(Math.floor(Math.random() * 6) + 1)
+    const diceValue = Math.floor(Math.random() * 6) + 1;
+    setDiceValue(diceValue);
 
     setTimeout(() => {
-      setDisplayDice(false)
+      setDisplayDice(false);
+      if(userMana + diceValue >= 10) {
+        setUserMana(10)
+      } else {
+        setUserMana(userMana + diceValue)
+      }
     }, 5000)
   }
 
@@ -132,7 +146,7 @@ export const BoardGame = () => {
       </div>
 
       <div className={style.boardCenter}>
-        <ManaList manaToUse={6}/>
+        <ManaList manaToUse={userMana}/>
         <Game />
         <div className={style.wrapperProgressBar}>
           <ProgressBar countDownTime={20} activate={true} />
@@ -147,9 +161,8 @@ export const BoardGame = () => {
               {spells.map((spell, key) => {
                 return (
                   <SpellButton
-                    image={spell.image}
-                    name={spell.name}
-                    sound={spell.sound}
+                    spell={spell}
+                    userMana={userMana}
                     handleClick={() => handleSpellClick(spell)}
                     key={key}
                   />
