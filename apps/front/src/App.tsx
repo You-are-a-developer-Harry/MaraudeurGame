@@ -1,17 +1,14 @@
 import { useEffect } from "react";
-import { config } from "./utils/config";
-import { Game } from "./game/Game";
-import { ManaItem } from "./components/ManaItem";
-import { ManaList } from "./components/ManaList";
-import { ManaList } from "./components/ManaList";
-import { ManaItem } from "./components/ManaItem";
-import {Game} from "./game/Game";
 import { useGameStore } from "./stores/GameStore";
 import { Board, HogwartHouse, RoomData, User } from 'types'
 import { socket } from "./services/socket";
 import { DiceBtn } from "./components/DiceBtn/index";
 import { useUserStore } from "./stores/UserStore";
 import { BoardGame } from "./components/BoardGame";
+import { config } from "./utils/config";
+import { Game } from "./game/Game";
+import { ManaItem } from "./components/ManaItem";
+import { ManaList } from "./components/ManaList";
 
 function App() {
   const setBoard = useGameStore((state) => state.setBoard)
@@ -24,7 +21,6 @@ function App() {
     })
   }, [user])
 
-    // const socket = manager.socket("/")
 
   return <BoardGame />
 }

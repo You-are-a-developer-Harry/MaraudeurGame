@@ -98,6 +98,7 @@ export const BoardGame = () => {
 
   return (
     <div className={style.boardGameGrid}>
+      <ManaList manaToUse={5}/>
       <div className={style.MenuWrapper}>
         <div>
           <h2>Inventory</h2>
@@ -119,8 +120,6 @@ export const BoardGame = () => {
           <ProgressBar countDownTime={20} activate={false}/>
         </div>
       </div>
-
-      <ManaList manaToUse={10}/>
 
       <div className={style.rightMenu}>
         <div className={style.MenuWrapper}>
