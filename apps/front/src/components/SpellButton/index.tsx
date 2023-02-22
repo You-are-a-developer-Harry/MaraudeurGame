@@ -8,11 +8,14 @@ export const SpellButton = (props: SpellButtonProps) => {
     alert('Spell used')
   }
 
-  const [play] = useSound(props.sound);
+  const [play] = useSound(props.spell.sound);
 
   const handleSpell = () => {
-    props.handleClick({})
-    play()
+    if(props.spell.mana <= props.userMana ) {
+      props.handleClick({})
+      play()
+    }
+
   }
 
   return (
@@ -21,11 +24,11 @@ export const SpellButton = (props: SpellButtonProps) => {
         <img
           height="80px"
           width="80px"
-          src={props.image}
-          alt={props.name + '-img'}
+          src={props.spell.image}
+          alt={props.spell.name + '-img'}
         />
       </div>
-      <p>{props.name}</p>
+      <p>{props.spell.name}</p>
     </div>
   )
 }

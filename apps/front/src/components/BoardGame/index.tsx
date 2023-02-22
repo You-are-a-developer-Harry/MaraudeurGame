@@ -32,32 +32,38 @@ const spells = [
   {
     name: 'Patronome',
     image: spell1,
-    sound: spellSound1
+    sound: spellSound1,
+    mana: 8
   },
   {
     name: 'Expelliarmus',
     image: spell2,
-    sound: spellSound2
+    sound: spellSound2,
+    mana: 7
   },
   {
     name: 'Defendio',
     image: spell3,
-    sound: spellSound3
+    sound: spellSound3,
+    mana: 4
   },
   {
     name: 'Periculum',
     image: spell4,
-    sound: spellSound4
+    sound: spellSound4,
+    mana: 2
   },
   {
     name: 'Sectumsempra',
     image: spell5,
-    sound: spellSound5
+    sound: spellSound5,
+    mana: 8
   },
   {
     name: 'Stupefy',
     image: spell6,
-    sound: spellSound6
+    sound: spellSound6,
+    mana: 7
   },
 ]
 
@@ -94,6 +100,7 @@ export const BoardGame = () => {
   const gameState = useGameStore((state) => state.gameState)
   const [displayAnimation, setDisplayAnimation] = useState(false);
   const [selectedSpell, setSelectedSpell] = useState(spells[0]);
+  const [userMana, setUserMana] = useState(10);
 
   const handlePlay = () => {
     socket.emit('state:start');
@@ -104,7 +111,8 @@ export const BoardGame = () => {
     setDisplayAnimation(true);
     setTimeout(() => {
       setDisplayAnimation(false);
-    }, 1500)
+      setUserMana(userMana - spell.mana)
+    }, 1500);
   }
 
   const handleRollDice = () => {
@@ -123,7 +131,7 @@ export const BoardGame = () => {
           <h2>{getGameStateValue(gameState)}</h2>
           <div className={style.inventoryGrid}>
             {inventory.map((item, key) => (
-              <InventoryItem image={item.image} key={key} />
+              <InventoryItem image={item.image} key={key}/>
             ))}
           </div>
         </div>
@@ -132,10 +140,10 @@ export const BoardGame = () => {
       </div>
 
       <div className={style.boardCenter}>
-        <ManaList manaToUse={6}/>
-        <Game />
+        <ManaList manaToUse={userMana}/>
+        <Game/>
         <div className={style.wrapperProgressBar}>
-          <ProgressBar countDownTime={20} activate={true} />
+          <ProgressBar countDownTime={20} activate={true}/>
         </div>
       </div>
 
@@ -147,11 +155,10 @@ export const BoardGame = () => {
               {spells.map((spell, key) => {
                 return (
                   <SpellButton
-                    image={spell.image}
-                    name={spell.name}
-                    sound={spell.sound}
+                    spell={spell}
                     handleClick={() => handleSpellClick(spell)}
                     key={key}
+                    userMana={userMana}
                   />
                 )
               })}
@@ -162,7 +169,7 @@ export const BoardGame = () => {
       </div>
 
       {
-        displayDice && <Dice diceValue={diceValue} />
+        displayDice && <Dice diceValue={diceValue}/>
       }
 
       {
