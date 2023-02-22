@@ -9,15 +9,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.6",
     "classnames": "^2.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-popper": "^2.3.0",
     "socket.io-client": "^4.6.0",
     "three": "^0.149.0",
     "three-stdlib": "^2.21.8",
-    "zustand": "^4.3.3",
+    "use-sound": "^4.0.1",
     "utils": "*",
-    "use-sound": "^4.0.1"
+    "zustand": "^4.3.3"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
