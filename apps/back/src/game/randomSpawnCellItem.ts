@@ -1,9 +1,9 @@
 import { MazeCell, Player, SecretObject } from "types";
-import { generateRandom } from "@utils/generateRandom";
+import { generateRandom } from "utils";
 
 export function randomSpawnCellItem(
   board: MazeCell[][],
-  type: 'object' | 'teacher',
+  type: 'object' | 'teachers',
   item: Omit<SecretObject | Player, 'x' | 'y'>
 ): MazeCell[][] {
   const middleX = Math.round(board[0].length / 2)
@@ -13,6 +13,7 @@ export function randomSpawnCellItem(
   const x = generateRandom(...rangeX)
   const y = generateRandom(...rangeY)
   if (board[y][x][type]) return randomSpawnCellItem(board, type, item)
-  board[y][x][type] = { ...item, x, y } as any
+  board[y][x][type] =
+    type === 'object' ? { ...item, x, y } : ([{ ...item, x, y }] as any)
   return board
 }

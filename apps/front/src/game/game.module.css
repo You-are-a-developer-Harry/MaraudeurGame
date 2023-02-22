@@ -36,6 +36,10 @@
   background-color: rgba(73, 166, 73, 0.7)!important;
 }
 
+.dangerosityCell .cell {
+  background-color: rgba(233, 11, 11, 0.2);
+}
+
 .horizontalWall {
   display: inline-flex;
 }
