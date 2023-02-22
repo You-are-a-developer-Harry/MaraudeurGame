@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import  { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { useUserStore } from "@stores/UserStore";
 import { HogwartHouse } from "types";
@@ -51,7 +51,7 @@ export function Dice({ diceValue }: { diceValue: number }) {
 
     // set color depending on house of player
     let color
-    let house = user.house.name
+    let house = user!.house.name
     console.log('house:', house)
 
     switch (house) {

@@ -3,7 +3,7 @@ import styles from "./style.module.css";
 import { useUserStore } from "@stores/UserStore";
 
 
-export function LoginForm({ onSubmit, setIsConnected}) {
+export function LoginForm({ onSubmit, setIsConnected}: any) {
 
   const setUser = useUserStore(state => state.setUser);
   const setApiData = useUserStore(state => state.setApiData);
@@ -12,7 +12,7 @@ export function LoginForm({ onSubmit, setIsConnected}) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
     fetch('https://hp-api-iim.azurewebsites.net/auth/log-in', {
       method: 'POST',
