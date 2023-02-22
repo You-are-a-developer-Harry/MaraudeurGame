@@ -21,7 +21,7 @@ export function LoginForm({ onSubmit, setIsConnected}: any) {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.error) {
+        if (data.error || data.statusCode == 500) {
           setError(data.error);
         } else {
           // Handle successful login
