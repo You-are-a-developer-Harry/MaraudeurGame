@@ -69,7 +69,19 @@ const spells = [
     sound: spellSound6,
     mana: 1,
     description: 'Une description du sort'
-  }
+  },
+  {
+    name: 'Reverso',
+    image: spell7,
+    mana: 1,
+    description: 'Une description du sort'
+  },
+  {
+    name: 'Doloris',
+    image: spell8,
+    mana: 1,
+    description: 'Une description du sort'
+  },
 ]
 
 const inventory = [
@@ -127,6 +139,7 @@ export const BoardGame = () => {
     setDiceValue(diceValue);
 
     setTimeout(() => {
+      setDisplayDice(false);
       if(userMana + diceValue >= 10) {
         setUserMana(10)
       } else {
