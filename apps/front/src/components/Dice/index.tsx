@@ -19,6 +19,10 @@ export function Dice({ diceValue }: { diceValue: number }) {
     )
     camera.position.z = 1
 
+	// axes
+	// const axesHelper = new THREE.AxesHelper(500)
+	// scene.add(axesHelper) // The X axis is red. The Y axis is green. The Z axis is blue.
+
     // renderer
     const renderer = new THREE.WebGLRenderer({
       // @ts-ignore
@@ -26,12 +30,12 @@ export function Dice({ diceValue }: { diceValue: number }) {
       antialias: true,
       alpha: true,
     })
-    renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.setSize(window.innerWidth /2, window.innerHeight /2)
     renderer.setPixelRatio(window.devicePixelRatio)
-    renderer.setClearColor(0x000000, 0.9)
+    renderer.setClearColor(0x000000, 0)
 
     window.addEventListener('resize', () => {
-      renderer.setSize(window.innerWidth, window.innerHeight)
+      renderer.setSize(window.innerWidth /2, window.innerHeight /2)
       renderer.setPixelRatio(window.devicePixelRatio)
       camera.aspect = window.innerWidth / window.innerHeight
       camera.updateProjectionMatrix()
@@ -115,7 +119,7 @@ export function Dice({ diceValue }: { diceValue: number }) {
       }
     }
 
-    const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2)
+    const geometry = new THREE.BoxGeometry(0.3, 0.3, 0.3)
     const cube = new THREE.Mesh(geometry, materialArray)
     scene.add(cube)
 
@@ -131,7 +135,7 @@ export function Dice({ diceValue }: { diceValue: number }) {
     // each image : 60fps
     const update = (time: any) => {
       requestAnimationFrame(update)
-      if (count == 200) {
+      if (count == 500) {
         count = 0
       } else if (count >= loopingTime) {
         cube.rotation.x = 0
@@ -153,7 +157,7 @@ export function Dice({ diceValue }: { diceValue: number }) {
     <canvas
       ref={canvasRef}
       id="canvas"
-      style={{ position: 'absolute', top: 0, zIndex: 3 }}
+      style={{ position: 'absolute', bottom: -15, left: '-17%', zIndex: 3 }}
     ></canvas>
   )
 }
