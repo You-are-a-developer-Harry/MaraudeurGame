@@ -3,26 +3,24 @@ import styles from "./style.module.css";
 import { ManaAvailable } from "./types";
 
 
-export const ManaList = (props:ManaAvailable) => {
+export const ManaList = (props: ManaAvailable) => {
+  const manas = []
 
-    const manas = []
+  for (let i = 0; i < 10; i++) {
+    manas.push({disabled: true})
+  }
 
+  for (let i = 0; i < props.manaToUse; i++) {
+    manas[i].disabled = false
+  }
 
-    for(let i = 0; i < 10; i++){
-        manas.push({disabled : true})
-    }
-
-    for(let i = 0; i <  props.manaToUse; i++){
-        manas[i].disabled = false
-    }
-
-    return(
-        <div className={styles.manaRow}>
-            {
-                manas.map((mana) => (
-                    <ManaItem isUsed={mana.disabled}/>
-                ))
-            }
-        </div>
-    )
+  return (
+    <div className={styles.manaRow}>
+      {
+        manas.map((mana) => (
+          <ManaItem isUsed={mana.disabled}/>
+        ))
+      }
+    </div>
+  )
 }

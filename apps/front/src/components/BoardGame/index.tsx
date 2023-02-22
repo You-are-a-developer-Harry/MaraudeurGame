@@ -2,6 +2,12 @@ import style from "./style.module.css";
 import { ProgressBar } from "../ProgressBar";
 import { Game } from "@game/Game";
 import { InventoryItem } from "../InventoryItem";
+import { SpellButton } from "../SpellButton";
+import { HPButton } from "../HPButton";
+import Dice from "../Dice";
+import { useState } from "react";
+import { SpellAnimation } from "@components/SpellAnimation";
+
 import spell1 from "@assets/images/spells/spell1.png";
 import spell2 from "@assets/images/spells/spell2.png";
 import spell3 from "@assets/images/spells/spell3.png";
@@ -10,44 +16,46 @@ import spell5 from "@assets/images/spells/spell5.png";
 import spell6 from "@assets/images/spells/spell6.png";
 import spell7 from "@assets/images/spells/spell7.png";
 import spell8 from "@assets/images/spells/spell8.png";
-import { SpellButton } from "../SpellButton";
-import { HPButton } from "../HPButton";
-import Dice from "../Dice";
-import { useState } from "react";
+
 import { ManaList } from "../ManaList";
+
+import spellSound1 from "../../assets/sound/spellEffect1.mp3";
+import spellSound2 from "../../assets/sound/spellEffect2.mp3";
+import spellSound3 from "../../assets/sound/spellEffect3.mp3";
+import spellSound4 from "../../assets/sound/spellEffect4.mp3";
+import spellSound5 from "../../assets/sound/spellEffect5.mp3";
+import spellSound6 from "../../assets/sound/spellEffect6.mp3";
 
 const spells = [
   {
     name: 'Patronome',
     image: spell1,
+    sound: spellSound1
   },
   {
-    name: 'Avacadavra',
+    name: 'Expelliarmus',
     image: spell2,
+    sound: spellSound2
   },
   {
-    name: 'Imperio',
+    name: 'Defendio',
     image: spell3,
+    sound: spellSound3
   },
   {
-    name: 'Mathieus Raimbus',
+    name: 'Periculum',
     image: spell4,
+    sound: spellSound4
   },
   {
-    name: 'Bombarda Maxima',
+    name: 'Sectumsempra',
     image: spell5,
+    sound: spellSound5
   },
   {
-    name: 'Lumos',
+    name: 'Stupefy',
     image: spell6,
-  },
-  {
-    name: 'Reverso',
-    image: spell7,
-  },
-  {
-    name: 'Doloris',
-    image: spell8,
+    sound: spellSound6
   },
 ]
 
@@ -79,11 +87,21 @@ const inventory = [
 ]
 
 export const BoardGame = () => {
-  const [diceValue, setDiceValue] = useState(1)
-  const [displayDice, setDisplayDice] = useState(false)
+  const [diceValue, setDiceValue] = useState(1);
+  const [displayDice, setDisplayDice] = useState(false);
+  const [displayAnimation, setDisplayAnimation] = useState(false);
+  const [selectedSpell, setSelectedSpell] = useState(spells[0]);
 
   const handlePlay = () => {
-    alert('Play ! ')
+    alert('Play ! ');
+  }
+
+  const handleSpellClick = (spell: any) => {
+    setSelectedSpell(spell);
+    setDisplayAnimation(true);
+    setTimeout(() => {
+      setDisplayAnimation(false);
+    }, 1500)
   }
 
   const handleRollDice = () => {
@@ -97,7 +115,6 @@ export const BoardGame = () => {
 
   return (
     <div className={style.boardGameGrid}>
-      <ManaList manaToUse={5}/>
       <div className={style.MenuWrapper}>
         <div>
           <h2>Inventory</h2>
@@ -111,10 +128,11 @@ export const BoardGame = () => {
         <HPButton onClick={handleRollDice}>Roll the dice</HPButton>
       </div>
 
-      <div className={style.boardContainer}>
+      <div className={style.boardCenter}>
+        <ManaList manaToUse={6}/>
         <Game />
         <div className={style.wrapperProgressBar}>
-          <ProgressBar countDownTime={20} activate={false} />
+          <ProgressBar countDownTime={20} activate={true} />
         </div>
       </div>
 
@@ -128,6 +146,8 @@ export const BoardGame = () => {
                   <SpellButton
                     image={spell.image}
                     name={spell.name}
+                    sound={spell.sound}
+                    handleClick={() => handleSpellClick(spell)}
                     key={key}
                   />
                 )
@@ -138,7 +158,14 @@ export const BoardGame = () => {
         </div>
       </div>
 
-      {displayDice && <Dice diceValue={diceValue} />}
+      {
+        displayDice && <Dice diceValue={diceValue} />
+      }
+
+      {
+        displayAnimation &&
+        <SpellAnimation spell={selectedSpell}/>
+      }
     </div>
   )
 }
