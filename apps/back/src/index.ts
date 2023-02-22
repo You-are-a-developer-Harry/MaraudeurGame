@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 const { Server } = require('socket.io')
 export const io = new Server(server, {
   cors: {
-    origin: config.frontOrigin,
+    origin: '*',
   },
 })
 

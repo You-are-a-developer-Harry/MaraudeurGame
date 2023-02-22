@@ -29,5 +29,9 @@
     "tsconfig-paths": "^4.1.2",
     "types": "*",
     "typescript": "^4.9.5"
+  },
+  "volta": {
+    "node": "18.14.2",
+    "yarn": "1.22.19"
   }
 }
