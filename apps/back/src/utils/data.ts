@@ -1,4 +1,4 @@
-import { RoomData } from "types";
+import { RoomData } from "../types";
 import { BaseActionObject, Interpreter, ResolveTypegenMeta, ServiceMap, TypegenDisabled } from "xstate";
 
 export const boards = new Map<string, RoomData>()

@@ -1,4 +1,4 @@
-import { Board, MazeCell, Player } from "types"
+import { Board, MazeCell, Player } from "../types"
 
 export function movePlayer(board: Board, player: Player, destinationCell: MazeCell) {
   board.forEach((row) => {

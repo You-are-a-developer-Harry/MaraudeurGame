@@ -1,5 +1,5 @@
 import { Server, Socket } from "socket.io";
-import { MazeCell, Player } from "types";
+import { MazeCell, Player } from "../types";
 import { boards, stateMachines, userMoved } from "../utils/data";
 import { getCurrentRoom } from "../utils/socketHelpers";
 import { logger } from "../utils/logger";

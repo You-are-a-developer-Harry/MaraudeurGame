@@ -1,5 +1,5 @@
-import { MazeCell, Player, SecretObject } from "types";
-import { generateRandom } from "utils";
+import { MazeCell, Player, SecretObject } from "../types";
+import { generateRandom } from "../utils/generateRandom";
 
 export function randomSpawnCellItem(
   board: MazeCell[][],

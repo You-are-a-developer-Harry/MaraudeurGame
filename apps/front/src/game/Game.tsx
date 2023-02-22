@@ -6,7 +6,7 @@ import { useGameStore } from "@stores/GameStore";
 import { socket } from "@services/socket";
 import classNames from "classnames";
 
-import { getAvailableCells } from "utils";
+import { getAvailableCells } from "../utils/getAvailableCells";
 import { CellObject } from "./components/CellObject";
 import { CellWitch } from "./components/CellWitch";
 import { useUserStore } from "@stores/UserStore";

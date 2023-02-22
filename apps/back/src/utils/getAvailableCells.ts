@@ -1,4 +1,4 @@
-import { Coordinates, MazeCell } from 'types'
+import { Coordinates, MazeCell } from '../types'
 
 export function _getAvailableCells(
   origin: Coordinates,

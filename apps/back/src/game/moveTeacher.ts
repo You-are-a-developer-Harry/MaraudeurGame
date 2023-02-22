@@ -1,5 +1,6 @@
-import { Board, MazeCell, Player } from 'types'
-import { generateRandom, getAvailableCells } from 'utils'
+import { Board, MazeCell, Player } from '../types'
+import { generateRandom } from '../utils/generateRandom'
+import { getAvailableCells } from '../utils/getAvailableCells';
 
 const MOVE_RANGE = [1, 3]
 
