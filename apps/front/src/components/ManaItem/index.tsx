@@ -13,7 +13,7 @@ export const ManaItem = (props: ManaProps) => {
         src={ManaImage} 
         alt={"mana-item"} 
         className={props.isUsed ? styles.manaItemDisabled : styles.manaItem} 
-        height={"80px"}
+        width={"12%"}
         />
     )
 }

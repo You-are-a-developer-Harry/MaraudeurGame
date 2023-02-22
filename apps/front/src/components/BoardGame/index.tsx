@@ -14,6 +14,7 @@ import { SpellButton } from "../SpellButton";
 import { HPButton } from "../HPButton";
 import Dice from "../Dice";
 import { useState } from "react";
+import { ManaList } from "../ManaList";
 
 const spells = [
   {
@@ -118,6 +119,8 @@ export const BoardGame = () => {
           <ProgressBar countDownTime={20} activate={false}/>
         </div>
       </div>
+
+      <ManaList manaToUse={10}/>
 
       <div className={style.rightMenu}>
         <div className={style.MenuWrapper}>
