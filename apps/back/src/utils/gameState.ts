@@ -1,7 +1,4 @@
-import { createMachine, interpret } from "xstate";
-import { io } from "../index";
-
-export const gameState = createMachine({
+export const machineSettings = {
   predictableActionArguments: true,
   id: 'gameState',
   initial: 'Waiting',
@@ -42,7 +39,7 @@ export const gameState = createMachine({
           }
         },
         Finished: {
-          type: 'final',
+          type: 'final' as const,
         },
       },
       on: { STOP: '.Finished' },
@@ -52,9 +49,4 @@ export const gameState = createMachine({
   schema: {
     events: {} as { type: 'START' } | { type: 'END_PHASE' } | { type: 'STOP' },
   },
-})
-
-export const machine = interpret(gameState).onTransition((state) => {
-  console.log(state.value)
-  io.sockets.in('room1').emit('state:update', state.value)
-})
+}

@@ -1,8 +1,7 @@
 import { Server, Socket } from "socket.io";
 import { MazeCell, Player } from "types";
-import { boards, userMoved } from "../utils/data";
+import { boards, stateMachines, userMoved } from "../utils/data";
 import { getCurrentRoom } from "../utils/socketHelpers";
-import { machine } from "../utils/gameState";
 import { logger } from "../utils/logger";
 import { movePlayer } from "../game/movePlayer";
 import { moveTeachers } from "../game/moveTeacher";
@@ -19,7 +18,6 @@ export function playerHandler(io: Server, socket: Socket) {
     // Move teachers
     moveTeachers(currentBoard)
 
-
     if(currentMoves.indexOf(player.id) === -1){
       console.log(currentMoves)
       currentMoves.push(player.id)
@@ -31,7 +29,7 @@ export function playerHandler(io: Server, socket: Socket) {
 
     if (usersInRoom.filter((item) => !currentMoves.includes(item)).length === 0){
       logger.debug('All players moved')
-      machine.send('END_PHASE')
+      stateMachines.get(currentRoom)!.send('END_PHASE')
       userMoved.set(currentRoom, [])
       io.sockets.in(currentRoom).emit('map:update', boards.get(currentRoom))
     }

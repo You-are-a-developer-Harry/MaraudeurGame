@@ -21,8 +21,6 @@ export const io = new Server(server, {
   },
 })
 
-machine.start()
-
 const onConnection = (socket: Socket) => {
   io.socketsJoin('room1')
 
