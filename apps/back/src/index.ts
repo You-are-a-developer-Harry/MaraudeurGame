@@ -4,6 +4,8 @@ import { config } from "./utils/config";
 import { roomHandler } from "./handlers/roomHandler";
 import { playerHandler } from "./handlers/playerHandler";
 import { stateHandler } from "./handlers/stateHandler";
+import { Spell } from "./entities/Spell";
+import { AppDataSource } from "../dbConfig";
 
 const app: Express = express()
 const http = require('http')
@@ -11,6 +13,12 @@ const server = http.createServer(app)
 
 app.get("/", (req, res) => {
   res.send('Hello world!')
+})
+
+app.get('/spells', (req, res) => {
+  const spellRepository = AppDataSource.getRepository(Spell)
+  const spells = spellRepository.find() ?? []
+  res.send(spells)
 })
 
 const { Server } = require('socket.io')

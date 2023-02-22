@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { SpellType } from "../types";
+import { Sound } from "./Sound";
 
 @Entity()
 export class Spell implements SpellType {
@@ -10,5 +11,14 @@ export class Spell implements SpellType {
   name!: string
 
   @Column()
-  cost!: number
+  image!: string
+
+  @ManyToOne(() => Sound)
+  sound?: Sound
+
+  @Column()
+  mana!: number
+
+  @Column("text")
+  description!: string
 }
