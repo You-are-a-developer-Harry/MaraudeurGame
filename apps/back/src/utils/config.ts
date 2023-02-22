@@ -2,7 +2,7 @@ require('dotenv').config()
 
 export const config = {
   frontOrigin: process.env.FRONTEND_ORIGIN ?? 'http://127.0.0.1:5173',
-  port: Number(process.env.PORT) ?? 5000,
+  port: process.env.PORT ?? '5000',
   logLevel: process.env.LOG_LEVEL ?? 'warning',
   database: {
     host: process.env.DATABSE_HOST ?? 'localhost',

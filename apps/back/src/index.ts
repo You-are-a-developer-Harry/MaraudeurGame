@@ -54,7 +54,7 @@ setTimeout(() => {
   log()
 }, 1100)*/
 
-server.listen(config.port, () => {
+server.listen(Number(config.port), () => {
   console.log(
     `⚡️[server]: Server is running at http://localhost:${config.port}`
   )
