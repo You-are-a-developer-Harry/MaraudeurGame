@@ -1,11 +1,11 @@
-import { Spell } from "./src/entities/Spell";
+import { Spell } from "@entities/Spell";
 import { DataSource } from "typeorm";
-import { config } from "./src/utils/config";
+import { config } from "@utils/config";
 import { migrations } from "./migrations";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
 export const AppDataSource = new DataSource({
-  type: "mysql",
+  type: 'mysql',
   host: config.database.host,
   port: Number(config.database.port),
   username: config.database.user,

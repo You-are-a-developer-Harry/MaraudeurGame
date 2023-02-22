@@ -1,5 +1,5 @@
-import { SecretObject } from 'types'
-import styles from './cell-object.module.css'
+import { SecretObject } from "types";
+import styles from "./cell-object.module.css";
 
 type Props = {
   object: SecretObject
