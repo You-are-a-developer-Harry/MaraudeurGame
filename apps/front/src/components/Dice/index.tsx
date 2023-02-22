@@ -47,7 +47,7 @@ export function Dice({ diceValue }: { diceValue: number }) {
 
     // set color depending on house of player
     let color
-    let house = user.house
+    let house = user.house.name
     console.log('house:', house)
 
     switch (house) {
