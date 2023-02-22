@@ -40,6 +40,8 @@ function isAvailableCellForTp(cell: MazeCell, availableCellsForTp: MazeCell[]) {
 export function Game() {
   const [availableCellsForTp, setAvailableCellsForTp] = useState<MazeCell[]>([])
   const [selectedTeacher, setSelectedTeacher] = useState<MazeCell>()
+export function Game({ MAX_DISTANCE_BY_TURN }: { MAX_DISTANCE_BY_TURN: number }) {
+  console.log('MAX_DISTANCE_BY_TURN:', MAX_DISTANCE_BY_TURN);
   const [dangerosityCells, setDangerosityCells] = useState<MazeCell[]>([])
   const [availableCells, setAvailableCells] = useState<MazeCell[]>([])
   const [selectedCell, setSelectedCell] = useState<

@@ -111,6 +111,7 @@ export const BoardGame = () => {
     socket.emit('state:start');
   }
 
+
   const handleSpellClick = (spell: any) => {
     setSelectedSpell(spell);
     setDisplayAnimation(true);
