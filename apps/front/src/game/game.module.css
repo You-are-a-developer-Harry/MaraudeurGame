@@ -2,9 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("/parchment-texture.jpg");
-  background-size: cover;
-    height: 100vh;
 }
 .game {
   display: grid;
