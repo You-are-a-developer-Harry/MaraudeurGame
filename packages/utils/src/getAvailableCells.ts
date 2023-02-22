@@ -1,6 +1,6 @@
-import { Coordinates, MazeCell } from "packages/types";
+import { Coordinates, MazeCell } from 'types'
 
-export function getAvailableCells(
+export function _getAvailableCells(
   origin: Coordinates,
   board: MazeCell[][],
   deps: number,
@@ -21,7 +21,7 @@ export function getAvailableCells(
 
   if (deps === 0) return visited
 
-  let neighbors = []
+  let neighbors: MazeCell[] = []
   // Get neighbors according to walls
   if (!currentCell.top && y > 0) neighbors.push(board[y - 1][x])
   if (!currentCell.bottom && y < board.length - 1)
@@ -42,7 +42,7 @@ export function getAvailableCells(
   if (!neighbors.length) return visited
 
   neighbors.forEach((neighbor) => {
-    getAvailableCells(
+    _getAvailableCells(
       { x: neighbor.x, y: neighbor.y },
       board,
       deps - 1,
@@ -51,4 +51,16 @@ export function getAvailableCells(
   })
 
   return visited
+}
+
+export function getAvailableCells(
+  origin: Coordinates,
+  board: MazeCell[][],
+  deps: number,
+  visited: MazeCell[] = []
+) {
+  const availableCells = _getAvailableCells(origin, board, deps, visited)
+  return availableCells.filter(
+    (cell) => cell.x !== origin.x || cell.y !== origin.y
+  )
 }

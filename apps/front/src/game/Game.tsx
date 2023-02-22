@@ -6,7 +6,7 @@ import { useGameStore } from "@stores/GameStore";
 import { socket } from "@services/socket";
 import classNames from "classnames";
 
-import { getAvailableCells } from "@utils/getAvailableCells";
+import { getAvailableCells } from "utils";
 import { CellObject } from "./components/CellObject";
 import { CellWitch } from "./components/CellWitch";
 import { useUserStore } from "@stores/UserStore";
@@ -14,6 +14,7 @@ import { useUserStore } from "@stores/UserStore";
 const MAX_DISTANCE_BY_TURN = 3
 
 export function Game() {
+  const [dangerosityCells, setDangerosityCells] = useState<MazeCell[]>([])
   const [availableCells, setAvailableCells] = useState<MazeCell[]>([])
   const cells = useGameStore((state) => state.board)
   const user = useUserStore((state) => state.user)
@@ -30,8 +31,7 @@ export function Game() {
     socket.emit('player:move', cell, user)
   }
 
-  useEffect(() => {
-    if (!cells.length) return
+  const appendAvailableCells = () => {
     // TODO : select only current user
     const player = cells
       .flat()
@@ -44,6 +44,23 @@ export function Game() {
         MAX_DISTANCE_BY_TURN
       )
     )
+  }
+
+  const appendDangerosityCells = () => {
+    const teachers = cells.flat().filter(cell => cell.teachers && cell.teachers.length).flat()
+    const _dangerosityCells: MazeCell[] = []
+    teachers.forEach(teacher => {
+      _dangerosityCells.push(
+        ...getAvailableCells({ x: teacher.x, y: teacher.y }, cells, 3)
+      )
+    })
+    setDangerosityCells(_dangerosityCells)
+  }
+
+  useEffect(() => {
+    if (!cells.length) return
+    appendAvailableCells()
+    appendDangerosityCells()
   }, [cells])
 
   if (!cells.length) {
@@ -77,6 +94,13 @@ export function Game() {
                         availableCell.x === cell.x && availableCell.y === cell.y
                     )
                       ? styles.visitedCell
+                      : null,
+                    dangerosityCells.find(
+                      (dangerosityCell) =>
+                        dangerosityCell.x === cell.x &&
+                        dangerosityCell.y === cell.y
+                    )
+                      ? styles.dangerosityCell
                       : null
                   )}
                   key={`${x}-${y}`}
@@ -91,7 +115,9 @@ export function Game() {
                       <FootPrint player={player} />
                     ))}
                     {cell.object && <CellObject object={cell.object} />}
-                    {cell.teacher && <CellWitch />}
+                    {cell.teachers?.map((_) => (
+                      <CellWitch />
+                    ))}
                   </div>
                 </div>
               )

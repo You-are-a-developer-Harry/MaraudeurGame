@@ -15,7 +15,7 @@ export const generateBoard = () => {
   })
 
   // Generate teacher
-  board = randomSpawnCellItem(board, 'teacher', {})
+  board = randomSpawnCellItem(board, 'teachers', {})
 
   return board
 }

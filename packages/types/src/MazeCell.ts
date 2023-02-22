@@ -11,5 +11,5 @@ export type MazeCell = {
   set: number
   players?: Player[]
   object?: SecretObject
-  teacher?: Player
+  teachers?: Player[]
 }
