@@ -152,7 +152,7 @@ export function Dice({ diceValue }: { diceValue: number }) {
     <canvas
       ref={canvasRef}
       id="canvas"
-      style={{ position: 'absolute', top: 0 }}
+      style={{ position: 'absolute', top: 0, zIndex: 3 }}
     ></canvas>
   )
 }
