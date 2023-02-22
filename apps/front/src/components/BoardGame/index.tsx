@@ -33,37 +33,55 @@ const spells = [
     name: 'Patronome',
     image: spell1,
     sound: spellSound1,
-    mana: 5
+    mana: 1,
+    description: 'Une description du sort'
   },
   {
     name: 'Expelliarmus',
     image: spell2,
     sound: spellSound2,
-    mana: 5
+    mana: 1,
+    description: 'Une description du sort'
   },
   {
     name: 'Defendio',
     image: spell3,
     sound: spellSound3,
-    mana: 5
+    mana: 1,
+    description: 'Une description du sort'
   },
   {
     name: 'Periculum',
     image: spell4,
     sound: spellSound4,
-    mana: 5
+    mana: 1,
+    description: 'Une description du sort'
   },
   {
     name: 'Sectumsempra',
     image: spell5,
     sound: spellSound5,
-    mana: 5
+    mana: 1,
+    description: 'Une description du sort'
   },
   {
     name: 'Stupefy',
     image: spell6,
     sound: spellSound6,
-    mana: 5
+    mana: 1,
+    description: 'Une description du sort'
+  },
+  {
+    name: 'Reverso',
+    image: spell7,
+    mana: 1,
+    description: 'Une description du sort'
+  },
+  {
+    name: 'Doloris',
+    image: spell8,
+    mana: 1,
+    description: 'Une description du sort'
   },
 ]
 
@@ -164,6 +182,8 @@ export const BoardGame = () => {
                     spell={spell}
                     userMana={userMana}
                     handleClick={() => handleSpellClick(spell)}
+                    mana={spell.mana}
+                    description={spell.description}
                     key={key}
                   />
                 )
