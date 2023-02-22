@@ -1,8 +1,5 @@
-import { createMachine } from "xstate";
-
-const asyncFunction = () => {
-  return new Promise((res) => setTimeout(() => res('Done'), 1000))
-}
+import { createMachine, interpret } from "xstate";
+import { io } from "../index";
 
 export const gameState = createMachine({
   predictableActionArguments: true,
@@ -19,20 +16,30 @@ export const gameState = createMachine({
       states: {
         MovePhase: {
           description: 'Players can move',
-          invoke: {
-            src: () => asyncFunction,
-            onDone: {
-              target: 'SpellPhase',
-            },
-          },
+          on: { END_PHASE: 'SpellPhase' },
+          after: {
+            5000: {
+              target: 'SpellPhase'
+            }
+          }
         },
         SpellPhase: {
           description: 'Players choose spells',
           on: { END_PHASE: 'SpellResolutionPhase' },
+          after: {
+            5000: {
+              target: 'SpellResolutionPhase'
+            }
+          }
         },
         SpellResolutionPhase: {
           description: 'Players choose spells',
           on: { END_PHASE: 'MovePhase' },
+          after: {
+            5000: {
+              target: 'MovePhase'
+            }
+          }
         },
         Finished: {
           type: 'final',
@@ -45,4 +52,9 @@ export const gameState = createMachine({
   schema: {
     events: {} as { type: 'START' } | { type: 'END_PHASE' } | { type: 'STOP' },
   },
+})
+
+export const machine = interpret(gameState).onTransition((state) => {
+  console.log(state.value)
+  io.sockets.in('room1').emit('state:update', state.value)
 })

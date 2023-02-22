@@ -2,7 +2,7 @@ import { Server, Socket } from "socket.io";
 import { generateBoard } from "../game/generateBoard";
 import { initPlayer } from "../game/initPlayer";
 import { logger } from "../utils/logger"
-import { boards } from "../utils/data";
+import { boards, userMoved } from "../utils/data";
 import { RoomData, User } from "types";
 
 export function roomHandler(io: Server, socket: Socket) {
@@ -22,6 +22,7 @@ export function roomHandler(io: Server, socket: Socket) {
       logger.debug('Generate new board for room : %s', room)
       roomData.board = generateBoard()
       boards.set(room, roomData)
+      userMoved.set(room, [])
     }
 
     socket.join(room)

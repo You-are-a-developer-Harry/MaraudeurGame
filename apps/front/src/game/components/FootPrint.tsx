@@ -3,7 +3,6 @@ import styles from "./footprint.module.css";
 
 type Props = {
   player: Player,
-  user: User,
 }
 
 const HOUSE_TO_COLOR = {
@@ -13,7 +12,7 @@ const HOUSE_TO_COLOR = {
   [HogwartHouse.SLYTHERIN]: 'green',
 }
 
-export function FootPrint({ player, user }: Props) {
+export function FootPrint({ player }: Props) {
   const color = HOUSE_TO_COLOR[player.house.name]
   return (
     <svg

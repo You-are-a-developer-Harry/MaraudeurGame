@@ -16,6 +16,7 @@ const MAX_DISTANCE_BY_TURN = 3
 export function Game() {
   const [dangerosityCells, setDangerosityCells] = useState<MazeCell[]>([])
   const [availableCells, setAvailableCells] = useState<MazeCell[]>([])
+  const [selectedCell, setSelectedCell] = useState<{x: number, y: number} | undefined>()
   const cells = useGameStore((state) => state.board)
   const user = useUserStore((state) => state.user)
 
@@ -28,14 +29,20 @@ export function Game() {
       )
     )
       return
+    setSelectedCell({x: cell.x, y: cell.y})
     socket.emit('player:move', cell, user)
   }
+
+  useEffect(() => {
+    setSelectedCell(undefined)
+  }, [cells]);
+
 
   const appendAvailableCells = () => {
     // TODO : select only current user
     const player = cells
       .flat()
-      .find((cell) => cell.players?.some((player) => player.id === user.id))
+      .find((cell) => cell.players?.some((player) => player.id === user?.id))
     if (!player) return
     setAvailableCells(
       getAvailableCells(
@@ -55,6 +62,17 @@ export function Game() {
       )
     })
     setDangerosityCells(_dangerosityCells)
+  }
+
+  const getCellColor = (cell: MazeCell) => {
+    if (selectedCell && selectedCell.x === cell.x && selectedCell.y === cell.y){
+      return styles.selectedCell
+    }else if(availableCells.find(
+      (availableCell) =>
+        availableCell.x === cell.x && availableCell.y === cell.y
+    )){
+      return styles.visitedCell
+    }
   }
 
   useEffect(() => {
@@ -89,12 +107,7 @@ export function Game() {
                   }}
                   className={classNames(
                     styles.cellWrapper,
-                    availableCells.find(
-                      (availableCell) =>
-                        availableCell.x === cell.x && availableCell.y === cell.y
-                    )
-                      ? styles.visitedCell
-                      : null,
+                    getCellColor(cell),
                     dangerosityCells.find(
                       (dangerosityCell) =>
                         dangerosityCell.x === cell.x &&

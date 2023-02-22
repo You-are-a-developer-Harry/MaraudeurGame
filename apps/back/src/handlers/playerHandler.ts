@@ -1,27 +1,40 @@
 import { Server, Socket } from "socket.io";
 import { MazeCell, Player } from "types";
-import { boards } from "../utils/data";
+import { boards, userMoved } from "../utils/data";
+import { getCurrentRoom } from "../utils/socketHelpers";
+import { machine } from "../utils/gameState";
 import { logger } from "../utils/logger";
 import { movePlayer } from "../game/movePlayer";
 import { moveTeachers } from "../game/moveTeacher";
 
 export function playerHandler(io: Server, socket: Socket) {
   const movePlayerHandler = (selectedCell: MazeCell, player: Player) => {
-    const rooms = Array.from(socket.rooms.values())
-    if (rooms.length > 2) {
-      logger.error('More than 2 rooms')
-    }
-    const currentRoom = rooms[1]
-    let currentBoard = boards.get(currentRoom)!.board
+    const currentRoom = getCurrentRoom(socket)
+    const currentBoard = boards.get(currentRoom)!.board
+    const currentMoves = userMoved.get(currentRoom)!
 
     // Move player
     movePlayer(currentBoard, player, selectedCell)
 
     // Move teachers
     moveTeachers(currentBoard)
-    
 
-    io.sockets.in(currentRoom).emit('map:update', boards.get(currentRoom))
+
+    if(currentMoves.indexOf(player.id) === -1){
+      console.log(currentMoves)
+      currentMoves.push(player.id)
+      console.log(currentMoves)
+    }
+
+    const usersInRoom = boards.get(currentRoom)!.players.map(player => player.id)
+    console.log(currentMoves, usersInRoom)
+
+    if (usersInRoom.filter((item) => !currentMoves.includes(item)).length === 0){
+      logger.debug('All players moved')
+      machine.send('END_PHASE')
+      userMoved.set(currentRoom, [])
+      io.sockets.in(currentRoom).emit('map:update', boards.get(currentRoom))
+    }
   }
 
   socket.on('player:move', movePlayerHandler)

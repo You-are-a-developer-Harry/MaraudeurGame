@@ -1,12 +1,16 @@
 import { create } from "zustand";
-import { Board } from "types";
+import { Board, GameStateValue } from "types";
 
 interface GameStore {
   board: Board
+  gameState: GameStateValue
   setBoard: (newBoard: Board) => void
+  setGameState: (newState: GameStateValue) => void
 }
 
 export const useGameStore = create<GameStore>((set) => ({
   board: [],
-  setBoard: (newBoard) => set(() => ({ board: newBoard }), true),
+  gameState: "",
+  setBoard: (newBoard) => set(() => ({ board: newBoard })),
+  setGameState: (newState) => set(() => ({ gameState: newState })),
 }))

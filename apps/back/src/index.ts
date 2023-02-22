@@ -3,6 +3,8 @@ import { Socket } from "socket.io";
 import { config } from "./utils/config";
 import { roomHandler } from "./handlers/roomHandler";
 import { playerHandler } from "./handlers/playerHandler";
+import { machine } from "./utils/gameState";
+import { stateHandler } from "./handlers/stateHandler";
 
 const app: Express = express()
 const http = require('http')
@@ -13,50 +15,23 @@ app.get("/", (req, res) => {
 })
 
 const { Server } = require('socket.io')
-const io = new Server(server, {
+export const io = new Server(server, {
   cors: {
     origin: config.frontOrigin,
   },
 })
 
+machine.start()
+
 const onConnection = (socket: Socket) => {
   io.socketsJoin('room1')
 
   roomHandler(io, socket)
+  stateHandler(io, socket)
   playerHandler(io, socket)
 }
 
 io.on('connection', onConnection)
-
-/*
-const machine = interpret(gameState).start()
-function log(){
-  let value = machine.getSnapshot().value
-  if (typeof value === "string"){
-    console.log(value)
-  }else if(typeof value === "object"){
-    console.log(value.Playing)
-  }
-}
-
-log()
-machine.send('START')
-log()
-machine.send('END_PHASE')
-log()
-machine.send('END_PHASE')
-log()
-machine.send('END_PHASE')
-log()
-machine.send('END_PHASE')
-log()
-setTimeout(() => {
-  log()
-  machine.send('END_PHASE')
-  log()
-  machine.send('STOP')
-  log()
-}, 1100)*/
 
 server.listen(Number(config.port), () => {
   console.log(
