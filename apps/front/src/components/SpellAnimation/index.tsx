@@ -7,7 +7,6 @@ export const SpellAnimation = (props: SpellAnimationProps) => {
   return (
     <div className={style.mainWrapper}>
       <div className={style.content}>
-        <h1>{props.spell.name} !!!</h1>
         <div>
           <div className={style.halo}></div>
           <div className={style.flipCard}>
@@ -21,6 +20,7 @@ export const SpellAnimation = (props: SpellAnimationProps) => {
             </div>
           </div>
         </div>
+        <h1>{props.spell.name} !!!</h1>
       </div>
     </div>
   )
