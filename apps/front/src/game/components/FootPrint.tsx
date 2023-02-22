@@ -1,19 +1,44 @@
-import { HogwartHouse, Player } from "types";
+import { HogwartHouse, Player,  } from "types";
+import { useUserStore } from "@stores/UserStore";
 import styles from "./footprint.module.css";
 
 type Props = {
   player: Player
 }
 
-const HOUSE_TO_COLOR = {
-  [HogwartHouse.GRYFFONDOR]: 'red',
-  [HogwartHouse.HUFFLEPUFF]: 'orange',
-  [HogwartHouse.RAVENCLAW]: 'blue',
-  [HogwartHouse.SLYTHERIN]: 'green',
-}
-
 export function FootPrint({ player }: Props) {
-  const color = HOUSE_TO_COLOR[player.house]
+	// const HOUSE_TO_COLOR = {
+	// 	[HogwartHouse.GRYFFONDOR]: 'red',
+	// 	[HogwartHouse.HUFFLEPUFF]: 'orange',
+	// 	[HogwartHouse.RAVENCLAW]: 'blue',
+	// 	[HogwartHouse.SLYTHERIN]: 'green',
+	// }
+//   const color = HOUSE_TO_COLOR[player.house]
+  const user = useUserStore((state) => state.user)
+  console.log('user:', user)
+  let color;
+  let house = user.house.name;
+  console.log('house:', house)
+
+  switch (house) {
+	case HogwartHouse.GRYFFONDOR:
+	  color = 'red'
+	  break
+	case HogwartHouse.SLYTHERIN:
+	  color = 'green'
+	  break
+	case HogwartHouse.HUFFLEPUFF:
+	  color = 'orange'
+	  break
+	case HogwartHouse.RAVENCLAW:
+	  color = 'blue'
+	  break
+	default: HogwartHouse.GRYFFONDOR
+	  color = 'red'
+	  break
+  }
+  console.log('color:', color)
+
   return (
     <svg
       className={styles.player}
