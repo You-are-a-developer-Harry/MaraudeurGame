@@ -14,6 +14,7 @@ import { SpellButton } from "../SpellButton";
 import { HPButton } from "../HPButton";
 import Dice from "../Dice";
 import { useState } from "react";
+import { ManaList } from "../ManaList";
 
 const spells = [
   {
@@ -96,6 +97,7 @@ export const BoardGame = () => {
 
   return (
     <div className={style.boardGameGrid}>
+      <ManaList manaToUse={5}/>
       <div className={style.MenuWrapper}>
         <div>
           <h2>Inventory</h2>
