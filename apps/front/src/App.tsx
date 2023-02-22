@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import {Game} from "./components/BoardGrid/Game";
+import {Game} from "./game/Game";
 import { useGameStore } from "./stores/GameStore";
 import { Board, HogwartHouse, RoomData, User } from 'types'
 import { socket } from "./services/socket";

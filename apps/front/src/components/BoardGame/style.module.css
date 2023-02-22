@@ -1,3 +1,8 @@
+.boardContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 .boardGameGrid {
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;

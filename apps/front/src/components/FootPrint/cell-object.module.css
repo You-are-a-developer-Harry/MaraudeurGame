@@ -1,8 +1,0 @@
-.cellObject {
-  width: 100%;
-  position: absolute;
-  z-index: 0;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-}

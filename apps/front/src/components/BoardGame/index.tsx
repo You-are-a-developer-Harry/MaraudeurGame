@@ -1,6 +1,6 @@
 import style from "./style.module.css"
 import { ProgressBar } from "../ProgressBar";
-import { Game } from "../BoardGrid/Game";
+import { Game } from "../../game/Game";
 import { InventoryItem } from "../InventoryItem";
 import spell1 from "../../assets/images/spells/spell1.png";
 import spell2 from "../../assets/images/spells/spell2.png";
@@ -112,7 +112,7 @@ export const BoardGame = () => {
         <HPButton onClick={handleRollDice}>Roll the dice</HPButton>
       </div>
 
-      <div>
+      <div className={style.boardContainer}>
         <Game/>
         <div className={style.wrapperProgressBar}>
           <ProgressBar countDownTime={20} activate={false}/>
