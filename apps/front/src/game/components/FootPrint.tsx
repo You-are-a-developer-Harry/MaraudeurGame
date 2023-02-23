@@ -19,9 +19,9 @@ export function FootPrint({ player, object }: Props) {
   const color = HOUSE_TO_COLOR[player.house.name]
   
   const [isHover, setIsHover] = useState(false);
-  const [referenceElement, setReferenceElement] = useState(null);
-  const [popperElement, setPopperElement] = useState(null);
-  const [arrowElement, setarrowElement] = useState(null);
+  const [referenceElement, setReferenceElement] = useState<any>(null);
+  const [popperElement, setPopperElement] = useState<any>(null);
+  const [arrowElement, setarrowElement] = useState<any>(null);
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     placement:"top-start",
     modifiers: [
