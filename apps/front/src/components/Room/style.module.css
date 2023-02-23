@@ -1,0 +1,56 @@
+.container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-image: url("../../assets/images/backgroundBoard.png");
+
+}
+.form{
+    background-color: rgba(236, 142, 1, 0.5);
+    padding: 50px 50px;
+    width: auto;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 4px ridge #003B77;
+    border-left: 4px groove #003B77;
+    border-right: 4px ridge #003B77;
+    border-bottom: 4px groove #003B77;
+}
+.btnHome{
+    margin: 10px auto;
+    width: 250px;
+    letter-spacing: 2px;
+    border-radius: 8px;
+    color: #ffc000;
+    font-size: 18px;
+    font-weight: 400;
+    text-shadow: 0 1px 3px #000;
+    text-align: center;
+    padding: 10px 0;
+    background: radial-gradient(circle, #003B77, #003B77);
+    border-top: 4px ridge #ffb000;
+    border-left: 4px groove #ffb000;
+    border-right: 4px ridge #ffb000;
+    border-bottom: 4px groove #ffb000;
+    box-shadow: inset 0 0 5px 3px rgba(1,1,1,0.3);
+
+    font-family: 'Skranji', cursive;
+}
+
+.btnHome:hover{
+    background: radial-gradient(circle, #095eb4, #003B77);
+    box-shadow: 0 0 5px 5px rgba(255,255,255,0.2);
+    cursor: pointer;
+}
+
+.btnHome:active{
+    background: radial-gradient(circle, #0f2c49, #095eb4);
+    box-shadow: 0 0 5px 5px rgba(255,255,255,0.2)
+}

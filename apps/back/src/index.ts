@@ -32,8 +32,6 @@ export const io = new Server(server, {
 })
 
 const onConnection = (socket: Socket) => {
-  io.socketsJoin('room1')
-
   roomHandler(io, socket)
   stateHandler(io, socket)
   playerHandler(io, socket)
