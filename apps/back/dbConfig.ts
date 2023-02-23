@@ -1,19 +1,15 @@
 import { Spell } from "./src/entities/Spell";
 import { DataSource } from "typeorm";
-import { config } from "./src/utils/config";
 import { migrations } from "./migrations";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
+import { Sound } from "./src/entities/Sound";
 
 export const AppDataSource = new DataSource({
-  type: 'mysql',
-  host: config.database.host,
-  port: Number(config.database.port),
-  username: config.database.user,
-  password: config.database.password,
-  database: config.database.name,
+  type: 'sqlite',
+  database: 'db.sqlite',
   namingStrategy: new SnakeNamingStrategy(),
   synchronize: true,
   logging: true,
-  entities: [Spell],
+  entities: [Spell, Sound],
   migrations: migrations,
 })

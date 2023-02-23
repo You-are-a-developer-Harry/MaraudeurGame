@@ -1,5 +1,10 @@
+import { SoundType } from "./SoundType";
+
 export interface SpellType {
   id: number
   name: string
-  cost: number
+  image: string
+  sound?: SoundType
+  mana: number
+  description: string
 }
