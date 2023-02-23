@@ -13,7 +13,7 @@ function App() {
   const user = useUserStore((state) => state.user);
   const setPlayer = usePlayerStore(state => state.setPlayer)
   const [isConnected, setIsConnected] = useState(false); // ajouter un état pour gérer si l'utilisateur est connecté
-  const [winner, setWinner] = useState('');
+  const [winner, setWinner] = useState({});
   const [showLeaderboard, setShowLeaderboard] = useState(false);
 
   const handleSubmit = async (event: any) => {
@@ -42,7 +42,7 @@ function App() {
     })
     socket.on("room:victory", (victoryPlayer: Player) => {
     //   alert(`${victoryPlayer.name} is the winner!!!!`)
-	  setWinner(victoryPlayer.name)
+	  setWinner(victoryPlayer)
 	  setShowLeaderboard(true)
     })
   }, [user]);
