@@ -81,19 +81,19 @@
 }
 .gryffondorSpawn {
   background-image: url('../assets/images/houses/grif.png');
-  transform: translate3d(-20px, -20px, 0);
+  transform: translate3d(-30px, -20px, 0);
 }
 .serpentardSpawn {
   background-image: url('../assets/images/houses/serp.png');
-  transform: translate3d(20px, 20px, 0);
+  transform: translate3d(30px, 20px, 0);
 }
 .serdaigleSpawn {
   background-image: url('../assets/images/houses/serd.png');
-  transform: translate3d(-20px, 20px, 0);
+  transform: translate3d(-30px, 20px, 0);
 }
 .poufsouffleSpawn {
   background-image: url('../assets/images/houses/pouf.png');
-  transform: translate3d(20px, -20px, 0);
+  transform: translate3d(30px, -20px, 0);
 }
 
 /* Available cells for tp */

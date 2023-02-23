@@ -1,3 +1,8 @@
+.container {
+  width: 100%;
+  height: 100%;
+}
+
 .player {
   width: 80%;
   position: relative;
@@ -15,4 +20,37 @@
   position: absolute;
   bottom: 0;
   right: 0;
+}
+
+.popper {
+  background: radial-gradient(circle, #095eb4, #003b77);
+  color: white;
+  font-weight: bold;
+  padding: 4px 8px;
+  font-size: 13px;
+  border-radius: 4px;
+  width: auto;
+}
+
+.popperHidden {
+  display: none;
+}
+
+.arrow,
+.arrow::before {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: inherit;
+  bottom: -2px;
+}
+
+.arrow {
+  visibility: hidden;
+}
+
+.arrow::before {
+  visibility: visible;
+  content: '';
+  transform: rotate(45deg);
 }
