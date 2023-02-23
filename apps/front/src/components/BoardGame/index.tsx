@@ -7,6 +7,7 @@ import { HPButton } from "../HPButton";
 import Dice from "../Dice";
 import { useState } from "react";
 import { SpellAnimation } from "@components/SpellAnimation";
+import Leaderboard from "@components/Leaderboard";
 
 import spell1 from "@assets/images/spells/spell1.png";
 import spell2 from "@assets/images/spells/spell2.png";
@@ -102,7 +103,12 @@ const inventory = [
   },
 ]
 
-export const BoardGame = () => {
+type BoardGameProps = {
+	showLeaderboard: boolean;
+	winner: object;
+}
+
+export const BoardGame = ({ showLeaderboard, winner }: BoardGameProps ) => {
   const [diceValue, setDiceValue] = useState(1)
   const [displayDice, setDisplayDice] = useState(false)
   const [displayAnimation, setDisplayAnimation] = useState(false);
@@ -142,6 +148,8 @@ export const BoardGame = () => {
     }, 5000)
   }
 
+  console.log('winner:', winner)
+  console.log('showLeaderboard:', showLeaderboard)
 
   return (
     <div className={style.boardGameGrid}>
@@ -187,7 +195,11 @@ export const BoardGame = () => {
 
       {displayDice && <Dice diceValue={diceValue} />}
 
-      {displayAnimation && <SpellAnimation spell={selectedSpell} />}
+      {
+        displayAnimation &&
+        <SpellAnimation spell={selectedSpell}/>
+      }
+	  {showLeaderboard && <Leaderboard winPlayer={winner} />}
     </div>
   )
 }

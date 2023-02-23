@@ -1,0 +1,25 @@
+.container {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 4;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-image: url("parchment-texture.jpg");
+}
+
+.title {
+	margin-bottom: 10px;
+}
+
+.title span {
+	font-family: 'Skranji', cursive;
+}
+
+.house {
+	width: 200px;
+	border: solid white;
+	border-radius: 100px;
+}

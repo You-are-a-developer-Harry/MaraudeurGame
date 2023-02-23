@@ -20,6 +20,8 @@ function App() {
 
   const [isConnected, setIsConnected] = useState(false); // ajouter un état pour gérer si l'utilisateur est connecté
   const [roomChosen, setRoomChosen] = useState(false);
+  const [winner, setWinner] = useState({});
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -52,12 +54,14 @@ function App() {
       setGameState(state)
     })
     socket.on("room:victory", (victoryPlayer: Player) => {
-      alert(`${victoryPlayer.name} is the winner!!!!`)
+    //   alert(`${victoryPlayer.name} is the winner!!!!`)
+	  setWinner(victoryPlayer)
+	  setShowLeaderboard(true)
     })
   }, [user, room]);
 
   return roomChosen ? (
-    <BoardGame />
+    <BoardGame showLeaderboard={showLeaderboard} winner={winner}/>
   ) : (
     isConnected ? (
       <Room setRoomChosen={setRoomChosen} />
