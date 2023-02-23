@@ -18,6 +18,7 @@ function App() {
   const setPlayer = usePlayerStore(state => state.setPlayer)
 
   const [isConnected, setIsConnected] = useState(false); // ajouter un état pour gérer si l'utilisateur est connecté
+  const [roomChosen, setRoomChosen] = useState(false);
   const [winner, setWinner] = useState({});
   const [showLeaderboard, setShowLeaderboard] = useState(false);
 
@@ -56,7 +57,7 @@ function App() {
     })
   }, [user, room]);
 
-  return isConnected ? (
+  return roomChosen ? (
     <BoardGame showLeaderboard={showLeaderboard} winner={winner}/>
   ) : (
     isConnected ? (
