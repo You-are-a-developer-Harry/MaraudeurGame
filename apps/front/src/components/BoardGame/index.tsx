@@ -104,7 +104,7 @@ const inventory = [
 
 type BoardGameProps = {
 	showLeaderboard: boolean;
-	winner: string;
+	winner: object;
 }
 
 export const BoardGame = ({ showLeaderboard, winner }: BoardGameProps ) => {
