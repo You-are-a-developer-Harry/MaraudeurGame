@@ -176,6 +176,7 @@ export function Game() {
     if(selectedSpell.name === "Patronome") {
       setSpeedUser(5);
       setTurnSpeed(turn);
+      socket.emit('spell:speed-up', gamePlayer)
     }
 
   }, [selectedSpell])
