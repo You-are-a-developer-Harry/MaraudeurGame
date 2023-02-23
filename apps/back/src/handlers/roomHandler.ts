@@ -2,7 +2,7 @@ import { Server, Socket } from "socket.io";
 import { generateBoard } from "../game/generateBoard";
 import { initPlayer } from "../game/initPlayer";
 import { logger } from "../utils/logger"
-import { boards, stateMachines, userMoved } from "../utils/data";
+import { boards, stateMachines, userCastedSpell, userMoved } from "../utils/data";
 import {  RoomData, User } from "../types";
 import { createMachine, interpret } from "xstate";
 import { machineSettings } from "../utils/gameState";
@@ -23,6 +23,7 @@ export function roomHandler(io: Server, socket: Socket) {
       roomData = {
         board: [],
         players: [],
+        castedSpellsByUsers: [],
       }
       logger.debug('Generate new board for room : %s', room)
       roomData.board = generateBoard()
@@ -36,6 +37,7 @@ export function roomHandler(io: Server, socket: Socket) {
       machine.start()
       stateMachines.set(room, machine)
       userMoved.set(room, [])
+      userCastedSpell.set(room, [])
     }
 
     socket.join(room)

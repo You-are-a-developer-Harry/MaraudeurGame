@@ -29,3 +29,6 @@
     background: radial-gradient(circle, #0f2c49, #095eb4);
     box-shadow: 0 0 5px 5px rgba(255,255,255,0.2)
 }
+.disabledButton {
+    opacity: 0.6;
+}

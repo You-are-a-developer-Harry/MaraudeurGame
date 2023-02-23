@@ -89,3 +89,7 @@
   content: '';
   transform: rotate(45deg);
 }
+
+.disabledButton {
+  opacity: 0.6;
+}

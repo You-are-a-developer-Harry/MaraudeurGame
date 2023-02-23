@@ -8,4 +8,5 @@ export type SpellButtonProps = {
   }
   userMana: number
   handleClick: (spell: any) => void
+  disabled: boolean
 }

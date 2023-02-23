@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import styles from './game.module.css'
-import { HogwartHouse, MazeCell, Player } from '../types'
+import { HogwartHouse, MazeCell } from '../types'
 import { FootPrint } from './components/FootPrint'
 import { useGameStore } from '@stores/GameStore'
 import { socket } from '@services/socket'
@@ -153,7 +153,7 @@ export function Game() {
     const teacher = selectedTeacher?.teachers?.length
       ? selectedTeacher.teachers[0]
       : undefined
-    socket.emit('spell:teleport-teacher', teacher, cell)
+    socket.emit('spell:teleport-teacher', gamePlayer, teacher, cell)
     setAvailableCellsForTp([])
     setSelectedSpell(null)
   }

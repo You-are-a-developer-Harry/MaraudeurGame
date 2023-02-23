@@ -1,11 +1,16 @@
 import { Server, Socket } from 'socket.io'
+import { allowToCastSpell } from '../game/allowToCastSpell'
 import { MazeCell, Player } from '../types'
-import { boards } from '../utils/data'
+import { boards, stateMachines, userCastedSpell } from '../utils/data'
 import { logger } from '../utils/logger'
 import { getCurrentRoom } from '../utils/socketHelpers'
 
 export function spellHandler(io: Server, socket: Socket) {
-  const teleportTeacher = (teacher: Player, selectedCell: MazeCell) => {
+  const teleportTeacher = (
+    player: Player,
+    teacher: Player,
+    selectedCell: MazeCell
+  ) => {
     logger.debug('Tp teacher')
 
     const roomData = boards.get(getCurrentRoom(socket))
@@ -13,9 +18,21 @@ export function spellHandler(io: Server, socket: Socket) {
       logger.debug('Room data not found')
       return
     }
-    
+
     if (!teacher) {
       logger.debug('Teacher not found')
+      return
+    }
+
+    const currentRoom = getCurrentRoom(socket)
+    const currentCastedSpellByUser = userCastedSpell.get(currentRoom)!
+    const usersInRoom = boards
+      .get(currentRoom)!
+      .players.map((player) => player.id)
+
+    if (currentCastedSpellByUser.indexOf(player.id) === -1) {
+      currentCastedSpellByUser.push(player.id)
+    } else {
       return
     }
 
@@ -36,7 +53,45 @@ export function spellHandler(io: Server, socket: Socket) {
     teacher.y = destinationCell.y
 
     socket.emit('map:update', roomData)
+
+    if (
+      usersInRoom.filter((item) => !currentCastedSpellByUser.includes(item))
+        .length === 0
+    ) {
+      stateMachines.get(currentRoom)!.send('END_PHASE')
+      userCastedSpell.set(currentRoom, [])
+    }
   }
 
+  const getMana = (player: Player, manaQuantity: number) => {
+    logger.debug('Get mana')
+    const roomData = boards.get(getCurrentRoom(socket))
+    if (!roomData) {
+      logger.debug('Room data not found')
+      return
+    }
+
+    const currentRoom = getCurrentRoom(socket)
+    const currentCastedSpellByUser = userCastedSpell.get(currentRoom)!
+    const usersInRoom = boards
+      .get(currentRoom)!
+      .players.map((player) => player.id)
+
+     if (currentCastedSpellByUser.indexOf(player.id) === -1) {
+       currentCastedSpellByUser.push(player.id)
+     } else {
+       return
+     }
+
+    if (
+      usersInRoom.filter((item) => !currentCastedSpellByUser.includes(item))
+        .length === 0
+    ) {
+      stateMachines.get(currentRoom)!.send('END_PHASE')
+      userCastedSpell.set(currentRoom, [])
+    }
+  }
+
+  socket.on('spell:get-mana', getMana)
   socket.on('spell:teleport-teacher', teleportTeacher)
 }
