@@ -30,7 +30,7 @@ function App() {
   }, [user])
 
   useEffect(() => {
-    if (!user) return;
+    if (!user || !room) return;
 
     socket.emit("room:join", room, user);
     socket.on("map:update", (room: RoomData) => {
@@ -45,7 +45,7 @@ function App() {
     socket.on("room:victory", (victoryPlayer: Player) => {
       alert(`${victoryPlayer.name} is the winner!!!!`)
     })
-  }, [user]);
+  }, [user, room]);
 
   return roomChosen ? (
     <BoardGame />

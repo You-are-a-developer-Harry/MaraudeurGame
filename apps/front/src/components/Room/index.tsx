@@ -9,7 +9,7 @@ export function Room({ setRoomChosen }: any) {
     const handleRoom = (event: any) => {
         event.preventDefault();
         setRoomChosen(true);
-        setRoom('${roomValue}')
+        setRoom(roomValue)
     };
 
     const handleRoomValueChange = (event: any) => {
@@ -17,10 +17,10 @@ export function Room({ setRoomChosen }: any) {
     };
 
     return (
-        <div>
-            <form onSubmit={handleRoom}>
+        <div className={styles.container}>
+            <form className={styles.form} onSubmit={handleRoom}>
                 <input type="text" name="room" id="room" placeholder="Choose your room" value={roomValue} onChange={handleRoomValueChange} />
-                <button type="submit">Submit</button>
+                <button className={styles.btnHome} type="submit">Join the game</button>
             </form>
         </div>
     );
