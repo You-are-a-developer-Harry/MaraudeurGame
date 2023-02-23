@@ -40,30 +40,36 @@ export function LoginForm({ onSubmit, setIsConnected}: any) {
   return (
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleSubmit}>
-      <div>
-        <input
-          placeholder="Name"
-          type="user"
-          id="name"
-          value={name}
-          onChange={(event) => setname(event.target.value)}
-        />
-      </div>
-      <div>
-        <input
-          placeholder="Password"
-          type="password"
-          id="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-      </div>
-      {error && <p>{error}</p>}
-      <button className={styles.btnHome} type="submit">Submit</button>
-    </form>
+        <div>
+          <input
+            placeholder="Name"
+            type="user"
+            id="name"
+            value={name}
+            onChange={(event) => setname(event.target.value)}
+          />
+        </div>
+        <div>
+          <input
+            placeholder="Password"
+            type="password"
+            id="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </div>
+        {error && <p>{error}</p>}
+        <button className={styles.btnHome} type="submit">
+          Submit
+        </button>
+        <a
+          href="https://hp-leaderboard.netlify.app/signup/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Sign up</a>
+      </form>
     </div>
-    
-  );
+  )
 }
 
 export default LoginForm;

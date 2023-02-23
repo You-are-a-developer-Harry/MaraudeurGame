@@ -87,7 +87,7 @@ export const BoardGame = ({ showLeaderboard, winner }: BoardGameProps ) => {
   const [displayAnimation, setDisplayAnimation] = useState(false)
   const selectedSpell = useSpellStore((state) => state.spell)
   const setSelectedSpell = useSpellStore((state) => state.setSpell)
-  const [userMana, setUserMana] = useState(10)
+  const [userMana, setUserMana] = useState(1)
   const gameState = useGameStore((state) => state.gameState)
   const setAllowToCastSpell = useSpellStore(
     (state) => state.setAllowToCastSpell
@@ -131,6 +131,8 @@ export const BoardGame = ({ showLeaderboard, winner }: BoardGameProps ) => {
       setAllowToCastSpell(true)
     }
   }, [gameState])
+
+  console.log({gameState: getGameStateValue(gameState)})
 
   return (
     <div className={style.boardGameGrid}>

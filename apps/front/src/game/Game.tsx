@@ -169,6 +169,7 @@ export function Game() {
      const player = cells
        .flat()
        .find((cell) => cell.players?.some((player) => player.id === user?.id))
+    console.log({player})
      if (!player) return
     const availableCells = getAvailableCells(player, cells, 1, [], true)
     setAvailableCellsForTpPlayer(availableCells)
@@ -177,6 +178,7 @@ export function Game() {
   const teleportPlayer = (cell: MazeCell) => {
     socket.emit('spell:teleport-player', gamePlayer, cell)
     setAvailableCellsForTpPlayer([])
+    setSelectedSpell(null)
   }
 
   useEffect(() => {
@@ -186,13 +188,15 @@ export function Game() {
   }, [cells])
 
   useEffect(() => {
-
     if (!selectedSpell) return
 
     if(selectedSpell.name === "Patronome") {
       setSpeedUser(5);
       setTurnSpeed(turn);
       socket.emit('spell:speed-up', gamePlayer)
+      setTimeout(() => {
+         setSelectedSpell(null)
+      }, 3500)
       return 
     }
 
