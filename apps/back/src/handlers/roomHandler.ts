@@ -15,7 +15,7 @@ export function roomHandler(io: Server, socket: Socket) {
   let roomName = ''
   let userData: User | null = null
   const joinRoom = (room: string, user: User) => {
-    logger.debug(user)
+    console.log(user)
     if(!user.house) return
     roomName = room
     userData = user
