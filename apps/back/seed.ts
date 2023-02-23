@@ -2,7 +2,7 @@ import { AppDataSource } from "./dbConfig";
 import { Spell } from "./src/entities/Spell";
 import { Sound } from "./src/entities/Sound";
 
-AppDataSource.initialize().then(async () => {
+const execute = async () => {
   const soundRepository = AppDataSource.getRepository(Sound)
   const spellRepository = AppDataSource.getRepository(Spell)
 
@@ -94,4 +94,6 @@ AppDataSource.initialize().then(async () => {
     newSpell.description = spell.description
     await spellRepository.manager.save(newSpell)
   }
-})
+}
+
+execute()

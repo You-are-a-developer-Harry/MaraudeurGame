@@ -5,15 +5,18 @@ interface UserStore {
   user: User | null;
   apiData: any[];
   room: String | null;
+  speed: number;
   setUser: (user: User) => void;
   setApiData: (data: any[]) => void;
   setRoom: (room: String | null) => void;
+  setSpeed: (speed: number) => void
 }
 
 export const useUserStore = create<UserStore>((set) => ({
   user: null,
   apiData: [],
   room: null,
+  speed: 3,
   setUser(user) {
     set({ user });
   },
@@ -23,6 +26,9 @@ export const useUserStore = create<UserStore>((set) => ({
   setRoom(room) {
     set({ room });
   },
+  setSpeed(newSpeed: number) {
+    set({speed: newSpeed})
+  }
 }))
 
 

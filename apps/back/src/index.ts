@@ -6,18 +6,21 @@ import { playerHandler } from "./handlers/playerHandler";
 import { stateHandler } from "./handlers/stateHandler";
 import { Spell } from "./entities/Spell";
 import { AppDataSource } from "../dbConfig";
+import { logger } from "./utils/logger";
 
 const app: Express = express()
 const http = require('http')
 const server = http.createServer(app)
+AppDataSource.initialize()
 
 app.get("/", (req, res) => {
   res.send('Hello world!')
 })
 
-app.get('/spells', (req, res) => {
+app.get('/spells', async (req, res) => {
+  logger.info('Successfully get spells')
   const spellRepository = AppDataSource.getRepository(Spell)
-  const spells = spellRepository.find() ?? []
+  const spells = await spellRepository.find()
   res.send(spells)
 })
 

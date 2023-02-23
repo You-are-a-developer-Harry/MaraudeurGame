@@ -9,7 +9,6 @@ export const AppDataSource = new DataSource({
   database: 'db.sqlite',
   namingStrategy: new SnakeNamingStrategy(),
   synchronize: true,
-  logging: true,
   entities: [Spell, Sound],
   migrations: migrations,
 })

@@ -51,6 +51,11 @@
   text-align: center;
 }
 
+.grisedImg {
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+}
+
 .popper {
   background: radial-gradient(circle, #095eb4, #003b77);
   color: white;
