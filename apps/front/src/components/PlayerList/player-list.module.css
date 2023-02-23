@@ -1,0 +1,13 @@
+.playerList {
+  margin-top: 10px;
+}
+.playerListRow {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.playerListRow img {
+  width: 40px;
+  padding-right: 10px;
+}
