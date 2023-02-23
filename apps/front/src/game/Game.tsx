@@ -175,7 +175,6 @@ export function Game() {
 
     if(selectedSpell.name === "Patronome") {
       setSpeedUser(5);
-      setSelectedSpell({});
       setTurnSpeed(turn);
     }
 

@@ -1,7 +1,6 @@
 import style from "./style.module.css";
 import { ProgressBar } from "../ProgressBar";
 import { Game } from "@game/Game";
-import { InventoryItem } from "../InventoryItem";
 import { SpellButton } from "../SpellButton";
 import { HPButton } from "../HPButton";
 import Dice from "../Dice";
@@ -15,8 +14,6 @@ import spell3 from "@assets/images/spells/spell3.png";
 import spell4 from "@assets/images/spells/spell4.png";
 import spell5 from "@assets/images/spells/spell5.png";
 import spell6 from "@assets/images/spells/spell6.png";
-import spell7 from "@assets/images/spells/spell7.png";
-import spell8 from "@assets/images/spells/spell8.png";
 import { socket } from "@services/socket";
 import { ManaList } from "../ManaList";
 
@@ -76,33 +73,6 @@ const spells = [
   }
 ]
 
-const inventory = [
-  {
-    image: spell1,
-  },
-  {
-    image: spell2,
-  },
-  {
-    image: spell3,
-  },
-  {
-    image: spell4,
-  },
-  {
-    image: spell5,
-  },
-  {
-    image: spell6,
-  },
-  {
-    image: spell7,
-  },
-  {
-    image: spell8,
-  },
-]
-
 type BoardGameProps = {
 	showLeaderboard: boolean;
 	winner: object;
@@ -120,7 +90,6 @@ export const BoardGame = ({ showLeaderboard, winner }: BoardGameProps ) => {
   const handlePlay = () => {
     socket.emit('state:start');
   }
-
 
   const handleSpellClick = (spell: any) => {
     setSelectedSpell(spell);
@@ -147,9 +116,6 @@ export const BoardGame = ({ showLeaderboard, winner }: BoardGameProps ) => {
       setDisplayDice(false);
     }, 5000)
   }
-
-  console.log('winner:', winner)
-  console.log('showLeaderboard:', showLeaderboard)
 
   return (
     <div className={style.boardGameGrid}>
