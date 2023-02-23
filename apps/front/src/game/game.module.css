@@ -41,7 +41,7 @@
   background-color: rgba(73, 166, 73, 0.2);
 }
 .visitedCell .cell:hover {
-  background-color: rgba(73, 166, 73, 0.7)!important;
+  background-color: rgba(73, 166, 73, 0.7) !important;
 }
 
 .dangerosityCell .cell {
@@ -52,7 +52,7 @@
   display: inline-flex;
 }
 .horizontalWall::after {
-  content: "";
+  content: '';
   display: block;
   height: 2px;
   width: 100%;
@@ -62,7 +62,7 @@
   display: inline-flex;
 }
 .verticalWall::after {
-  content: "";
+  content: '';
   display: block;
   height: 2px;
   width: 100%;
@@ -75,18 +75,25 @@
 .spawn {
   border-radius: 100%;
   position: absolute;
+  width: 60px;
+  height: 60px;
+  background-size: cover;
 }
 .gryffondorSpawn {
-  background-color: rgb(219, 63, 63);
+  background-image: url('../assets/images/houses/grif.png');
+  transform: translate3d(-20px, -20px, 0);
 }
 .serpentardSpawn {
-  background-color: rgb(60, 72, 64);
+  background-image: url('../assets/images/houses/serp.png');
+  transform: translate3d(20px, 20px, 0);
 }
 .serdaigleSpawn {
-  background-color: rgb(58, 81, 149);
+  background-image: url('../assets/images/houses/serd.png');
+  transform: translate3d(-20px, 20px, 0);
 }
 .poufsouffleSpawn {
-  background-color: rgb(149, 135, 58);
+  background-image: url('../assets/images/houses/pouf.png');
+  transform: translate3d(20px, -20px, 0);
 }
 
 /* Available cells for tp */
