@@ -8,6 +8,7 @@ import { createMachine, interpret } from "xstate";
 import { machineSettings } from "../utils/gameState";
 import { getCurrentRoom } from "../utils/socketHelpers";
 import { getGameStateValue } from "../utils/getGameStateValue";
+import { startGame } from "../utils/statGame";
 
 export function roomHandler(io: Server, socket: Socket) {
   let roomName = ''
@@ -42,8 +43,7 @@ export function roomHandler(io: Server, socket: Socket) {
     io.sockets.in(room).emit('map:update', boards.get(room))
     const currentRoom = getCurrentRoom(socket)
     if (boards.get(currentRoom)!.players.length === 4){
-      logger.info('Game start in room %s', currentRoom)
-      stateMachines.get(currentRoom)!.send('START')
+      startGame(socket)
     }
   }
 
