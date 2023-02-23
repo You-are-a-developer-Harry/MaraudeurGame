@@ -1,6 +1,10 @@
 import React from 'react';
 import styles from "./style.module.css";
 import { HogwartHouse } from "types";
+import GrifImg from '@assets/images/houses/lion.png'
+import SlythImg from '@assets/images/houses/snake.png'
+import HuffleImg from '@assets/images/houses/badger.png'
+import RavenImg from '@assets/images/houses/eagle.png'
 
 const Leaderboard = ({winPlayer}: {winPlayer: any}) => {
 	console.log('leaderbord win', winPlayer)
@@ -10,23 +14,24 @@ const Leaderboard = ({winPlayer}: {winPlayer: any}) => {
 	let color
 	switch (house) {
 		case HogwartHouse.GRYFFONDOR:
-			image = 'image/griff.png'
+			image = GrifImg
 			color = '#b33429'
 			break
 		case HogwartHouse.SLYTHERIN:
-			image = 'image/serp.png'
+			image = SlythImg
+
 			color = '#386a2c'
 			break
 		case HogwartHouse.HUFFLEPUFF:
-			image = 'image/pouf.png'
+			image = HuffleImg
 			color = '#dfbe45'
 			break
 		case HogwartHouse.RAVENCLAW:
-			image = 'image/serd.png'
+			image = RavenImg
 			color = '#408fb1'
 			break
 		default: HogwartHouse.GRYFFONDOR
-			image = 'image/grif.png'
+			image = GrifImg
 			color = '#b33429'
 			break
 	}
