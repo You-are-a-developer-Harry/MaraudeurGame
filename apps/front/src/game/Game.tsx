@@ -59,7 +59,7 @@ export function Game() {
   const onClickCell = (cell: MazeCell) => {
     // Prevent the user to move at an unavailable position
     if (
-      !availableCells.some(
+      getGameStateValue(gameState) !== 'MovePhase' || !availableCells.some(
         (availableCell) =>
           availableCell.x === cell.x && availableCell.y === cell.y
       )
