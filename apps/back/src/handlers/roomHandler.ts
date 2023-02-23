@@ -72,10 +72,7 @@ export function roomHandler(io: Server, socket: Socket) {
     io.sockets.in(roomName).emit('map:update', room)
   }
 
-  const victory = (victoryPlayer: Player) => victoryGame(victoryPlayer, socket)
-
   socket.on('room:join', joinRoom)
-  socket.on('room:victory', victory)
 
   socket.on('disconnect', onDisconnect)
 }

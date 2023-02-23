@@ -9,6 +9,7 @@ import { getObject } from '../game/getObject'
 import { updatePlayers } from '../game/updatePlayers'
 import { killByTeacher } from '../game/killByTeacher'
 import { winGame } from '../game/winGame'
+import { victoryGame } from "../utils/victoryGame";
 
 export function playerHandler(io: Server, socket: Socket) {
   const movePlayerHandler = (selectedCell: MazeCell, player: Player) => {
@@ -53,6 +54,7 @@ export function playerHandler(io: Server, socket: Socket) {
 
       if (victoryPlayer) {
         // dispatch victory event
+        victoryGame(victoryPlayer, socket)
         io.sockets.in(currentRoom).emit('room:victory', victoryPlayer)
       }
     }
