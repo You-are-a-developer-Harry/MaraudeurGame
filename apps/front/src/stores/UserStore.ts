@@ -4,19 +4,25 @@ import { create } from "zustand";
 interface UserStore {
   user: User | null;
   apiData: any[];
+  speed: number;
   setUser: (user: User) => void;
   setApiData: (data: any[]) => void;
+  setSpeed: (speed: number) => void
 }
 
 export const useUserStore = create<UserStore>((set) => ({
   user: null,
   apiData: [],
+  speed: 3,
   setUser(user) {
     set({ user });
   },
   setApiData(data) {
     set({ apiData: data });
   },
+  setSpeed(newSpeed: number) {
+    set({speed: newSpeed})
+  }
 }))
 
 
