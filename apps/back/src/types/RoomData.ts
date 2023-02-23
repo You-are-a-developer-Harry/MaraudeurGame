@@ -4,4 +4,5 @@ import { Player } from './Player'
 export type RoomData = {
   board: Board
   players: Player[]
+  gameId?: number
 }
