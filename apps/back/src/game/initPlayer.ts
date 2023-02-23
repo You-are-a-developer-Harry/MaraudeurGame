@@ -1,4 +1,5 @@
 import { HogwartHouse, Player, RoomData, User } from "../types";
+import { logger } from "../utils/logger";
 import { BOARD_HEIGHT, BOARD_WIDTH } from "./generateBoard";
 
 export const POSITION_BY_HOUSE = {
