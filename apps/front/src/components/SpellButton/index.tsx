@@ -49,6 +49,7 @@ export const SpellButton = (props: SpellButtonProps) => {
           width="80px"
           src={props.spell.image}
           alt={props.spell.name + '-img'}
+          className={props.spell.mana > props.userMana ? stylesM.grisedImg : ""}
         />
         <div 
           className={isHover ? stylesM.popper : stylesM.popperHidden} 
