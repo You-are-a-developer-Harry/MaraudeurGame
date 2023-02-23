@@ -79,19 +79,19 @@
   height: 60px;
   background-size: cover;
 }
-.gryffondorSpawn {
+.gryffindorSpawn {
   background-image: url('../assets/images/houses/lion.png');
   transform: translate3D(-50px, 10px, 0);
 }
-.serpentardSpawn {
+.slytherinSpawn {
   background-image: url('../assets/images/houses/snake.png');
   transform: translate3D(50px, -10px, 0);
 }
-.serdaigleSpawn {
+.ravenclawSpawn {
   background-image: url('../assets/images/houses/eagle.png');
   transform: translate3D(-50px, -10px, 0);
 }
-.poufsouffleSpawn {
+.hufflepuffSpawn {
   background-image: url('../assets/images/houses/badger.png');
   transform: translate3D(50px, 10px, 0);
 }

@@ -1,6 +1,6 @@
 export enum HogwartHouse {
-  GRYFFONDOR = 'Gryffondor',
-  SLYTHERIN = 'Serpentard',
-  RAVENCLAW = 'Serdaigle',
-  HUFFLEPUFF = 'Poufsouffle',
+  GRYFFONDOR = 'Gryffindor',
+  SLYTHERIN = 'Slytherin',
+  RAVENCLAW = 'Ravenclaw',
+  HUFFLEPUFF = 'Hufflepuff',
 }
