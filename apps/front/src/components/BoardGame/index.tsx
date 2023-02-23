@@ -156,7 +156,7 @@ export const BoardGame = () => {
 
       <div className={style.boardCenter}>
         <ManaList manaToUse={userMana} />
-        <Game />
+        <Game/>
         <div className={style.wrapperProgressBar}>
           <ProgressBar countDownTime={20} activate={true} />
         </div>
