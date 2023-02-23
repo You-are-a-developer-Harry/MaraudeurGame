@@ -25,6 +25,8 @@ import spellSound3 from "../../assets/sound/spellEffect3.mp3";
 import spellSound4 from "../../assets/sound/spellEffect4.mp3";
 import spellSound5 from "../../assets/sound/spellEffect5.mp3";
 import spellSound6 from "../../assets/sound/spellEffect6.mp3";
+import { getGameStateValue } from "@utils/getGameStateValue";
+import { useGameStore } from "@stores/GameStore";
 import { useSpellStore } from "@stores/SpellStore";
 
 const spells = [
@@ -106,6 +108,7 @@ export const BoardGame = () => {
   const selectedSpell = useSpellStore(state => state.spell)
   const setSelectedSpell = useSpellStore(state => state.setSpell)
   const [userMana, setUserMana] = useState(10);
+  const gameState = useGameStore((state) => state.gameState)
 
   const handlePlay = () => {
     socket.emit('state:start');
@@ -179,7 +182,10 @@ export const BoardGame = () => {
               })}
             </div>
           </div>
-          <HPButton onClick={handlePlay}>Play !</HPButton>
+          {getGameStateValue(gameState) === 'Waiting' ?
+            <HPButton onClick={handlePlay}>Play !</HPButton>
+            : null
+          }
         </div>
       </div>
 
