@@ -10,6 +10,16 @@
 	background-image: url("parchment-texture.jpg");
 }
 
+.title {
+	margin-bottom: 10px;
+}
+
 .title span {
 	font-family: 'Skranji', cursive;
+}
+
+.house {
+	width: 200px;
+	border: solid white;
+	border-radius: 100px;
 }
