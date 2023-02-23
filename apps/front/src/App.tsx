@@ -11,6 +11,7 @@ import { getGameStateValue } from "@utils/getGameStateValue";
 
 function App() {
   const setBoard = useGameStore((state) => state.setBoard);
+  const setPlayers = useGameStore(state => state.setPlayers)
   const setGameState = useGameStore((state) => state.setGameState)
   const gameState = useGameStore((state) => state.gameState)
   const user = useUserStore((state) => state.user);
@@ -41,6 +42,8 @@ function App() {
     socket.emit("room:join", room, user);
     socket.on("map:update", (room: RoomData) => {
       setBoard(room.board);
+      setPlayers(room.players)
+      console.log({room})
       const activePlayer = room.players.find(_player => _player.id === user.id)
       if(!activePlayer) return
       setPlayer({...user, objects: activePlayer?.objects, x: activePlayer.x, y: activePlayer?.y})

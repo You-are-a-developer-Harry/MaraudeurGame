@@ -12,6 +12,7 @@ export const initPlayer = (room: RoomData, user: User) => {
   const [x, y] = POSITION_BY_HOUSE[user.house.name]
   const player: Player = {
     id: user.id,
+    name: user.name,
     house: {
       name: user.house.name,
     },

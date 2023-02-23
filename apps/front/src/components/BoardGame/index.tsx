@@ -28,6 +28,7 @@ import spellSound6 from "../../assets/sound/spellEffect6.mp3";
 import { getGameStateValue } from "@utils/getGameStateValue";
 import { useGameStore } from "@stores/GameStore";
 import { useSpellStore } from "@stores/SpellStore";
+import { PlayerList } from "@components/PlayerList";
 
 const spells = [
   {
@@ -146,12 +147,7 @@ export const BoardGame = () => {
     <div className={style.boardGameGrid}>
       <div className={style.MenuWrapper}>
         <div>
-          <h2>Inventory</h2>
-          <div className={style.inventoryGrid}>
-            {inventory.map((item, key) => (
-              <InventoryItem image={item.image} key={key} />
-            ))}
-          </div>
+          <PlayerList />
         </div>
 
         <HPButton onClick={handleRollDice}>Roll the dice</HPButton>

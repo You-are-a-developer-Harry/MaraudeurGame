@@ -10,9 +10,8 @@ export const generateBoard = () => {
   // Generate object
   board = randomSpawnCellItem(board, 'object', {
     name: 'random',
-    value: 20,
     image: '/object/grif.png',
-  })
+  } as any)
 
   // Generate teacher
   board = randomSpawnCellItem(board, 'teachers', {})

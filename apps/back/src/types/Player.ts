@@ -4,6 +4,7 @@ import { SecretObject } from "./SecretObject";
 
 export type Player = {
   id: number
+  name?: string
   house: {
     name: HogwartHouse
   }
