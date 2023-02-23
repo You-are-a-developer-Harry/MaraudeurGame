@@ -3,6 +3,8 @@ import { SpellAnimationProps } from "./type";
 
 export const SpellAnimation = (props: SpellAnimationProps) => {
 
+  console.log(props.spell)
+
   return (
     <div className={style.mainWrapper}>
       <div className={style.content}>
