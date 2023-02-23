@@ -39,6 +39,7 @@ function isAvailableCellForTp(cell: MazeCell, availableCellsForTp: MazeCell[]) {
 }
 
 export function Game() {
+  const [availableCellsForTpPlayer, setAvailableCellsForTpPlayer] = useState<MazeCell[]>([])
   const [availableCellsForTp, setAvailableCellsForTp] = useState<MazeCell[]>([])
   const [selectedTeacher, setSelectedTeacher] = useState<MazeCell>()
   const [dangerosityCells, setDangerosityCells] = useState<MazeCell[]>([])
@@ -163,6 +164,21 @@ export function Game() {
     appendAvailableCellsForTp()
   }, [selectedTeacher])
 
+  // Teleport user through a wall
+  const onTeleportThroughWall = () => {
+     const player = cells
+       .flat()
+       .find((cell) => cell.players?.some((player) => player.id === user?.id))
+     if (!player) return
+    const availableCells = getAvailableCells(player, cells, 1, [], true)
+    setAvailableCellsForTpPlayer(availableCells)
+  }
+
+  const teleportPlayer = (cell: MazeCell) => {
+    socket.emit('spell:teleport-player', gamePlayer, cell)
+    setAvailableCellsForTpPlayer([])
+  }
+
   useEffect(() => {
     if (!cells.length) return
     appendAvailableCells()
@@ -177,6 +193,12 @@ export function Game() {
       setSpeedUser(5);
       setTurnSpeed(turn);
       socket.emit('spell:speed-up', gamePlayer)
+      return 
+    }
+
+    if(selectedSpell.name === "Stupefy") {
+      onTeleportThroughWall()
+      return
     }
 
   }, [selectedSpell])
@@ -208,7 +230,9 @@ export function Game() {
                   }}
                   className={classNames(
                     styles.cellWrapper,
-                    getGameStateValue(gameState) === 'MovePhase' ? getCellColor(cell) : null,
+                    getGameStateValue(gameState) === 'MovePhase'
+                      ? getCellColor(cell)
+                      : null,
                     dangerosityCells.find(
                       (dangerosityCell) =>
                         dangerosityCell.x === cell.x &&
@@ -258,6 +282,16 @@ export function Game() {
                     {isAvailableCellForTp(cell, availableCellsForTp) && (
                       <div
                         onClick={() => teleportTeacher(cell)}
+                        className={classNames(
+                          styles.cell,
+                          styles.availableCellForTp
+                        )}
+                      ></div>
+                    )}
+                    {/* TP player */}
+                    {isAvailableCellForTp(cell, availableCellsForTpPlayer) && (
+                      <div
+                        onClick={() => teleportPlayer(cell)}
                         className={classNames(
                           styles.cell,
                           styles.availableCellForTp

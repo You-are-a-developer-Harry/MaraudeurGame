@@ -14,24 +14,24 @@ export const startGame = (socket: Socket) => {
   let gameID = null
   const token = '' // user.token
   console.log({ game: "MaraudeurGame", userIds: usersInRoom, type: "1v1"})
-  axios.post('https://hp-api-iim.azurewebsites.net/matches/start', {
-     game: "MaraudeurGame", userIds: usersInRoom, type: "1v1"
-    },
-  )
-    .then(res => res.data)
-    .then((data: any) => {
-      console.log({data})
-      if (data.error || data.statusCode == 500) {
-        throw data
-      } else {
+  // axios.post('https://hp-api-iim.azurewebsites.net/matches/start', {
+  //    game: "MaraudeurGame", userIds: usersInRoom, type: "1v1"
+  //   },
+  // )
+  //   .then(res => res.data)
+  //   .then((data: any) => {
+      // console.log({data})
+      // if (data.error || data.statusCode == 500) {
+      //   throw data
+      // } else {
         //Handle successful started game
-        boards.set(currentRoom, {...boards.get(currentRoom)!, gameId: data.id})
+        boards.set(currentRoom, {...boards.get(currentRoom)!, gameId: 123})
         logger.info('Game start in room %s', currentRoom)
         stateMachines.get(currentRoom)!.send('START')
-      }
-    })
-    .catch((error) => {
-      console.log({error})
-      logger.error('Error: %s', error);
-    });
+      // }
+    // })
+    // .catch((error) => {
+    //   console.log({error})
+    //   logger.error('Error: %s', error);
+    // });
 }

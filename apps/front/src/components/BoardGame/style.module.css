@@ -37,12 +37,9 @@
 }
 
 .spellGrid {
-    display: grid;
-    align-content: center;
-    grid-template-columns: 1fr 1fr;
-    row-gap: 10px;
-    column-gap: 20px;
-    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .inventoryGrid {
