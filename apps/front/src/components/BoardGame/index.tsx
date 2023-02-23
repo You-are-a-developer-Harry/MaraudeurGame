@@ -115,6 +115,7 @@ export const BoardGame = () => {
     socket.emit('state:start');
   }
 
+
   const handleSpellClick = (spell: any) => {
     setSelectedSpell(spell);
     setDisplayAnimation(true);
@@ -128,7 +129,6 @@ export const BoardGame = () => {
     setDisplayDice(true)
     const diceValue = Math.floor(Math.random() * 6) + 1;
     setDiceValue(diceValue);
-
     setTimeout(() => {
       if(userMana + diceValue >= 10) {
         setUserMana(10)
@@ -155,7 +155,7 @@ export const BoardGame = () => {
 
       <div className={style.boardCenter}>
         <ManaList manaToUse={userMana} />
-        <Game />
+        <Game/>
         <div className={style.wrapperProgressBar}>
           <ProgressBar countDownTime={20} activate={true} />
         </div>

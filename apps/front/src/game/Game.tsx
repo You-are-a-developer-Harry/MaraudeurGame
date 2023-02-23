@@ -45,7 +45,10 @@ export function Game() {
   const [availableCells, setAvailableCells] = useState<MazeCell[]>([])
   const [selectedCell, setSelectedCell] = useState<
     { x: number; y: number } | undefined
-  >()
+    >()
+  const [speedUser, setSpeedUser] = useState(3);
+  const [turn, setTurn] = useState(0);
+  const [turnSpeed, setTurnSpeed] = useState(0);
   const cells = useGameStore((state) => state.board)
   const user = useUserStore((state) => state.user)
   const gamePlayer = usePlayerStore((state) => state.player)
@@ -64,11 +67,19 @@ export function Game() {
       return
     setSelectedCell({ x: cell.x, y: cell.y })
     socket.emit('player:move', cell, gamePlayer)
+    setTurn(prevState => prevState + 1);
   }
 
   useEffect(() => {
+    if(turnSpeed + 2 === turn) {
+      setSpeedUser(3);
+    }
+  }, [turn])
+
+  useEffect(() => {
     setSelectedCell(undefined)
-  }, [cells])
+  }, [cells]);
+
 
   const appendAvailableCells = () => {
     // TODO : select only current user
@@ -80,7 +91,7 @@ export function Game() {
       getAvailableCells(
         { x: player.x, y: player.y },
         cells,
-        MAX_DISTANCE_BY_TURN
+        speedUser
       )
     )
   }
@@ -139,7 +150,6 @@ export function Game() {
     setAvailableCellsForTp(availableCells)
   }
   const teleportTeacher = (cell: MazeCell) => {
-    console.log({ cell })
     const teacher = selectedTeacher?.teachers?.length
       ? selectedTeacher.teachers[0]
       : undefined
@@ -160,15 +170,17 @@ export function Game() {
   }, [cells])
 
   useEffect(() => {
+
     if (!selectedSpell) return
 
-    // if (selectedSpell.name === 'Expelliarmus') {
-    //   teleportTeacher()
-    //   return
-    // }
+    if(selectedSpell.name === "Patronome") {
+      setSpeedUser(5);
+      setSelectedSpell({});
+      setTurnSpeed(turn);
+    }
+
   }, [selectedSpell])
 
-  console.log({ selectedSpell })
 
   if (!cells.length) {
     return <p>loading</p>
