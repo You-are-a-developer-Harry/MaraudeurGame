@@ -6,9 +6,9 @@ import useSound from 'use-sound';
 
 export const SpellButton = (props: SpellButtonProps) => {
   const [isHover, setIsHover] = useState(false);
-  const [referenceElement, setReferenceElement] = useState(null);
-  const [popperElement, setPopperElement] = useState(null);
-  const [arrowElement, setarrowElement] = useState(null);
+  const [referenceElement, setReferenceElement] = useState<any>(null);
+  const [popperElement, setPopperElement] = useState<any>(null);
+  const [arrowElement, setarrowElement] = useState<any>(null);
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     placement:"left-start",
     modifiers: [
@@ -33,8 +33,8 @@ export const SpellButton = (props: SpellButtonProps) => {
 
   return (
     <div className={stylesM.buttonWrapper} onClick={handleSpell}>
-      <div 
-        className={stylesM.imageBorder} 
+      <div
+        className={stylesM.imageBorder}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
         ref={setReferenceElement}
@@ -46,9 +46,9 @@ export const SpellButton = (props: SpellButtonProps) => {
           alt={props.spell.name + '-img'}
           className={props.spell.mana > props.userMana ? stylesM.grisedImg : ""}
         />
-        <div 
-          className={isHover ? stylesM.popper : stylesM.popperHidden} 
-          ref={setPopperElement} 
+        <div
+          className={isHover ? stylesM.popper : stylesM.popperHidden}
+          ref={setPopperElement}
           style={styles.popper} {...attributes.popper}
         >
           <p className={stylesM.spellName}>{props.spell.name}</p>
