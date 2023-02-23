@@ -53,7 +53,7 @@ export function spellHandler(io: Server, socket: Socket) {
     teacher.x = destinationCell.x
     teacher.y = destinationCell.y
 
-    socket.emit('map:update', roomData)
+    io.sockets.in(currentRoom).emit('map:update', roomData)
 
     if (
       usersInRoom.filter((item) => !currentCastedSpellByUser.includes(item))
@@ -144,7 +144,7 @@ export function spellHandler(io: Server, socket: Socket) {
     }
 
     movePlayer(roomData.board, player, cell)
-    socket.emit('map:update', roomData)
+    io.sockets.in(currentRoom).emit('map:update', roomData)
 
     if (
       usersInRoom.filter((item) => !currentCastedSpellByUser.includes(item))
