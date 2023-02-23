@@ -88,3 +88,13 @@
 .poufsouffleSpawn {
   background-color: rgb(149, 135, 58);
 }
+
+/* Available cells for tp */
+.availableCellForTp {
+  background-color: rgba(63, 127, 191, 0.6);
+  position: relative;
+  z-index: 4;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}

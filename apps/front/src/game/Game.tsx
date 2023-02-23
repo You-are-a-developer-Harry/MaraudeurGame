@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import styles from './game.module.css'
-import { HogwartHouse, MazeCell } from '../types'
+import { HogwartHouse, MazeCell, Player } from '../types'
 import { FootPrint } from './components/FootPrint'
 import { useGameStore } from '@stores/GameStore'
 import { socket } from '@services/socket'
@@ -11,6 +11,7 @@ import { CellObject } from './components/CellObject'
 import { CellWitch } from './components/CellWitch'
 import { useUserStore } from '@stores/UserStore'
 import { usePlayerStore } from '@stores/PlayerStore'
+import { useSpellStore } from '@stores/SpellStore'
 
 const MAX_DISTANCE_BY_TURN = 3
 const BOARD_WIDTH = 20
@@ -32,7 +33,13 @@ function isSpawn(cell: MazeCell) {
   return houseKey?.toLowerCase()
 }
 
+function isAvailableCellForTp(cell: MazeCell, availableCellsForTp: MazeCell[]) {
+  return availableCellsForTp.some(avCell => avCell.x === cell.x && avCell.y === cell.y)
+}
+
 export function Game() {
+  const [availableCellsForTp, setAvailableCellsForTp] = useState<MazeCell[]>([])
+  const [selectedTeacher, setSelectedTeacher] = useState<MazeCell>()
   const [dangerosityCells, setDangerosityCells] = useState<MazeCell[]>([])
   const [availableCells, setAvailableCells] = useState<MazeCell[]>([])
   const [selectedCell, setSelectedCell] = useState<
@@ -41,6 +48,8 @@ export function Game() {
   const cells = useGameStore((state) => state.board)
   const user = useUserStore((state) => state.user)
   const gamePlayer = usePlayerStore((state) => state.player)
+  const selectedSpell = useSpellStore((state) => state.spell)
+  const setSelectedSpell = useSpellStore((state) => state.setSpell)
 
   const onClickCell = (cell: MazeCell) => {
     // Prevent the user to move at an unavailable position
@@ -105,11 +114,59 @@ export function Game() {
     }
   }
 
+  // Teleport teacher spell
+  const onClickTeacher = (teacher: MazeCell) => {
+    if (selectedSpell.name === 'Expelliarmus') {
+      setSelectedTeacher(teacher)
+    }
+  }
+  const appendAvailableCellsForTp = () => {
+    const playerCells = cells.flat().filter((cell) => cell.players?.length)
+    const forbiddenCells = playerCells
+      .map((cell) => getAvailableCells(cell, cells, MAX_DISTANCE_BY_TURN))
+      .flat()
+    const availableCells = cells
+      .flat()
+      .filter(
+        (cell) =>
+          ![...playerCells, ...forbiddenCells].find(
+            (forbiddenCell) =>
+              forbiddenCell.x === cell.x && forbiddenCell.y === cell.y
+          )
+      )
+    setAvailableCellsForTp(availableCells)
+  }
+  const teleportTeacher = (cell: MazeCell) => {
+    console.log({ cell })
+    const teacher = selectedTeacher?.teachers?.length
+      ? selectedTeacher.teachers[0]
+      : undefined
+    socket.emit('spell:teleport-teacher', teacher, cell)
+    setAvailableCellsForTp([])
+    setSelectedSpell(null)
+  }
+
+  useEffect(() => {
+    if (!selectedTeacher) return
+    appendAvailableCellsForTp()
+  }, [selectedTeacher])
+
   useEffect(() => {
     if (!cells.length) return
     appendAvailableCells()
     appendDangerosityCells()
   }, [cells])
+
+  useEffect(() => {
+    if (!selectedSpell) return
+
+    // if (selectedSpell.name === 'Expelliarmus') {
+    //   teleportTeacher()
+    //   return
+    // }
+  }, [selectedSpell])
+
+  console.log({ selectedSpell })
 
   if (!cells.length) {
     return <p>loading</p>
@@ -164,14 +221,32 @@ export function Game() {
                     ))}
                     {cell.object && <CellObject object={cell.object} />}
                     {cell.teachers?.map((_) => (
-                      <CellWitch />
+                      <CellWitch
+                        clickable={selectedSpell?.name === 'Expelliarmus'}
+                        onClick={() => onClickTeacher(cell)}
+                        selected={
+                          selectedTeacher?.x === cell.x &&
+                          selectedTeacher?.y === cell.y
+                        }
+                      />
                     ))}
+                    {/* Spawn point */}
                     {isSpawn(cell) && (
                       <div
                         className={classNames(
                           styles.cell,
                           styles.spawn,
                           styles[isSpawn(cell) + 'Spawn']
+                        )}
+                      ></div>
+                    )}
+                    {/* Available cells for tp */}
+                    {isAvailableCellForTp(cell, availableCellsForTp) && (
+                      <div
+                        onClick={() => teleportTeacher(cell)}
+                        className={classNames(
+                          styles.cell,
+                          styles.availableCellForTp
                         )}
                       ></div>
                     )}

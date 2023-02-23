@@ -18,10 +18,6 @@ export const SpellButton = (props: SpellButtonProps) => {
     strategy:"fixed",
   });
 
-  const handleSpellUse = () => {
-    alert('Spell used')
-  }
-
   const [play] = useSound(props.spell.sound);
 
   const handleSpell = () => {

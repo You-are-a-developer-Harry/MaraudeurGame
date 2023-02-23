@@ -25,6 +25,7 @@ import spellSound3 from "../../assets/sound/spellEffect3.mp3";
 import spellSound4 from "../../assets/sound/spellEffect4.mp3";
 import spellSound5 from "../../assets/sound/spellEffect5.mp3";
 import spellSound6 from "../../assets/sound/spellEffect6.mp3";
+import { useSpellStore } from "@stores/SpellStore";
 
 const spells = [
   {
@@ -102,8 +103,9 @@ export const BoardGame = () => {
   const [diceValue, setDiceValue] = useState(1)
   const [displayDice, setDisplayDice] = useState(false)
   const [displayAnimation, setDisplayAnimation] = useState(false);
-  const [selectedSpell, setSelectedSpell] = useState(spells[0]);
-  const [userMana, setUserMana] = useState(0);
+  const selectedSpell = useSpellStore(state => state.spell)
+  const setSelectedSpell = useSpellStore(state => state.setSpell)
+  const [userMana, setUserMana] = useState(10);
 
   const handlePlay = () => {
     socket.emit('state:start');
@@ -136,6 +138,7 @@ export const BoardGame = () => {
     }, 5000)
   }
 
+
   return (
     <div className={style.boardGameGrid}>
       <div className={style.MenuWrapper}>
@@ -152,7 +155,7 @@ export const BoardGame = () => {
       </div>
 
       <div className={style.boardCenter}>
-        <ManaList manaToUse={userMana}/>
+        <ManaList manaToUse={userMana} />
         <Game />
         <div className={style.wrapperProgressBar}>
           <ProgressBar countDownTime={20} activate={true} />
@@ -180,14 +183,9 @@ export const BoardGame = () => {
         </div>
       </div>
 
-      {
-        displayDice && <Dice diceValue={diceValue} />
-      }
+      {displayDice && <Dice diceValue={diceValue} />}
 
-      {
-        displayAnimation &&
-        <SpellAnimation spell={selectedSpell}/>
-      }
+      {displayAnimation && <SpellAnimation spell={selectedSpell} />}
     </div>
   )
 }

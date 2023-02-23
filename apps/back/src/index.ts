@@ -7,6 +7,7 @@ import { stateHandler } from "./handlers/stateHandler";
 import { Spell } from "./entities/Spell";
 import { AppDataSource } from "../dbConfig";
 import { logger } from "./utils/logger";
+import { spellHandler } from "./handlers/spellHandler";
 
 const app: Express = express()
 const http = require('http')
@@ -35,6 +36,7 @@ const onConnection = (socket: Socket) => {
   roomHandler(io, socket)
   stateHandler(io, socket)
   playerHandler(io, socket)
+  spellHandler(io, socket)
 }
 
 io.on('connection', onConnection)
