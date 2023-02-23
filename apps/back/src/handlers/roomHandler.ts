@@ -3,12 +3,13 @@ import { generateBoard } from "../game/generateBoard";
 import { initPlayer } from "../game/initPlayer";
 import { logger } from "../utils/logger"
 import { boards, stateMachines, userCastedSpell, userMoved } from "../utils/data";
-import {  RoomData, User } from "../types";
+import { Player, RoomData, User } from "../types";
 import { createMachine, interpret } from "xstate";
 import { machineSettings } from "../utils/gameState";
 import { getCurrentRoom } from "../utils/socketHelpers";
 import { getGameStateValue } from "../utils/getGameStateValue";
 import { startGame } from "../utils/statGame";
+import { victoryGame } from "../utils/victoryGame";
 
 export function roomHandler(io: Server, socket: Socket) {
   let roomName = ''
@@ -71,7 +72,10 @@ export function roomHandler(io: Server, socket: Socket) {
     io.sockets.in(roomName).emit('map:update', room)
   }
 
+  const victory = (victoryPlayer: Player) => victoryGame(victoryPlayer, socket)
+
   socket.on('room:join', joinRoom)
+  socket.on('room:victory', victory)
 
   socket.on('disconnect', onDisconnect)
 }
