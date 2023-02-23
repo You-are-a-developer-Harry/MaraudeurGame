@@ -4,7 +4,6 @@ import { usePopper } from "react-popper";
 import { useState } from "react";
 import useSound from 'use-sound';
 
-
 export const SpellButton = (props: SpellButtonProps) => {
   const [isHover, setIsHover] = useState(false);
   const [referenceElement, setReferenceElement] = useState(null);
@@ -32,16 +31,12 @@ export const SpellButton = (props: SpellButtonProps) => {
     }
   }
 
-  const showPopper = () => {
-    setIsHover(!isHover);
-  }
-
   return (
     <div className={stylesM.buttonWrapper} onClick={handleSpell}>
       <div 
         className={stylesM.imageBorder} 
-        onMouseEnter={showPopper} 
-        onMouseLeave={showPopper} 
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
         ref={setReferenceElement}
       >
         <img
