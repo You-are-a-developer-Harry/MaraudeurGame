@@ -5,7 +5,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url("parchment-texture.jpg");
+    background-size: cover;
+    background-image: url("../../assets/images/backgroundBoard.png");
+
 }
 .form{
     background-color: rgba(236, 142, 1, 0.5);

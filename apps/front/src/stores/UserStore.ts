@@ -4,18 +4,24 @@ import { create } from "zustand";
 interface UserStore {
   user: User | null;
   apiData: any[];
+  room: String | null;
   setUser: (user: User) => void;
   setApiData: (data: any[]) => void;
+  setRoom: (room: String | null) => void;
 }
 
 export const useUserStore = create<UserStore>((set) => ({
   user: null,
   apiData: [],
+  room: null,
   setUser(user) {
     set({ user });
   },
   setApiData(data) {
     set({ apiData: data });
+  },
+  setRoom(room) {
+    set({ room });
   },
 }))
 
