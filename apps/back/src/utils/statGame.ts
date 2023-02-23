@@ -25,7 +25,7 @@ export const startGame = (socket: Socket) => {
         throw data
       } else {
         //Handle successful started game
-        boards.set(currentRoom, {...boards.get(currentRoom)!, gameId: 123})
+        boards.set(currentRoom, {...boards.get(currentRoom)!, gameId: data.id})
         logger.info('Game start in room %s', currentRoom)
         stateMachines.get(currentRoom)!.send('START')
       }
