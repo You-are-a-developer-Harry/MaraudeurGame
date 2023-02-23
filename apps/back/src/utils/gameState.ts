@@ -13,21 +13,11 @@ export const machineSettings = {
       states: {
         MovePhase: {
           description: 'Players can move',
-          on: { END_PHASE: 'SpellPhase' },
-          after: {
-            20000: {
-              target: 'SpellPhase'
-            }
-          }
+          on: { END_PHASE: 'SpellPhase' }
         },
         SpellPhase: {
           description: 'Players choose spells',
-          on: { END_PHASE: 'MovePhase' },
-          after: {
-            20000: {
-              target: 'MovePhase'
-            }
-          }
+          on: { END_PHASE: 'MovePhase' }
         },
         Finished: {
           type: 'final' as const,
