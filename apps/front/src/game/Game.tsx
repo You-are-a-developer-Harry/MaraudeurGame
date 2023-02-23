@@ -11,6 +11,7 @@ import { CellObject } from './components/CellObject'
 import { CellWitch } from './components/CellWitch'
 import { useUserStore } from '@stores/UserStore'
 import { usePlayerStore } from '@stores/PlayerStore'
+import { getGameStateValue } from "@utils/getGameStateValue";
 import { useSpellStore } from '@stores/SpellStore'
 
 const MAX_DISTANCE_BY_TURN = 3
@@ -48,6 +49,7 @@ export function Game() {
   const cells = useGameStore((state) => state.board)
   const user = useUserStore((state) => state.user)
   const gamePlayer = usePlayerStore((state) => state.player)
+  const gameState = useGameStore((state) => state.gameState)
   const selectedSpell = useSpellStore((state) => state.spell)
   const setSelectedSpell = useSpellStore((state) => state.setSpell)
 
@@ -194,7 +196,7 @@ export function Game() {
                   }}
                   className={classNames(
                     styles.cellWrapper,
-                    getCellColor(cell),
+                    getGameStateValue(gameState) === 'MovePhase' ? getCellColor(cell) : null,
                     dangerosityCells.find(
                       (dangerosityCell) =>
                         dangerosityCell.x === cell.x &&

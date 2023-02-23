@@ -10,7 +10,7 @@ interface GameStore {
 
 export const useGameStore = create<GameStore>((set) => ({
   board: [],
-  gameState: "",
+  gameState: "Waiting",
   setBoard: (newBoard) => set(() => ({ board: newBoard })),
   setGameState: (newState) => set(() => ({ gameState: newState })),
 }))

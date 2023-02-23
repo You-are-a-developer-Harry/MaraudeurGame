@@ -24,12 +24,6 @@ export function playerHandler(io: Server, socket: Socket) {
     // Verify object
     getObject(currentBoard, player)
 
-    // Move teachers
-    moveTeachers(currentBoard)
-
-    // Kill players
-    killByTeacher(currentBoard)
-
     if (currentMoves.indexOf(player.id) === -1) {
       currentMoves.push(player.id)
     }
@@ -44,7 +38,12 @@ export function playerHandler(io: Server, socket: Socket) {
     if (
       usersInRoom.filter((item) => !currentMoves.includes(item)).length === 0
     ) {
-      logger.debug('All players moved')
+      logger.info('All players moved')
+      // Move teachers
+      moveTeachers(currentBoard)
+
+      // Kill players
+      killByTeacher(currentBoard)
       stateMachines.get(currentRoom)!.send('END_PHASE')
       userMoved.set(currentRoom, [])
       io.sockets.in(currentRoom).emit('map:update', boards.get(currentRoom))

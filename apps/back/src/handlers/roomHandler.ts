@@ -6,6 +6,8 @@ import { boards, stateMachines, userMoved } from "../utils/data";
 import {  RoomData, User } from "../types";
 import { createMachine, interpret } from "xstate";
 import { machineSettings } from "../utils/gameState";
+import { getCurrentRoom } from "../utils/socketHelpers";
+import { getGameStateValue } from "../utils/getGameStateValue";
 
 export function roomHandler(io: Server, socket: Socket) {
   let roomName = ''
@@ -26,8 +28,9 @@ export function roomHandler(io: Server, socket: Socket) {
       boards.set(room, roomData)
       const gameState = createMachine(machineSettings)
       const machine = interpret(gameState).onTransition((state) => {
-        console.log(state.value)
-        io.sockets.in('room1').emit('state:update', state.value)
+        const gameStatus = getGameStateValue(state.value)
+        logger.info('[%s] : %s', room, gameStatus)
+        io.sockets.in(room).emit('state:update', state.value)
       })
       machine.start()
       stateMachines.set(room, machine)
@@ -37,6 +40,11 @@ export function roomHandler(io: Server, socket: Socket) {
     socket.join(room)
     initPlayer(boards.get(room)!, user)
     io.sockets.in(room).emit('map:update', boards.get(room))
+    const currentRoom = getCurrentRoom(socket)
+    if (boards.get(currentRoom)!.players.length === 4){
+      logger.info('Game start in room %s', currentRoom)
+      stateMachines.get(currentRoom)!.send('START')
+    }
   }
 
   const onDisconnect = () => {

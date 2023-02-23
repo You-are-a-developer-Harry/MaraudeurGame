@@ -7,27 +7,33 @@ import { BoardGame } from "@components/BoardGame";
 import { LoginForm } from "@components/LoginForm";
 import { Room } from "@components/Room";
 import { usePlayerStore } from "@stores/PlayerStore";
+import { getGameStateValue } from "@utils/getGameStateValue";
 
 function App() {
   const setBoard = useGameStore((state) => state.setBoard);
   const setGameState = useGameStore((state) => state.setGameState)
+  const gameState = useGameStore((state) => state.gameState)
   const user = useUserStore((state) => state.user);
   const room = useUserStore((state) => state.room);
   const setPlayer = usePlayerStore(state => state.setPlayer)
 
   const [isConnected, setIsConnected] = useState(false); // ajouter un état pour gérer si l'utilisateur est connecté
-  const [roomChosen, setRoomChosen] = useState(false); 
+  const [roomChosen, setRoomChosen] = useState(false);
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
   };
 
   useEffect(() => {
-    if(!user) return 
+    if(!user) return
 
     // Setup player when user is connected
     setPlayer({...user, x: 0, y: 0, objects: []})
   }, [user])
+
+  useEffect(() => {
+    console.log(getGameStateValue(gameState))
+  }, [gameState]);
 
   useEffect(() => {
     if (!user || !room) return;
