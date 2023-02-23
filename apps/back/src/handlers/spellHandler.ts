@@ -1,6 +1,8 @@
 import { Server, Socket } from 'socket.io'
 import { allowToCastSpell } from '../game/allowToCastSpell'
+import { getObject } from '../game/getObject'
 import { movePlayer } from '../game/movePlayer'
+import { updatePlayers } from '../game/updatePlayers'
 import { MazeCell, Player } from '../types'
 import { boards, stateMachines, userCastedSpell } from '../utils/data'
 import { logger } from '../utils/logger'
@@ -144,6 +146,11 @@ export function spellHandler(io: Server, socket: Socket) {
     }
 
     movePlayer(roomData.board, player, cell)
+    
+    getObject(roomData.board, player)
+
+    updatePlayers(roomData)
+
     io.sockets.in(currentRoom).emit('map:update', roomData)
 
     if (

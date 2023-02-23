@@ -43,7 +43,7 @@ const spells = [
     name: 'Expelliarmus',
     image: spell2,
     sound: spellSound2,
-    mana: 1,
+    mana: 5,
     description: 'Une description du sort',
   },
   // {
