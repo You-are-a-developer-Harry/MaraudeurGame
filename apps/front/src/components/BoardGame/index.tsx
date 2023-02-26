@@ -16,30 +16,6 @@ import { socket } from '@services/socket'
 import { ManaList } from '../ManaList'
 import { config } from "@utils/config";
 
-/*const spells = [
-  {
-    name: 'Patronome',
-    image: spell1,
-    sound: spellSound1,
-    mana: 1,
-    description: 'Une description du sort',
-  },
-  {
-    name: 'Expelliarmus',
-    image: spell2,
-    sound: spellSound2,
-    mana: 5,
-    description: 'Une description du sort',
-  },
-  {
-    name: 'Stupefy',
-    image: spell6,
-    sound: spellSound6,
-    mana: 1,
-    description: 'Une description du sort',
-  },
-]*/
-
 type BoardGameProps = {
 	showLeaderboard: boolean;
 	winner: object;
