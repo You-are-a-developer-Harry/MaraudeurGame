@@ -8,10 +8,12 @@ import { Spell } from "./entities/Spell";
 import { AppDataSource } from "../dbConfig";
 import { logger } from "./utils/logger";
 import { spellHandler } from "./handlers/spellHandler";
+import cors from 'cors'
 
 const app: Express = express()
 const http = require('http')
 const server = http.createServer(app)
+app.use(cors({origin: '*'}))
 AppDataSource.initialize()
 
 app.get("/", (req, res) => {

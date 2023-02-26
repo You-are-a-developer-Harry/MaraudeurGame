@@ -45,7 +45,7 @@ function App() {
     socket.on("map:update", (room: RoomData) => {
       setBoard(room.board);
       setPlayers(room.players)
-      console.log({room})
+
       const activePlayer = room.players.find(_player => _player.id === user.id)
       if(!activePlayer) return
       setPlayer({...user, objects: activePlayer?.objects, x: activePlayer.x, y: activePlayer?.y})
@@ -54,7 +54,6 @@ function App() {
       setGameState(state)
     })
     socket.on("room:victory", (victoryPlayer: Player) => {
-    //   alert(`${victoryPlayer.name} is the winner!!!!`)
 	  setWinner(victoryPlayer)
 	  setShowLeaderboard(true)
     })

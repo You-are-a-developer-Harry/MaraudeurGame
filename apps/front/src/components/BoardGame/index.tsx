@@ -10,26 +10,20 @@ import Leaderboard from "@components/Leaderboard";
 
 import spell1 from "@assets/images/spells/spell1.png";
 import spell2 from "@assets/images/spells/spell2.png";
-import spell3 from "@assets/images/spells/spell3.png";
-import spell4 from "@assets/images/spells/spell4.png";
-import spell5 from "@assets/images/spells/spell5.png";
 import spell6 from "@assets/images/spells/spell6.png";
 
 
+import spellSound1 from "../../assets/sound/spellEffect1.mp3";
+import spellSound2 from "../../assets/sound/spellEffect2.mp3";
+import spellSound6 from "../../assets/sound/spellEffect6.mp3";
+import { getGameStateValue } from "@utils/getGameStateValue";
+import { useGameStore } from "@stores/GameStore";
+import { useSpellStore } from "@stores/SpellStore";
+import { PlayerList } from "@components/PlayerList";
+import { usePlayerStore } from '@stores/PlayerStore'
 import { socket } from '@services/socket'
 import { ManaList } from '../ManaList'
-
-import spellSound1 from '../../assets/sound/spellEffect1.mp3'
-import spellSound2 from '../../assets/sound/spellEffect2.mp3'
-import spellSound3 from '../../assets/sound/spellEffect3.mp3'
-import spellSound4 from '../../assets/sound/spellEffect4.mp3'
-import spellSound5 from '../../assets/sound/spellEffect5.mp3'
-import spellSound6 from '../../assets/sound/spellEffect6.mp3'
-import { getGameStateValue } from '@utils/getGameStateValue'
-import { useGameStore } from '@stores/GameStore'
-import { useSpellStore } from '@stores/SpellStore'
-import { PlayerList } from '@components/PlayerList'
-import { usePlayerStore } from '@stores/PlayerStore'
+import { config } from "@utils/config";
 
 const spells = [
   {
@@ -85,6 +79,7 @@ export const BoardGame = ({ showLeaderboard, winner }: BoardGameProps ) => {
   const [diceValue, setDiceValue] = useState(1)
   const [displayDice, setDisplayDice] = useState(false)
   const [displayAnimation, setDisplayAnimation] = useState(false)
+  const [spells, setSpells] = useState([])
   const selectedSpell = useSpellStore((state) => state.spell)
   const setSelectedSpell = useSpellStore((state) => state.setSpell)
   const [userMana, setUserMana] = useState(1)
@@ -94,6 +89,15 @@ export const BoardGame = ({ showLeaderboard, winner }: BoardGameProps ) => {
   )
   const gamePlayer = usePlayerStore((state) => state.player)
   const allowToCastSpell = useSpellStore((state) => state.allowToCastSpell)
+
+  useEffect(() => {
+    fetch(config.apiBaseUrl + '/spells')
+      .then(response => response.json())
+      .then(data => {
+      setSpells(data)
+    })
+  }, [])
+
   const handlePlay = () => {
     socket.emit('state:start')
   }
