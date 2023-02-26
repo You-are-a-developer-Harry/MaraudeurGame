@@ -8,10 +8,12 @@ import { Spell } from "./entities/Spell";
 import { AppDataSource } from "../dbConfig";
 import { logger } from "./utils/logger";
 import { spellHandler } from "./handlers/spellHandler";
+import cors from 'cors'
 
 const app: Express = express()
 const http = require('http')
 const server = http.createServer(app)
+app.use(cors({origin: '*'}))
 AppDataSource.initialize()
 
 app.get("/", (req, res) => {
@@ -21,7 +23,7 @@ app.get("/", (req, res) => {
 app.get('/spells', async (req, res) => {
   logger.info('Successfully get spells')
   const spellRepository = AppDataSource.getRepository(Spell)
-  const spells = await spellRepository.find()
+  const spells = await spellRepository.find({relations: {sound: true}})
   res.send(spells)
 })
 

@@ -3,6 +3,7 @@ import { Spell } from "./src/entities/Spell";
 import { Sound } from "./src/entities/Sound";
 
 const execute = async () => {
+  await AppDataSource.initialize()
   const soundRepository = AppDataSource.getRepository(Sound)
   const spellRepository = AppDataSource.getRepository(Spell)
 
@@ -12,9 +13,6 @@ const execute = async () => {
   const soundList = [
     { name: 'spellEffect1' },
     { name: 'spellEffect2' },
-    { name: 'spellEffect3' },
-    { name: 'spellEffect4' },
-    { name: 'spellEffect5' },
     { name: 'spellEffect6' },
   ]
 
@@ -26,60 +24,28 @@ const execute = async () => {
 
   const sounds = await soundRepository.find()
   console.log(sounds)
+
   const spells = [
     {
       name: 'Patronome',
       image: 'spell1',
       sound: sounds[0],
       mana: 1,
-      description: 'Une description du sort'
+      description: 'Une description du sort',
     },
     {
       name: 'Expelliarmus',
       image: 'spell2',
       sound: sounds[1],
-      mana: 1,
-      description: 'Une description du sort'
-    },
-    {
-      name: 'Defendio',
-      image: 'spell3',
-      sound: sounds[2],
-      mana: 1,
-      description: 'Une description du sort'
-    },
-    {
-      name: 'Periculum',
-      image: 'spell4',
-      sound: sounds[3],
-      mana: 1,
-      description: 'Une description du sort'
-    },
-    {
-      name: 'Sectumsempra',
-      image: 'spell5',
-      sound: sounds[4],
-      mana: 1,
-      description: 'Une description du sort'
+      mana: 5,
+      description: 'Une description du sort',
     },
     {
       name: 'Stupefy',
       image: 'spell6',
-      sound: sounds[5],
+      sound: sounds[2],
       mana: 1,
-      description: 'Une description du sort'
-    },
-    {
-      name: 'Reverso',
-      image: 'spell7',
-      mana: 1,
-      description: 'Une description du sort'
-    },
-    {
-      name: 'Doloris',
-      image: 'spell8',
-      mana: 1,
-      description: 'Une description du sort'
+      description: 'Une description du sort',
     },
   ]
 
@@ -95,5 +61,4 @@ const execute = async () => {
     await spellRepository.manager.save(newSpell)
   }
 }
-
 execute()

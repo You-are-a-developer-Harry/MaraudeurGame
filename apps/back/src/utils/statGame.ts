@@ -20,7 +20,6 @@ export const startGame = (socket: Socket) => {
   )
     .then(res => res.data)
     .then((data: any) => {
-      console.log({data})
       if (data.error || data.statusCode == 500) {
         throw data
       } else {
