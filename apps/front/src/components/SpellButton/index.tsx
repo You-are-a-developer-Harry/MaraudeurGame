@@ -23,7 +23,7 @@ export const SpellButton = (props: SpellButtonProps) => {
     strategy: 'fixed',
   })
 
-  const [play] = useSound(props.spell.sound)
+  const [play] = useSound(`/sound/${props.spell.sound.name}.mp3`)
 
   const handleSpell = () => {
     if (props.disabled) return
@@ -50,7 +50,7 @@ export const SpellButton = (props: SpellButtonProps) => {
         <img
           height="80px"
           width="80px"
-          src={props.spell.image}
+          src={`/image/spells/${props.spell.image}.png`}
           alt={props.spell.name + '-img'}
           className={props.spell.mana > props.userMana ? stylesM.grisedImg : ''}
         />

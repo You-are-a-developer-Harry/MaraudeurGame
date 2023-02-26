@@ -17,8 +17,8 @@ export const ManaList = (props: ManaAvailable) => {
   return (
     <div className={styles.manaRow}>
       {
-        manas.map((mana) => (
-          <ManaItem isUsed={mana.disabled}/>
+        manas.map((mana, index) => (
+          <ManaItem key={index} isUsed={mana.disabled}/>
         ))
       }
     </div>

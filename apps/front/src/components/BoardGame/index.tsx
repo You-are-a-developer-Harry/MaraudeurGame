@@ -7,15 +7,6 @@ import Dice from "../Dice";
 import { useEffect, useState } from "react";
 import { SpellAnimation } from "@components/SpellAnimation";
 import Leaderboard from "@components/Leaderboard";
-
-import spell1 from "@assets/images/spells/spell1.png";
-import spell2 from "@assets/images/spells/spell2.png";
-import spell6 from "@assets/images/spells/spell6.png";
-
-
-import spellSound1 from "../../assets/sound/spellEffect1.mp3";
-import spellSound2 from "../../assets/sound/spellEffect2.mp3";
-import spellSound6 from "../../assets/sound/spellEffect6.mp3";
 import { getGameStateValue } from "@utils/getGameStateValue";
 import { useGameStore } from "@stores/GameStore";
 import { useSpellStore } from "@stores/SpellStore";
@@ -25,7 +16,7 @@ import { socket } from '@services/socket'
 import { ManaList } from '../ManaList'
 import { config } from "@utils/config";
 
-const spells = [
+/*const spells = [
   {
     name: 'Patronome',
     image: spell1,
@@ -40,27 +31,6 @@ const spells = [
     mana: 5,
     description: 'Une description du sort',
   },
-  // {
-  //   name: 'Defendio',
-  //   image: spell3,
-  //   sound: spellSound3,
-  //   mana: 1,
-  //   description: 'Une description du sort',
-  // },
-  // {
-  //   name: 'Periculum',
-  //   image: spell4,
-  //   sound: spellSound4,
-  //   mana: 1,
-  //   description: 'Une description du sort',
-  // },
-  // {
-  //   name: 'Sectumsempra',
-  //   image: spell5,
-  //   sound: spellSound5,
-  //   mana: 1,
-  //   description: 'Une description du sort',
-  // },
   {
     name: 'Stupefy',
     image: spell6,
@@ -68,7 +38,7 @@ const spells = [
     mana: 1,
     description: 'Une description du sort',
   },
-]
+]*/
 
 type BoardGameProps = {
 	showLeaderboard: boolean;
@@ -136,7 +106,7 @@ export const BoardGame = ({ showLeaderboard, winner }: BoardGameProps ) => {
     }
   }, [gameState])
 
-  console.log({gameState: getGameStateValue(gameState)})
+  console.log(spells)
 
   return (
     <div className={style.boardGameGrid}>

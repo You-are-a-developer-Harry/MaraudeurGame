@@ -23,6 +23,7 @@ const execute = async () => {
   }
 
   const sounds = await soundRepository.find()
+  console.log(sounds)
 
   const spells = [
     {
